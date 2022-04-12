@@ -20,7 +20,7 @@ const Detail = (props) => {
       <div className="card">
         <div className="card-body">
           <h3 className="card-title">{product.nome}</h3>
-          <h6 className="card-subtitle">globe type beer for rest</h6>
+          <h6 className="card-subtitle">globe type beer for the Bests</h6>
           <div className="row mt-2">
             <div className="col-lg-5 col-md-5 col-sm-6">
               <div className="white-box text-center">
@@ -39,13 +39,8 @@ const Detail = (props) => {
             </div>
 
             <div className="col-lg-7 col-md-7 col-sm-6">
-              <h4 className="box-title mt-5">Product mock description</h4>
-              <p>
-                Lorem Ipsum available,but the majority have suffered alteration
-                in some form,by injected humour,or randomised words which don't
-                look even slightly believable.but the majority have suffered
-                alteration in some form,by injected humour
-              </p>
+              <h4 className="box-title mt-5">Descrição da Cerveja</h4>
+              <p>{product.descricao}</p>
 
               <h2 className="mt-5">
                 {formatNumber(product.valorDeVenda)}
@@ -111,8 +106,10 @@ const Detail = (props) => {
                 <table className="table table-striped table-product">
                   <tbody>
                     <tr>
-                      <td width="390">Brand</td>
-                      <td>Stellar</td>
+                      <td width="390">Categorias</td>
+                      {product.categorias.map((categoria, index) => (
+                        <td key={index}>{categoria.nome}</td>
+                      ))}
                     </tr>
                     <tr>
                       <td>Delivery Condition</td>

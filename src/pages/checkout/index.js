@@ -28,11 +28,11 @@ const Checkout = () => {
         {cartItems.length > 0 && (
           <>
             <div className="col-sm-8 p-1">
-              <h4 className="mb-3">Billing address</h4>
+              <h4 className="mb-3">Endereço de Cobrança</h4>
               <form>
                 <div className="row">
                   <div className="col-md-6 mb-3">
-                    <label for="firstName">First name</label>
+                    <label htmlFor="firstName">Primeiro Nome</label>
                     <input
                       type="text"
                       className="form-control"
@@ -45,7 +45,7 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label for="lastName">Last name</label>
+                    <label htmlFor="lastName">Sobrenome</label>
                     <input
                       type="text"
                       className="form-control"
@@ -60,7 +60,7 @@ const Checkout = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="username">Username</label>
+                  <label htmlFor="username">Username</label>
                   <div className="input-group">
                     <div className="input-group-prepend">
                       <span className="input-group-text">@</span>
@@ -79,14 +79,14 @@ const Checkout = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="email">
-                    Email <span className="text-muted">(Optional)</span>
+                  <label htmlFor="email">
+                    Email <span className="text-muted">(opcional)</span>
                   </label>
                   <input
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="you@example.com"
+                    placeholder="...@gmail.com"
                   />
                   <div className="invalid-feedback">
                     Please enter a valid email address for shipping updates.
@@ -94,12 +94,12 @@ const Checkout = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="address">Address</label>
+                  <label htmlFor="address">Endereço</label>
                   <input
                     type="text"
                     className="form-control"
                     id="address"
-                    placeholder="1234 Main St"
+                    placeholder="Rua General Oliveira"
                     required=""
                   />
                   <div className="invalid-feedback">
@@ -108,26 +108,27 @@ const Checkout = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label for="address2">
-                    Address 2 <span className="text-muted">(Optional)</span>
+                  <label htmlFor="address2">
+                    Endereço 2 <span className="text-muted">(opcional)</span>
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="address2"
-                    placeholder="Apartment or suite"
+                    placeholder="Condominio / Apartamento"
                   />
                 </div>
 
                 <div className="row">
                   <div className="col-md-5 mb-3">
-                    <label for="country">Country</label>
+                    <label htmlFor="country">Pais</label>
                     <select
                       className="custom-select d-block w-100"
                       id="country"
                       required=""
                     >
-                      <option value="">Choose...</option>
+                      <option value="">Select...</option>
+                      <option>Brasil</option>
                       <option>United States</option>
                     </select>
                     <div className="invalid-feedback">
@@ -135,13 +136,15 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-4 mb-3">
-                    <label for="state">State</label>
+                    <label htmlFor="state">Estado</label>
                     <select
                       className="custom-select d-block w-100"
                       id="state"
                       required=""
                     >
-                      <option value="">Choose...</option>
+                      <option value="">Select...</option>
+                      <option>São Paulo</option>
+                      <option>Rio de Janeiro</option>
                       <option>California</option>
                     </select>
                     <div className="invalid-feedback">
@@ -149,7 +152,7 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-3 mb-3">
-                    <label for="zip">Zip</label>
+                    <label htmlFor="zip">CEP</label>
                     <input
                       type="text"
                       className="form-control"
@@ -168,8 +171,11 @@ const Checkout = () => {
                     className="custom-control-input"
                     id="same-address"
                   />
-                  <label className="custom-control-label" for="same-address">
-                    Shipping address is the same as my billing address
+                  <label
+                    className="custom-control-label"
+                    htmlFor="same-address"
+                  >
+                    O endereço de entrega é o mesmo que meu endereço de cobrança
                   </label>
                 </div>
 
@@ -179,14 +185,14 @@ const Checkout = () => {
                     className="custom-control-input"
                     id="save-info"
                   />
-                  <label className="custom-control-label" for="save-info">
-                    Save this information for next time
+                  <label className="custom-control-label" htmlFor="save-info">
+                    Salve esta informação para a próxima vez
                   </label>
                 </div>
 
                 <hr className="mb-4" />
 
-                <h4 className="mb-3">Payment</h4>
+                <h4 className="mb-3">Metodo de Pagamento</h4>
 
                 <div className="d-block my-3">
                   <div className="custom-control custom-radio">
@@ -195,11 +201,11 @@ const Checkout = () => {
                       name="paymentMethod"
                       type="radio"
                       className="custom-control-input"
-                      checked=""
+                      defaultChecked=""
                       required=""
                     />
-                    <label className="custom-control-label" for="credit">
-                      Credit card
+                    <label className="custom-control-label" htmlFor="credit">
+                      Cartão de Credito
                     </label>
                   </div>
 
@@ -211,8 +217,8 @@ const Checkout = () => {
                       className="custom-control-input"
                       required=""
                     />
-                    <label className="custom-control-label" for="debit">
-                      Debit card
+                    <label className="custom-control-label" htmlFor="debit">
+                      Cartão de Debito
                     </label>
                   </div>
 
@@ -224,15 +230,15 @@ const Checkout = () => {
                       className="custom-control-input"
                       required=""
                     />
-                    <label className="custom-control-label" for="paypal">
-                      PayPal
+                    <label className="custom-control-label" htmlFor="paypal">
+                      PIX
                     </label>
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-md-6 mb-3">
-                    <label for="cc-name">Name on card</label>
+                    <label htmlFor="cc-name">Nome no cartão</label>
                     <input
                       type="text"
                       className="form-control"
@@ -241,14 +247,16 @@ const Checkout = () => {
                       required=""
                     />
                     <small className="text-muted">
-                      Full name as displayed on card
+                      Nome completo conforme exibido no cartão
                     </small>
                     <div className="invalid-feedback">
                       Name on card is required
                     </div>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label for="cc-number">Credit card number</label>
+                    <label htmlFor="cc-number">
+                      Número do Cartão de Crédito
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -264,7 +272,7 @@ const Checkout = () => {
 
                 <div className="row">
                   <div className="col-md-3 mb-3">
-                    <label for="cc-expiration">Expiration</label>
+                    <label htmlFor="cc-expiration">Validade</label>
                     <input
                       type="text"
                       className="form-control"
@@ -277,7 +285,7 @@ const Checkout = () => {
                     </div>
                   </div>
                   <div className="col-md-3 mb-3">
-                    <label for="cc-cvv">CVV</label>
+                    <label htmlFor="cc-cvv">Cod. Segurança</label>
                     <input
                       type="text"
                       className="form-control"

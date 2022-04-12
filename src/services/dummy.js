@@ -1,7 +1,7 @@
 export const dummyProducts = [
   {
     id: 1,
-    nome: "Buffalo - Striploin 500ml",
+    nome: "Buffalo - Striploin 500ml - Mock",
     valorDeVenda: 60.0,
     photo: "/img/11.jpg",
   },
