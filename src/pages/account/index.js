@@ -94,66 +94,68 @@ const Account = () => {
                 <form className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-fn">First Name</label>
+                      <label htmlFor="account-fn">First Name</label>
                       <input
                         className="form-control"
                         type="text"
                         id="account-fn"
-                        value="Bruno"
+                        defaultValue="Bruno"
                         required=""
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-ln">Last Name</label>
+                      <label htmlFor="account-ln">Last Name</label>
                       <input
                         className="form-control"
                         type="text"
                         id="account-ln"
-                        value="Abner"
+                        defaultValue="Abner"
                         required=""
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-email">Email</label>
+                      <label htmlFor="account-email">Email</label>
                       <input
                         className="form-control"
                         type="email"
                         id="account-email"
-                        value={cliente.email}
+                        defaultValue={cliente.email}
                         disabled=""
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-phone">Telefone</label>
+                      <label htmlFor="account-phone">Telefone</label>
                       <input
                         className="form-control"
                         type="text"
                         id="account-phone"
-                        value={cliente.telefone}
+                        defaultValue={cliente.telefone}
                         required=""
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-pass">Senha</label>
+                      <label htmlFor="account-pass">Senha</label>
                       <input
                         className="form-control"
                         type="password"
                         id="account-pass"
-                        value={cliente.senha}
+                        defaultValue={cliente.senha}
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label for="account-confirm-pass">Confirmar Senha</label>
+                      <label htmlFor="account-confirm-pass">
+                        Confirmar Senha
+                      </label>
                       <input
                         className="form-control"
                         type="password"
@@ -169,11 +171,10 @@ const Account = () => {
                           className="custom-control-input"
                           type="checkbox"
                           id="subscribe_me"
-                          checked=""
                         />
                         <label
                           className="custom-control-label"
-                          for="subscribe_me"
+                          htmlFor="subscribe_me"
                         >
                           Receber ofertas por email
                         </label>
@@ -197,7 +198,7 @@ const Account = () => {
               <Tab.Pane eventKey="#link2">
                 <div className="d-flex justify-content-end pb-3">
                   <div className="form-inline">
-                    <label className="text-muted mr-3" for="order-sort">
+                    <label className="text-muted mr-3" htmlFor="order-sort">
                       Sort Orders
                     </label>
                     <select className="form-control" id="order-sort">
@@ -228,7 +229,7 @@ const Account = () => {
               <Tab.Pane eventKey="#link3">
                 <div className="d-flex justify-content-end pb-3">
                   <div className="form-inline">
-                    <label className="text-muted mr-3" for="order-sort">
+                    <label className="text-muted mr-3" htmlFor="order-sort">
                       Sort Orders
                     </label>
                     <select className="form-control" id="order-sort">
@@ -259,7 +260,7 @@ const Account = () => {
               <Tab.Pane eventKey="#link4">
                 <div className="d-flex justify-content-end pb-3">
                   <div className="form-inline">
-                    <label className="text-muted mr-3" for="order-sort">
+                    <label className="text-muted mr-3" htmlFor="order-sort">
                       Sort Orders
                     </label>
                     <select className="form-control" id="order-sort">
@@ -290,7 +291,7 @@ const Account = () => {
               <Tab.Pane eventKey="#link5">
                 <div className="d-flex justify-content-end pb-3">
                   <div className="form-inline">
-                    <label className="text-muted mr-3" for="order-sort">
+                    <label className="text-muted mr-3" htmlFor="order-sort">
                       Sort Orders
                     </label>
                     <select className="form-control" id="order-sort">
@@ -430,7 +431,7 @@ const Account = () => {
               <Tab.Pane eventKey="#link6">
                 <div className="d-flex justify-content-end pb-3">
                   <div className="form-inline">
-                    <label className="text-muted mr-3" for="order-sort">
+                    <label className="text-muted mr-3" htmlFor="order-sort">
                       Sort Orders
                     </label>
                     <select className="form-control" id="order-sort">
