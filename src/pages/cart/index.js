@@ -7,8 +7,7 @@ import { useCart } from "../../hooks/useCart";
 import { formatNumber } from "../../helpers/utils";
 
 const Cart = () => {
-  const { total, cartItems, itemCount, clearCart, checkout, handleCheckout } =
-    useCart();
+  const { total, cartItems, itemCount, clearCart, checkout } = useCart();
 
   return (
     <Layout title="Carrinho" description="Suas Melhores Cervejas">
