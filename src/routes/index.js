@@ -10,8 +10,10 @@ import Account from "../pages/account";
 import Register from "../pages/register";
 import Detail from "../pages/detail";
 import Devolution from "../pages/devolution";
-import ProductList from "../pages/admArea";
+import ClientList from "../PagesAdm/client";
 import BrunoTeste from "../pages/BrunoTeste";
+import ProductList from "../PagesAdm/product";
+import OrderList from "../PagesAdm/order";
 
 const Routes = () => {
   return (
@@ -26,7 +28,16 @@ const Routes = () => {
         <Route path="/register" component={Register} />
         <Route path="/detail" component={Detail} />
         <Route path="/devolution" component={Devolution} />
+        {/*Area do Adm*/}
+        <Route path="/client" component={ClientList} />
+        <Route path="/product" component={ProductList} />
+        <Route exact path="/order" component={OrderList} />
+        <Route path="/cupom" component={ProductList} />
+        <Route path="/envio" component={ProductList} />
+        <Route path="/troca" component={ProductList} />
+        <Route path="/usuario" component={ProductList} />
         <Route path="/adm" component={ProductList} />
+        {/*Area do Adm*/}
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

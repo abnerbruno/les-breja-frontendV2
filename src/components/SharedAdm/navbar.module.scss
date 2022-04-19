@@ -1,0 +1,35 @@
+.navbar {
+    margin-top: 45px;
+    padding: 10px;
+    text-align: center;
+    background-color: #F2AA4CFF;
+
+    a {
+        color: #101820FF ;
+        display: inline-block;
+        margin-right: 10px;
+        padding: 5px 10px;
+        svg {
+            width: 18px;
+            margin-right: 5px;
+        }
+    }
+
+    a:hover {
+        color: white;
+      }
+}
+
+
+
+.heroImage {
+    /* Set a specific height */
+    background-image: url("/img/bannerCervejaria.jpg");
+  
+    height: 200px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }

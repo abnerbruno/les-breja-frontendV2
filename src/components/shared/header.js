@@ -19,6 +19,7 @@ const Header = () => {
       </Link>
       <Link to="/account">Conta</Link>
       <Link to="/register">Cadastro</Link>
+      <Link to="/adm">Adm</Link>
     </header>
   );
 };
