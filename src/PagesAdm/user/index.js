@@ -1,59 +1,62 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
-import { formatNumber } from "../../helpers/utils";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
+const UsersList = () => {
+  const [users, setUsers] = useState([]);
 
   // Similar ao componentDidMount e componentDidUpdate:
   useEffect(() => {
     // Atualiza o título do documento usando a API do browser
-    fetch("api/cervejas")
+    fetch("api/usuarios")
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        setUsers(data);
       });
   }, []);
 
   const remove = (id) => {
-    fetch(`/api/cerveja/${id}`, {
+    fetch(`/api/usuario/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     }).then(() => {
-      const updatedProducts = products.filter((i) => i.id !== id);
-      setProducts(updatedProducts);
+      const updatedUsers = users.filter((i) => i.id !== id);
+      setUsers(updatedUsers);
     });
   };
 
-  const productsList = products.map((product) => {
+  const usersList = users.map((user) => {
     return (
-      <tr key={product.id}>
-        <td className="text-center"> {product.id}</td>
-        <td className="text-center"> {product.nome}</td>
-        <td className="text-center"> {product.nomeFornecedor}</td>
-        <td className="text-center"> {formatNumber(product.valorDeVenda)}</td>
-        <td className="text-center"> {formatNumber(product.margemDeLucro)}</td>
+      <tr key={user.id}>
+        <td className="text-center"> {user.id}</td>
+        <td className="text-center"> {user.email}</td>
+        <td className="text-center"> {user.senha}</td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {product.status}
-          </span>
+          <span className="rounded badge badge-success m-0">{user.status}</span>
         </td>
-        <td className="text-center"> {product.quantidade}</td>
-        <td className="text-center"> {product.dataCadastro}</td>
+        <td className="text-center"> {user.dataCriacao}</td>
         <td className="text-center">
           <ButtonGroup>
-            <Button size="sm" className="btn-info mr-1">
-              <EditIcon width={"15px"} />
-            </Button>
+            <Link
+              to={{
+                pathname: "/editUser",
+                state: { user: user },
+              }}
+            >
+              <Button size="sm" className="btn-info mr-1">
+                <EditIcon width={"15px"} />
+              </Button>
+            </Link>
+
             <Button
               size="sm"
               className="btn-danger"
-              onClick={() => remove(product.id)}
+              onClick={() => remove(user.id)}
             >
               <TrashIcon width={"15px"} />
             </Button>
@@ -72,22 +75,13 @@ const ProductList = () => {
               ID
             </th>
             <th scope="col" className="text-center">
-              Nome
+              Email
             </th>
             <th scope="col" className="text-center">
-              Fornecedor
-            </th>
-            <th scope="col" className="text-center">
-              Valor de Venda
-            </th>
-            <th scope="col" className="text-center">
-              Margem de Lucro
+              Senha
             </th>
             <th scope="col" className="text-center">
               Status
-            </th>
-            <th scope="col" className="text-center">
-              Estoque
             </th>
             <th scope="col" className="text-center">
               Data Cadastro
@@ -97,10 +91,10 @@ const ProductList = () => {
             </th>
           </tr>
         </thead>
-        <tbody id="tbody">{productsList}</tbody>
+        <tbody id="tbody">{usersList}</tbody>
       </Table>
     </LayoutAdm>
   );
 };
 
-export default ProductList;
+export default UsersList;

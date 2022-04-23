@@ -17,8 +17,8 @@ const LayoutAdm = ({ title, description, children, entityName }) => {
       <Header />
       <Navbar />
       <main className="container">{children}</main>
-      <div class="p-5 text-center bg-light">
-        <button class="btn btn-primary">Adicionar {entityName}</button>
+      <div className="p-5 text-center bg-light">
+        <button className="btn btn-primary">Adicionar {entityName}</button>
       </div>
       <Footer />
     </>

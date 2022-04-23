@@ -14,6 +14,11 @@ import ClientList from "../PagesAdm/client";
 import BrunoTeste from "../pages/BrunoTeste";
 import ProductList from "../PagesAdm/product";
 import OrderList from "../PagesAdm/order";
+import CouponList from "../PagesAdm/coupon";
+import ShippingList from "../PagesAdm/shipping";
+import DevolutionList from "../PagesAdm/devolution";
+import UsersList from "../PagesAdm/user";
+import editClient from "../PagesAdm/client/editClient";
 
 const Routes = () => {
   return (
@@ -27,17 +32,20 @@ const Routes = () => {
         <Route path="/account" component={Account} />
         <Route path="/register" component={Register} />
         <Route path="/detail" component={Detail} />
-        <Route path="/devolution" component={Devolution} />
+        <Route path="/requestDevolution" component={Devolution} />
+
         {/*Area do Adm*/}
         <Route path="/client" component={ClientList} />
+        <Route path="/editClient" component={editClient} />
         <Route path="/product" component={ProductList} />
         <Route exact path="/order" component={OrderList} />
-        <Route path="/cupom" component={ProductList} />
-        <Route path="/envio" component={ProductList} />
-        <Route path="/troca" component={ProductList} />
-        <Route path="/usuario" component={ProductList} />
+        <Route path="/coupon" component={CouponList} />
+        <Route path="/shipping" component={ShippingList} />
+        <Route path="/devolution" component={DevolutionList} />
+        <Route path="/user" component={UsersList} />
         <Route path="/adm" component={ProductList} />
         {/*Area do Adm*/}
+
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
-import { EditIcon, MinusCircleIcon, TrashIcon } from "../../components/icons";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
 
@@ -17,6 +17,19 @@ const OrderList = () => {
       });
   }, []);
 
+  const remove = (id) => {
+    fetch(`/api/pedido/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      const updatedOrders = orders.filter((i) => i.id !== id);
+      setOrders(updatedOrders);
+    });
+  };
+
   const ordersList = orders.map((order) => {
     return (
       <tr key={order.id}>
@@ -30,12 +43,16 @@ const OrderList = () => {
           <span className="rounded badge badge-info m-0">{order.status}</span>
         </td>
         <td className="text-center"> {order.dataCadastro}</td>
-        <td>
+        <td className="text-center">
           <ButtonGroup>
             <Button size="sm" className="btn-info mr-1">
               <EditIcon width={"15px"} />
             </Button>
-            <Button size="sm" className="btn-danger">
+            <Button
+              size="sm"
+              className="btn-danger"
+              onClick={() => remove(order.id)}
+            >
               <TrashIcon width={"15px"} />
             </Button>
           </ButtonGroup>

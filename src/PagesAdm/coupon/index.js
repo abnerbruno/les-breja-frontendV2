@@ -4,47 +4,46 @@ import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
+const CouponList = () => {
+  const [coupons, setCoupons] = useState([]);
 
   // Similar ao componentDidMount e componentDidUpdate:
   useEffect(() => {
     // Atualiza o título do documento usando a API do browser
-    fetch("api/cervejas")
+    fetch("api/cupoms")
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        setCoupons(data);
       });
   }, []);
 
   const remove = (id) => {
-    fetch(`/api/cerveja/${id}`, {
+    fetch(`/api/cupom/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     }).then(() => {
-      const updatedProducts = products.filter((i) => i.id !== id);
-      setProducts(updatedProducts);
+      const updatedCoupons = coupons.filter((i) => i.id !== id);
+      setCoupons(updatedCoupons);
     });
   };
 
-  const productsList = products.map((product) => {
+  const couponsList = coupons.map((coupon) => {
     return (
-      <tr key={product.id}>
-        <td className="text-center"> {product.id}</td>
-        <td className="text-center"> {product.nome}</td>
-        <td className="text-center"> {product.nomeFornecedor}</td>
-        <td className="text-center"> {formatNumber(product.valorDeVenda)}</td>
-        <td className="text-center"> {formatNumber(product.margemDeLucro)}</td>
+      <tr key={coupon.id}>
+        <td className="text-center"> {coupon.id}</td>
+        <td className="text-center"> {coupon.codigoCupom}</td>
+        <td className="text-center"> {coupon.tipoCupom}</td>
+        <td className="text-center"> {formatNumber(coupon.valor)}</td>
         <td className="text-center">
           <span className="rounded badge badge-success m-0">
-            {product.status}
+            {coupon.status}
           </span>
         </td>
-        <td className="text-center"> {product.quantidade}</td>
-        <td className="text-center"> {product.dataCadastro}</td>
+        <td className="text-center"> {coupon.dataValidade}</td>
+        <td className="text-center"> {coupon.dataCriacao}</td>
         <td className="text-center">
           <ButtonGroup>
             <Button size="sm" className="btn-info mr-1">
@@ -53,7 +52,7 @@ const ProductList = () => {
             <Button
               size="sm"
               className="btn-danger"
-              onClick={() => remove(product.id)}
+              onClick={() => remove(coupon.id)}
             >
               <TrashIcon width={"15px"} />
             </Button>
@@ -64,7 +63,7 @@ const ProductList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Produtos"} entityName={"Produto"}>
+    <LayoutAdm title={"Lista Cupons"} entityName={"Cupom"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -72,22 +71,19 @@ const ProductList = () => {
               ID
             </th>
             <th scope="col" className="text-center">
-              Nome
+              Codigo Promocional
             </th>
             <th scope="col" className="text-center">
-              Fornecedor
+              Tipo
             </th>
             <th scope="col" className="text-center">
-              Valor de Venda
-            </th>
-            <th scope="col" className="text-center">
-              Margem de Lucro
+              Valor
             </th>
             <th scope="col" className="text-center">
               Status
             </th>
             <th scope="col" className="text-center">
-              Estoque
+              Validade
             </th>
             <th scope="col" className="text-center">
               Data Cadastro
@@ -97,10 +93,10 @@ const ProductList = () => {
             </th>
           </tr>
         </thead>
-        <tbody id="tbody">{productsList}</tbody>
+        <tbody id="tbody">{couponsList}</tbody>
       </Table>
     </LayoutAdm>
   );
 };
 
-export default ProductList;
+export default CouponList;

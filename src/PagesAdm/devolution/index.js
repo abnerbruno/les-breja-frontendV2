@@ -4,47 +4,51 @@ import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
+const DevolutionList = () => {
+  const [devolutions, setDevolutions] = useState([]);
 
   // Similar ao componentDidMount e componentDidUpdate:
   useEffect(() => {
     // Atualiza o título do documento usando a API do browser
-    fetch("api/cervejas")
+    fetch("api/trocas")
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        setDevolutions(data);
       });
   }, []);
 
   const remove = (id) => {
-    fetch(`/api/cerveja/${id}`, {
+    fetch(`/api/troca/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     }).then(() => {
-      const updatedProducts = products.filter((i) => i.id !== id);
-      setProducts(updatedProducts);
+      const updatedDevolutions = devolutions.filter((i) => i.id !== id);
+      setDevolutions(updatedDevolutions);
     });
   };
 
-  const productsList = products.map((product) => {
+  const devolutionsList = devolutions.map((devolution) => {
     return (
-      <tr key={product.id}>
-        <td className="text-center"> {product.id}</td>
-        <td className="text-center"> {product.nome}</td>
-        <td className="text-center"> {product.nomeFornecedor}</td>
-        <td className="text-center"> {formatNumber(product.valorDeVenda)}</td>
-        <td className="text-center"> {formatNumber(product.margemDeLucro)}</td>
+      <tr key={devolution.id}>
+        <td className="text-center"> {devolution.id}</td>
+        <td className="text-center">{devolution.pedido.id}</td>
+        <td className="text-center">
+          {devolution.pedido.cliente.nomeCompleto}
+        </td>
+        <td className="text-center"> {devolution.pedido.cliente.email}</td>
+        <td className="text-center">{devolution.descricaoTroca}</td>
+        <td className="text-center">
+          {formatNumber(devolution.valorDesconto)}
+        </td>
         <td className="text-center">
           <span className="rounded badge badge-success m-0">
-            {product.status}
+            {devolution.status}
           </span>
         </td>
-        <td className="text-center"> {product.quantidade}</td>
-        <td className="text-center"> {product.dataCadastro}</td>
+        <td className="text-center"> {devolution.dataSolicitacao}</td>
         <td className="text-center">
           <ButtonGroup>
             <Button size="sm" className="btn-info mr-1">
@@ -53,7 +57,7 @@ const ProductList = () => {
             <Button
               size="sm"
               className="btn-danger"
-              onClick={() => remove(product.id)}
+              onClick={() => remove(devolution.id)}
             >
               <TrashIcon width={"15px"} />
             </Button>
@@ -64,7 +68,7 @@ const ProductList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Produtos"} entityName={"Produto"}>
+    <LayoutAdm title={"Lista Trocas"} entityName={"Troca"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -72,35 +76,35 @@ const ProductList = () => {
               ID
             </th>
             <th scope="col" className="text-center">
-              Nome
+              Pedido
             </th>
             <th scope="col" className="text-center">
-              Fornecedor
+              Cliente
             </th>
             <th scope="col" className="text-center">
-              Valor de Venda
+              Email
             </th>
             <th scope="col" className="text-center">
-              Margem de Lucro
+              Motivo
+            </th>
+            <th scope="col" className="text-center">
+              Desconto
             </th>
             <th scope="col" className="text-center">
               Status
             </th>
             <th scope="col" className="text-center">
-              Estoque
-            </th>
-            <th scope="col" className="text-center">
-              Data Cadastro
+              Solicitação
             </th>
             <th scope="col" className="text-center">
               Ação
             </th>
           </tr>
         </thead>
-        <tbody id="tbody">{productsList}</tbody>
+        <tbody id="tbody">{devolutionsList}</tbody>
       </Table>
     </LayoutAdm>
   );
 };
 
-export default ProductList;
+export default DevolutionList;

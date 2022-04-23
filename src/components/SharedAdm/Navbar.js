@@ -8,10 +8,10 @@ const Navbar = () => {
       <Link to="/client">Clientes</Link>
       <Link to="/product">Produtos</Link>
       <Link to="/order">Pedidos</Link>
-      <Link to="/cupom">Cupom</Link>
-      <Link to="/envio">Envio</Link>
-      <Link to="/troca">Troca</Link>
-      <Link to="/usuario">Usuario</Link>
+      <Link to="/coupon">Cupom</Link>
+      <Link to="/shipping">Envio</Link>
+      <Link to="/devolution">Troca</Link>
+      <Link to="/user">Usuario</Link>
     </div>
   );
 };

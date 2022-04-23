@@ -4,47 +4,49 @@ import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
+const ShippingList = () => {
+  const [shippings, setShippings] = useState([]);
 
   // Similar ao componentDidMount e componentDidUpdate:
   useEffect(() => {
     // Atualiza o título do documento usando a API do browser
-    fetch("api/cervejas")
+    fetch("api/envios")
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
+        setShippings(data);
       });
   }, []);
 
   const remove = (id) => {
-    fetch(`/api/cerveja/${id}`, {
+    fetch(`/api/envio/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     }).then(() => {
-      const updatedProducts = products.filter((i) => i.id !== id);
-      setProducts(updatedProducts);
+      const updatedShippings = shippings.filter((i) => i.id !== id);
+      setShippings(updatedShippings);
     });
   };
 
-  const productsList = products.map((product) => {
+  const shippingsList = shippings.map((shipping) => {
     return (
-      <tr key={product.id}>
-        <td className="text-center"> {product.id}</td>
-        <td className="text-center"> {product.nome}</td>
-        <td className="text-center"> {product.nomeFornecedor}</td>
-        <td className="text-center"> {formatNumber(product.valorDeVenda)}</td>
-        <td className="text-center"> {formatNumber(product.margemDeLucro)}</td>
+      <tr key={shipping.id}>
+        <td className="text-center"> {shipping.id}</td>
+        <td className="text-center"> {shipping.pedido.id}</td>
+        <td className="text-center"> {shipping.pedido.totalItens}</td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {product.status}
+          {shipping.pedido.enderecoEnvio.longadouro}
+        </td>
+        <td className="text-center"> {shipping.pedido.enderecoEnvio.cep}</td>
+        <td className="text-center"> {formatNumber(shipping.pedido.frete)}</td>
+        <td className="text-center">
+          <span className="rounded badge badge-info m-0">
+            {shipping.status}
           </span>
         </td>
-        <td className="text-center"> {product.quantidade}</td>
-        <td className="text-center"> {product.dataCadastro}</td>
+        <td className="text-center"> {shipping.dataCriacao}</td>
         <td className="text-center">
           <ButtonGroup>
             <Button size="sm" className="btn-info mr-1">
@@ -53,7 +55,7 @@ const ProductList = () => {
             <Button
               size="sm"
               className="btn-danger"
-              onClick={() => remove(product.id)}
+              onClick={() => remove(shipping.id)}
             >
               <TrashIcon width={"15px"} />
             </Button>
@@ -64,7 +66,7 @@ const ProductList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Produtos"} entityName={"Produto"}>
+    <LayoutAdm title={"Lista Envios"} entityName={"Envio"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -72,22 +74,22 @@ const ProductList = () => {
               ID
             </th>
             <th scope="col" className="text-center">
-              Nome
+              Pedido
             </th>
             <th scope="col" className="text-center">
-              Fornecedor
+              Total de Itens
             </th>
             <th scope="col" className="text-center">
-              Valor de Venda
+              Longadouro
             </th>
             <th scope="col" className="text-center">
-              Margem de Lucro
+              CEP
+            </th>
+            <th scope="col" className="text-center">
+              Frete
             </th>
             <th scope="col" className="text-center">
               Status
-            </th>
-            <th scope="col" className="text-center">
-              Estoque
             </th>
             <th scope="col" className="text-center">
               Data Cadastro
@@ -97,10 +99,10 @@ const ProductList = () => {
             </th>
           </tr>
         </thead>
-        <tbody id="tbody">{productsList}</tbody>
+        <tbody id="tbody">{shippingsList}</tbody>
       </Table>
     </LayoutAdm>
   );
 };
 
-export default ProductList;
+export default ShippingList;

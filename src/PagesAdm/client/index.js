@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 
@@ -16,6 +17,19 @@ const ClientList = () => {
       });
   }, []);
 
+  const remove = (id) => {
+    fetch(`/api/cliente/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      const updatedClients = clients.filter((i) => i.id !== id);
+      setClients(updatedClients);
+    });
+  };
+
   const clientList = clients.map((client) => {
     return (
       <tr key={client.id}>
@@ -31,12 +45,23 @@ const ClientList = () => {
         <td className="text-center"> {client.email}</td>
         <td className="text-center"> {client.telefone}</td>
         <td className="text-center"> {client.dataNascimento}</td>
-        <td>
+        <td className="text-center">
           <ButtonGroup>
-            <Button size="sm" className="btn-info mr-1">
-              <EditIcon width={"15px"} />
-            </Button>
-            <Button size="sm" className="btn-danger">
+            <Link
+              to={{
+                pathname: "/editClient",
+                state: { client: client },
+              }}
+            >
+              <Button size="sm" className="btn-info mr-1">
+                <EditIcon width={"15px"} />
+              </Button>
+            </Link>
+            <Button
+              size="sm"
+              className="btn-danger"
+              onClick={() => remove(client.id)}
+            >
               <TrashIcon width={"15px"} />
             </Button>
           </ButtonGroup>

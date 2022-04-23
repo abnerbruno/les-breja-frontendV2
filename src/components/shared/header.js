@@ -12,7 +12,7 @@ const Header = () => {
     <header className={styles.header}>
       <Link to="/">Home</Link>
       <Link to="/">Produtos</Link>
-      <Link to="/devolution">Troca</Link>
+      <Link to="/requestDevolution">Troca</Link>
       <Link to="/about">Sobre</Link>
       <Link to="/cart">
         <CartIcon /> Cart[Itens: {itemCount} - {formatNumber(total)}]
