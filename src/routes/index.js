@@ -15,10 +15,13 @@ import BrunoTeste from "../pages/BrunoTeste";
 import ProductList from "../PagesAdm/product";
 import OrderList from "../PagesAdm/order";
 import CouponList from "../PagesAdm/coupon";
-import ShippingList from "../PagesAdm/shipping";
 import DevolutionList from "../PagesAdm/devolution";
 import UsersList from "../PagesAdm/user";
-import editClient from "../PagesAdm/client/editClient";
+import EditProduct from "../PagesAdm/product/editProduct";
+import EditClient from "../PagesAdm/client/editClient";
+import EditOrder from "../PagesAdm/order/editOrder";
+import EditCoupon from "../PagesAdm/coupon/editCoupon";
+import EditDevolution from "../PagesAdm/devolution/editDevolution";
 
 const Routes = () => {
   return (
@@ -36,12 +39,20 @@ const Routes = () => {
 
         {/*Area do Adm*/}
         <Route path="/client" component={ClientList} />
-        <Route path="/editClient" component={editClient} />
+        <Route path="/editClient" component={EditClient} />
+
         <Route path="/product" component={ProductList} />
+        <Route path="/editProduct" component={EditProduct} />
+
         <Route exact path="/order" component={OrderList} />
+        <Route exact path="/editOrder" component={EditOrder} />
+
         <Route path="/coupon" component={CouponList} />
-        <Route path="/shipping" component={ShippingList} />
+        <Route path="/editCoupon" component={EditCoupon} />
+
         <Route path="/devolution" component={DevolutionList} />
+        <Route path="/editDevolution" component={EditDevolution} />
+
         <Route path="/user" component={UsersList} />
         <Route path="/adm" component={ProductList} />
         {/*Area do Adm*/}

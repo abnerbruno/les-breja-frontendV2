@@ -38,9 +38,24 @@ const ClientList = () => {
         <td className="text-center"> {client.cpf}</td>
         <td className="text-center"> {client.classificacao}</td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {client.status}
-          </span>
+          {(() => {
+            switch (client.status) {
+              case (client.status = "Ativo"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {client.status}
+                  </span>
+                );
+              case (client.status = "Desativado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {client.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
         </td>
         <td className="text-center"> {client.email}</td>
         <td className="text-center"> {client.telefone}</td>

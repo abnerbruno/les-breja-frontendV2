@@ -6,8 +6,15 @@ import { Helmet } from "react-helmet-async";
 
 import "bootswatch/dist/lux/bootstrap.css";
 import Navbar from "./SharedAdm/Navbar";
+import { Link } from "react-router-dom";
 
-const LayoutAdm = ({ title, description, children, entityName }) => {
+const LayoutAdm = ({
+  title,
+  description,
+  children,
+  entityName,
+  editToEntity,
+}) => {
   return (
     <>
       <Helmet>
@@ -17,9 +24,13 @@ const LayoutAdm = ({ title, description, children, entityName }) => {
       <Header />
       <Navbar />
       <main className="container">{children}</main>
+
       <div className="p-5 text-center bg-light">
-        <button className="btn btn-primary">Adicionar {entityName}</button>
+        <Link to={editToEntity}>
+          <button className="btn btn-primary">Adicionar {entityName}</button>
+        </Link>
       </div>
+
       <Footer />
     </>
   );

@@ -19,25 +19,19 @@ const Address = ({ index, address, client, setClient }) => {
   const addItem = (client, setClient, emptyItem) => {
     console.log("Criar novo elemento a Lista");
     client.enderecos.push(emptyItem);
-    const auxCliente = client;
-    setClient(auxCliente);
+    setClient(client);
   };
 
   const editItem = (event, index, client, setClient) => {
-    console.log("Editar campo de um elemnto da Lista");
-
+    console.log("Editar campo de um elemento da Lista");
     client.enderecos[index][event.target.name] = event.target.value;
-    const auxCliente = client;
-
-    setClient(auxCliente);
+    setClient(client);
   };
 
   const deleteItem = (index, client, setClient) => {
     console.log("Deletar um elemento da Lista");
     client.enderecos.splice(index, 1);
-    const auxCliente = client;
-
-    setClient(auxCliente);
+    setClient(client);
   };
 
   return (

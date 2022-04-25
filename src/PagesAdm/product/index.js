@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
@@ -39,17 +40,39 @@ const ProductList = () => {
         <td className="text-center"> {formatNumber(product.valorDeVenda)}</td>
         <td className="text-center"> {formatNumber(product.margemDeLucro)}</td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {product.status}
-          </span>
+          {(() => {
+            switch (product.status) {
+              case (product.status = "Ativo"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {product.status}
+                  </span>
+                );
+              case (product.status = "Desativado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {product.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
         </td>
         <td className="text-center"> {product.quantidade}</td>
         <td className="text-center"> {product.dataCadastro}</td>
         <td className="text-center">
           <ButtonGroup>
-            <Button size="sm" className="btn-info mr-1">
-              <EditIcon width={"15px"} />
-            </Button>
+            <Link
+              to={{
+                pathname: "/editProduct",
+                state: { product: product },
+              }}
+            >
+              <Button size="sm" className="btn-info mr-1">
+                <EditIcon width={"15px"} />
+              </Button>
+            </Link>
             <Button
               size="sm"
               className="btn-danger"

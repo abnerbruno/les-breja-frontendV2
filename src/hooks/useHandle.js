@@ -8,7 +8,7 @@ export const useHandle = () => {
     history.goBack();
   };
 
-  const handleSubmit = (event, entity, entityName) => {
+  const handleSubmit = (event, entity, entityName, pushTo) => {
     event.preventDefault();
 
     fetch(`api/${entityName}` + (entity.id ? "/" + entity.id : ""), {
@@ -20,14 +20,13 @@ export const useHandle = () => {
       body: JSON.stringify(entity),
     });
 
-    history.goBack();
+    history.push("/" + pushTo);
   };
 
   const handleChangeEntity = (event, entity, setEntity) => {
     event.preventDefault();
-    const auxEntity = entity;
-    auxEntity[event.target.name] = event.target.value;
-    setEntity(auxEntity);
+    entity[event.target.name] = event.target.value;
+    setEntity(entity);
   };
 
   const ctx = {

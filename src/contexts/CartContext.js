@@ -46,8 +46,7 @@ const CartContextProvider = ({ children }) => {
     const pedido = {
       totalItens: state.itemCount,
       valorTotal: state.total,
-      frete: 50,
-      status: "aguardando pagamento",
+      status: "Aguardando Pagamento",
 
       itemsDoPedido: listaDoPedido,
 
@@ -55,13 +54,35 @@ const CartContextProvider = ({ children }) => {
         id: 1,
       },
 
-      enderecoEnvio: {
-        id: 1,
+      envio: {
+        longadouro: "Rua Salvador Rugiero",
+        tipoLongadouro: "Residencia",
+        tipoResidencia: "Residencia",
+        numero: "19",
+        bairro: "Vila Maluf",
+        cidade: "Suzano",
+        estado: "Sao Paulo",
+        cep: "08685-060",
+        pais: "Brasil",
+
+        frete: 50,
+        statusEnvio: "Em Processo de Aprovação",
       },
 
-      cartaoUtilizado: {
-        id: 1,
-      },
+      pagamentos: [
+        {
+          valorTotal: state.total,
+          formaPagamento: {
+            valor: 500,
+            nomeNoCartao: "Bruno Abner",
+            numeroCartao: "7654321",
+            validade: "2022-04-24",
+            tipoConta: "Poupanca",
+            codigoSeguranca: "4321",
+            bandeira: "Master Card",
+          },
+        },
+      ],
     };
 
     console.log("O que esta sendo enviado", pedido);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
@@ -35,25 +36,56 @@ const DevolutionList = () => {
       <tr key={devolution.id}>
         <td className="text-center"> {devolution.id}</td>
         <td className="text-center">{devolution.pedido.id}</td>
+        <td className="text-center">{devolution.cliente.nomeCompleto}</td>
+        <td className="text-center"> {devolution.cliente.email}</td>
         <td className="text-center">
-          {devolution.pedido.cliente.nomeCompleto}
-        </td>
-        <td className="text-center"> {devolution.pedido.cliente.email}</td>
-        <td className="text-center">{devolution.descricaoTroca}</td>
-        <td className="text-center">
-          {formatNumber(devolution.valorDesconto)}
+          {formatNumber(devolution.pedido.valorTotal)}
         </td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {devolution.status}
-          </span>
+          {(() => {
+            switch (devolution.status) {
+              case (devolution.status = "Aguardando Aprovação"):
+                return (
+                  <span className="rounded badge badge-info m-0">
+                    {devolution.status}
+                  </span>
+                );
+              case (devolution.status = "Troca Aprovado"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {devolution.status}
+                  </span>
+                );
+              case (devolution.status = "Troca Recusado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {devolution.status}
+                  </span>
+                );
+              case (devolution.status = "Troca Cancelado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {devolution.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
         </td>
         <td className="text-center"> {devolution.dataSolicitacao}</td>
         <td className="text-center">
           <ButtonGroup>
-            <Button size="sm" className="btn-info mr-1">
-              <EditIcon width={"15px"} />
-            </Button>
+            <Link
+              to={{
+                pathname: "/editDevolution",
+                state: { devolution: devolution },
+              }}
+            >
+              <Button size="sm" className="btn-info mr-1">
+                <EditIcon width={"15px"} />
+              </Button>
+            </Link>
             <Button
               size="sm"
               className="btn-danger"
@@ -85,10 +117,7 @@ const DevolutionList = () => {
               Email
             </th>
             <th scope="col" className="text-center">
-              Motivo
-            </th>
-            <th scope="col" className="text-center">
-              Desconto
+              Total
             </th>
             <th scope="col" className="text-center">
               Status

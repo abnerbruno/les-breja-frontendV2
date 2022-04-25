@@ -2,7 +2,7 @@ import React from "react";
 import { Button, ButtonGroup, FormControl, InputGroup } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "../../components/icons";
 
-const Card = ({ index, card, client, setClient }) => {
+const MethodmethodPayment = ({ index, methodPayment, order, setOrder }) => {
   const emptyItem = {
     NomeNoCartao: "",
     numeroCartao: "",
@@ -13,34 +13,35 @@ const Card = ({ index, card, client, setClient }) => {
     descricao: "",
   };
 
-  const addItem = (client, setClient, emptyItem) => {
+  const addItem = (order, setOrder, emptyItem) => {
     console.log("Criar novo elemento a Lista");
-    client.cartoes.push(emptyItem);
-    setClient(client);
+    order.pagamentos.push(emptyItem);
+    setOrder(order);
   };
 
-  const editItem = (event, index, client, setClient) => {
+  const editItem = (event, index, order, setOrder) => {
     console.log("Editar campo de um elemnto da Lista");
-    client.cartoes[index][event.target.name] = event.target.value;
-    setClient(client);
+    order.pagamentos[index].formaPagamento[event.target.name] =
+      event.target.value;
+    setOrder(order);
   };
 
-  const deleteItem = (index, client, setClient) => {
+  const deleteItem = (index, order, setOrder) => {
     console.log("Deletar um elemento da Lista");
-    client.cartoes.splice(index, 1);
-    setClient(client);
+    order.pagamentos.splice(index, 1);
+    setOrder(order);
   };
 
   return (
     <div>
       <InputGroup className="mb-3">
-        <InputGroup.Text>Nome No Cartao</InputGroup.Text>
+        <InputGroup.Text>Nome no Cartao</InputGroup.Text>
         <FormControl
           placeholder="NomeNoCartao"
           aria-label="NomeNoCartao"
           name="nomeNoCartao"
-          defaultValue={card.nomeNoCartao || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.nomeNoCartao || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
       </InputGroup>
 
@@ -51,8 +52,8 @@ const Card = ({ index, card, client, setClient }) => {
           placeholder="numeroCartao"
           aria-label="numeroCartao"
           name="numeroCartao"
-          defaultValue={card.numeroCartao || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.numeroCartao || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
 
         <InputGroup.Text>Validade</InputGroup.Text>
@@ -60,8 +61,8 @@ const Card = ({ index, card, client, setClient }) => {
           placeholder="Validade"
           aria-label="Validade"
           name="Validade"
-          defaultValue={card.Validade || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.validade || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
 
         <InputGroup.Text>Codigo Seguranca</InputGroup.Text>
@@ -70,8 +71,8 @@ const Card = ({ index, card, client, setClient }) => {
           placeholder="codigoSeguranca"
           aria-label="codigoSeguranca"
           name="codigoSeguranca"
-          defaultValue={card.codigoSeguranca || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.codigoSeguranca || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
       </InputGroup>
 
@@ -82,8 +83,8 @@ const Card = ({ index, card, client, setClient }) => {
           placeholder="tipoConta"
           aria-label="tipoConta"
           name="tipoConta"
-          defaultValue={card.tipoConta || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.tipoConta || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
 
         <InputGroup.Text>Bandeira</InputGroup.Text>
@@ -92,32 +93,34 @@ const Card = ({ index, card, client, setClient }) => {
           placeholder="bandeira"
           aria-label="bandeira"
           name="bandeira"
-          defaultValue={card.bandeira || ""}
-          onChange={(e) => editItem(e, index, client, setClient)}
+          defaultValue={methodPayment.bandeira || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
         />
       </InputGroup>
 
-      <FormControl
-        placeholder="descricao"
-        type="descricao"
-        aria-label="descricao"
-        name="descricao"
-        defaultValue={card.descricao || ""}
-        onChange={(e) => editItem(e, index, client, setClient)}
-      />
+      <InputGroup className="mb-3">
+        <InputGroup.Text>Valor de Pagamento</InputGroup.Text>
+        <FormControl
+          placeholder="valor"
+          aria-label="valor"
+          name="valor"
+          defaultValue={methodPayment.valor || ""}
+          onChange={(e) => editItem(e, index, order, setOrder)}
+        />
+      </InputGroup>
 
       <ButtonGroup className="float-right">
         <Button
           size="sm"
           className="btn btn-success float-right mb-3"
-          onClick={() => addItem(client, setClient, emptyItem)}
+          onClick={() => addItem(order, setOrder, emptyItem)}
         >
           <PlusCircleIcon width={"15px"} />
         </Button>
         <Button
           size="sm"
           className="btn btn-danger float-right mb-3"
-          onClick={() => deleteItem(index, client, setClient)}
+          onClick={() => deleteItem(index, order, setOrder)}
         >
           <TrashIcon width={"15px"} />
         </Button>
@@ -128,4 +131,4 @@ const Card = ({ index, card, client, setClient }) => {
   );
 };
 
-export default Card;
+export default MethodmethodPayment;

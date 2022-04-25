@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
@@ -38,17 +39,39 @@ const CouponList = () => {
         <td className="text-center"> {coupon.tipoCupom}</td>
         <td className="text-center"> {formatNumber(coupon.valor)}</td>
         <td className="text-center">
-          <span className="rounded badge badge-success m-0">
-            {coupon.status}
-          </span>
+          {(() => {
+            switch (coupon.status) {
+              case (coupon.status = "Ativo"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {coupon.status}
+                  </span>
+                );
+              case (coupon.status = "Desativado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {coupon.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
         </td>
         <td className="text-center"> {coupon.dataValidade}</td>
         <td className="text-center"> {coupon.dataCriacao}</td>
         <td className="text-center">
           <ButtonGroup>
-            <Button size="sm" className="btn-info mr-1">
-              <EditIcon width={"15px"} />
-            </Button>
+            <Link
+              to={{
+                pathname: "/editCoupon",
+                state: { coupon: coupon },
+              }}
+            >
+              <Button size="sm" className="btn-info mr-1">
+                <EditIcon width={"15px"} />
+              </Button>
+            </Link>
             <Button
               size="sm"
               className="btn-danger"
@@ -63,7 +86,11 @@ const CouponList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Cupons"} entityName={"Cupom"}>
+    <LayoutAdm
+      title={"Lista Cupons"}
+      entityName={"Cupom"}
+      editToEntity={"/editCoupon"}
+    >
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>

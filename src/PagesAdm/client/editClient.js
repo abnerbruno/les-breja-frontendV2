@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Collapse,
@@ -23,13 +23,13 @@ const EditClient = (props) => {
 
   return (
     <Layout title="Editar client" description="Pagina de edição do client">
-      <Form onSubmit={(e) => handleSubmit(e, client, "cliente")}>
+      <Form onSubmit={(e) => handleSubmit(e, client, "cliente", "client")}>
         <h3 className="mt-2 mb-2 text-center">{client.nomeCompleto}</h3>
 
         <Button
           className="btn btn-primary btn-md btn-block mb-3"
           onClick={() => setOpenData(!openData)}
-          aria-controls="enderecos"
+          aria-controls="dadosPessoais"
           aria-expanded={openData}
         >
           Dados Pessoais
@@ -130,7 +130,7 @@ const EditClient = (props) => {
                 name="genero"
               >
                 <option value="masculino">Masculino</option>
-                <option value="feminino">feminino</option>
+                <option value="feminino">Feminino</option>
               </Form.Control>
             </Form.Group>
 
@@ -142,8 +142,8 @@ const EditClient = (props) => {
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
                 name="status"
               >
-                <option value="ativo">Ativo</option>
-                <option value="desativado">Desativado</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Desativado">Desativado</option>
               </Form.Control>
             </Form.Group>
           </div>

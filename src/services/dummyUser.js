@@ -72,7 +72,7 @@ export const dummyUser = {
         },
       ],
 
-      enderecoEnvio: {
+      envio: {
         id: 1,
         longadouro: "Rua Salvador Rugiero",
         tipoLongadouro: "Residencia",
@@ -83,18 +83,28 @@ export const dummyUser = {
         estado: "Sao Paulo",
         cep: "08685-060",
         pais: "Brasil",
-        descricao: "Endereco 01",
+        frete: 50.0,
+        status: "Em Processo de Aprovação",
+        dataCriacao: "2022-04-24",
       },
-      cartaoUtilizado: {
-        id: 1,
-        numeroCartao: "1234567",
-        codigoSeguranca: "1234",
-        tipoConta: "Poupanca",
-        bandeira: "Visa",
-        descricao: "cartao Principal",
-        nomeNoCartao: "null",
-        validade: "null",
-      },
+
+      pagamentos: [
+        {
+          id: 4,
+          valorTotal: 221.64,
+          formaPagamento: {
+            id: 3,
+            valor: 500.0,
+            nomeNoCartao: "Bruno Abner",
+            numeroCartao: "7654321",
+            validade: "2022-04-24T00:00:00.000+00:00",
+            codigoSeguranca: "4321",
+            tipoConta: "Poupanca",
+            bandeira: "Master Card",
+            descricao: null,
+          },
+        },
+      ],
     },
   ],
   cupoms: [],
