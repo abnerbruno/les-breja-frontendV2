@@ -15,20 +15,20 @@ const MethodmethodPayment = ({ index, methodPayment, order, setOrder }) => {
 
   const addItem = (order, setOrder, emptyItem) => {
     console.log("Criar novo elemento a Lista");
-    order.pagamentos.push(emptyItem);
+    order.pagamento.formasPagamento.push(emptyItem);
     setOrder(order);
   };
 
   const editItem = (event, index, order, setOrder) => {
     console.log("Editar campo de um elemnto da Lista");
-    order.pagamentos[index].formaPagamento[event.target.name] =
+    order.pagamento.formasPagamento[index][event.target.name] =
       event.target.value;
     setOrder(order);
   };
 
   const deleteItem = (index, order, setOrder) => {
     console.log("Deletar um elemento da Lista");
-    order.pagamentos.splice(index, 1);
+    order.pagamento.formasPagamento.splice(index, 1);
     setOrder(order);
   };
 

@@ -128,11 +128,11 @@ const EditOrder = (props) => {
         </Button>
         <Collapse in={openPayment}>
           <div id="MetodoPagamento">
-            {order.pagamentos.map((payment, index) => (
+            {order.pagamento.formasPagamento.map((methodPayment, index) => (
               <MethodPayment
                 key={index}
                 index={index}
-                methodPayment={payment.formaPagamento}
+                methodPayment={methodPayment}
                 order={order}
                 setOrder={setOrder}
               />

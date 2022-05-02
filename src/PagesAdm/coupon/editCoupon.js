@@ -14,7 +14,7 @@ const EditCoupon = (props) => {
   let auxCoupon = {
     codigoCupom: "LES..",
     valor: 0,
-    tipoCupom: "",
+    tipoCupom: "Desconto",
     status: "Ativo",
     dataValidade: "",
   };
@@ -49,7 +49,7 @@ const EditCoupon = (props) => {
               placeholder="valor"
               aria-label="valor"
               name="valor"
-              defaultValue={coupon.valor || ""}
+              defaultValue={coupon.valor}
               onChange={(e) => handleChangeEntity(e, coupon, setCoupon)}
             />
 
@@ -90,6 +90,21 @@ const EditCoupon = (props) => {
             <option value="Desativado">Desativado</option>
           </Form.Control>
         </Form.Group>
+
+        <Form.Label>Associar ao cliente</Form.Label>
+        <InputGroup className="mb-3">
+          <InputGroup.Text>Cliente ID</InputGroup.Text>
+          <FormControl
+            placeholder="Cliente Id"
+            aria-label="clienteId"
+            name="id"
+            onChange={(e) => {
+              e.preventDefault();
+              coupon.cliente[e.target.name] = e.target.value;
+              setCoupon(coupon);
+            }}
+          />
+        </InputGroup>
 
         <FormGroup className="col-md-12 text-center">
           <Button type="submit" className="mr-1 btn-success">

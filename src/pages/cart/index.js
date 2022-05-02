@@ -7,29 +7,18 @@ import { useCart } from "../../hooks/useCart";
 import { formatNumber } from "../../helpers/utils";
 
 const Cart = () => {
-  let { total, cartItems, itemCount, clearCart, checkout } = useCart();
+  let {
+    total,
+    cartItems,
+    itemCount,
+    clearCart,
+    checkout,
+    discount,
+    discountRequest,
+  } = useCart();
 
   const [openDiscount, setDiscount] = useState(false);
-
-  let auxDiscount = {
-    codigoCupom: "LES..",
-    valor: 0,
-    tipoCupom: "",
-    status: "Ativo",
-    dataValidade: "",
-  };
-  const [discount, setdiscount] = useState(auxDiscount);
-
-  const discountRequest = () => {
-    fetch("api/cupom/1")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data !== undefined) {
-          setdiscount(data);
-        }
-      });
-  };
+  const [inputDiscount, setinputDiscount] = useState([]);
 
   return (
     <Layout title="Carrinho" description="Suas Melhores Cervejas">
@@ -65,7 +54,7 @@ const Cart = () => {
                 <hr className="my-4" />
                 {openDiscount && (
                   <>
-                    <p className="mb-1">Desconto</p>
+                    <p className="mb-1">Cupom {discount.tipoCupom}</p>
                     <h3 className="m-0 text-danger txt-right mb-3">
                       - {formatNumber(discount.valor)}
                     </h3>
@@ -75,16 +64,18 @@ const Cart = () => {
                   <div className="input-group">
                     <input
                       type="text"
+                      name="discount"
                       className="form-control"
                       placeholder="Cod Cupom"
+                      onChange={(e) => setinputDiscount(e.target.value)}
                     />
                     <div className="input-group-append">
                       <button
                         type="button"
                         className="btn btn-primary"
                         onClick={() => {
-                          discountRequest();
-                          setDiscount(!openDiscount);
+                          discountRequest(inputDiscount);
+                          setDiscount(true);
                         }}
                       >
                         Resgatar
@@ -98,9 +89,7 @@ const Cart = () => {
                 <p className="mb-1">Total de Itens</p>
                 <h4 className=" mb-3 txt-right">{itemCount}</h4>
                 <p className="mb-1">Total a pagar</p>
-                <h3 className="m-0 txt-right">
-                  {formatNumber(total - discount.valor)}
-                </h3>
+                <h3 className="m-0 txt-right">{formatNumber(total)}</h3>
                 <hr className="my-4" />
                 <div className="text-center">
                   <Link to="/checkout">

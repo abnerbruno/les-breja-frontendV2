@@ -13,6 +13,7 @@ const Devolution = () => {
     cliente: {
       id: cliente.id,
     },
+
     pedido: {
       id: 1,
     },
@@ -69,7 +70,7 @@ const Devolution = () => {
                 placeholder="Numero do Pedido"
                 onChange={(e) => {
                   e.preventDefault();
-                  devolution.pedido[e.target.name] = e.target.value;
+                  devolution.pedido.id = Number(e.target.value);
                   setDevolution(devolution);
                 }}
               />
@@ -93,6 +94,7 @@ const Devolution = () => {
             type="submit"
             className="mt-2 mr-1 btn-primary"
             onClick={() => {
+              console.log(devolution);
               handleSubmit(devolution);
               setOpenConfirmRequest(true);
             }}

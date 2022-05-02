@@ -99,9 +99,7 @@ const Account = () => {
     return (
       <tr key={cartao.id}>
         <td className="text-center"> {cartao.id}</td>
-        <td className="text-center">
-          {cartao.NomeNoCartao || "Bruno Abner Mock"}
-        </td>
+        <td className="text-center"> {cartao.nomeNoCartao}</td>
         <td className="text-center"> {cartao.numeroCartao}</td>
         <td className="text-center"> {cartao.tipoConta}</td>
         <td className="text-center"> {cartao.bandeira}</td>
@@ -115,7 +113,38 @@ const Account = () => {
       <tr key={devolution.id}>
         <td className="text-center"> {devolution.id}</td>
         <td className="text-center">{devolution.pedido.id}</td>
-        <td className="text-center">{devolution.pedido.status}</td>
+        <td className="text-center">
+          {(() => {
+            switch (devolution.pedido.status) {
+              case (devolution.pedido.status = "Aguardando Pagamento"):
+                return (
+                  <span className="rounded badge badge-info m-0">
+                    {devolution.pedido.status}
+                  </span>
+                );
+              case (devolution.pedido.status = "Pagamento Aprovado"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {devolution.pedido.status}
+                  </span>
+                );
+              case (devolution.pedido.status = "Pagamento Recusado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {devolution.pedido.status}
+                  </span>
+                );
+              case (devolution.pedido.status = "Pedido Cancelado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {devolution.pedido.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
+        </td>
         <td className="text-center">{devolution.descricaoTroca}</td>
         <td className="text-center">
           {(() => {
@@ -142,6 +171,37 @@ const Account = () => {
                 return (
                   <span className="rounded badge badge-danger m-0">
                     {devolution.status}
+                  </span>
+                );
+              default:
+                return null;
+            }
+          })()}
+        </td>
+      </tr>
+    );
+  });
+
+  const couponsList = cliente.cupoms.map((coupon) => {
+    return (
+      <tr key={coupon.id}>
+        <td className="text-center"> {coupon.id}</td>
+        <td className="text-center">{coupon.codigoCupom}</td>
+        <td className="text-center">{formatNumber(coupon.valor)}</td>
+        <td className="text-center">{coupon.tipoCupom}</td>
+        <td className="text-center">
+          {(() => {
+            switch (coupon.status) {
+              case (coupon.status = "Ativo"):
+                return (
+                  <span className="rounded badge badge-success m-0">
+                    {coupon.status}
+                  </span>
+                );
+              case (coupon.status = "Desativado"):
+                return (
+                  <span className="rounded badge badge-danger m-0">
+                    {coupon.status}
                   </span>
                 );
               default:
@@ -438,126 +498,16 @@ const Account = () => {
                 </div>
                 <div className="table-responsive">
                   <table className="table table-hover mb-0">
-                    <thead>
+                    <thead className="text-center">
                       <tr>
-                        <th>Order #</th>
-                        <th>Cupons</th>
+                        <th>ID</th>
+                        <th>Cod</th>
+                        <th>Valor</th>
+                        <th>Tipo</th>
                         <th>Status</th>
-                        <th>Total</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            78A643CD409
-                          </a>
-                        </td>
-                        <td>August 08, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-danger m-0">
-                            Canceled
-                          </span>
-                        </td>
-                        <td>
-                          <span>$760.50</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            34VB5540K83
-                          </a>
-                        </td>
-                        <td>July 21, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-info m-0">
-                            In Progress
-                          </span>
-                        </td>
-                        <td>$315.20</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            112P45A90V2
-                          </a>
-                        </td>
-                        <td>June 15, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-warning m-0">
-                            Delayed
-                          </span>
-                        </td>
-                        <td>$1,264.00</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            28BA67U0981
-                          </a>
-                        </td>
-                        <td>May 19, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-success m-0">
-                            Delivered
-                          </span>
-                        </td>
-                        <td>$198.35</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            502TR872W2
-                          </a>
-                        </td>
-                        <td>April 04, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-success m-0">
-                            Delivered
-                          </span>
-                        </td>
-                        <td>$2,133.90</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            className="navi-link"
-                            href="#order-details"
-                            data-toggle="modal"
-                          >
-                            47H76G09F33
-                          </a>
-                        </td>
-                        <td>March 30, 2017</td>
-                        <td>
-                          <span className="rounded badge badge-success m-0">
-                            Delivered
-                          </span>
-                        </td>
-                        <td>$86.40</td>
-                      </tr>
-                    </tbody>
+                    <tbody>{couponsList}</tbody>
                   </table>
                 </div>
               </Tab.Pane>

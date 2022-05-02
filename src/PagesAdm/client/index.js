@@ -17,6 +17,8 @@ const ClientList = () => {
       });
   }, []);
 
+  console.log(clients);
+
   const remove = (id) => {
     fetch(`/api/cliente/${id}`, {
       method: "DELETE",

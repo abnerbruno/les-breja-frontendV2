@@ -1,12 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { Button, Col, Collapse, Form, FormControl, Row } from "react-bootstrap";
 
 import Layout from "../../components/Layout";
 import { useCart } from "../../hooks/useCart";
 import { formatNumber } from "../../helpers/utils";
+import FormaPagamento from "./payment";
 
 const Checkout = () => {
   const { total, itemCount, cartItems, checkout, handleCheckout } = useCart();
+
+  const auxPagamento = {
+    valorTotal: 0,
+    formasPagamento: [
+      {
+        valor: 0,
+        nomeNoCartao: "Bruno Abner",
+        numeroCartao: "7654321",
+        validade: "2022-04-24",
+        tipoConta: "Poupanca",
+        codigoSeguranca: "4321",
+        bandeira: "Master Card",
+      },
+    ],
+  };
+
+  const auxEnvio = {
+    remetente: "Bruno Abner da Silva Santos",
+    longadouro: "Rua Salvador Rugiero",
+    tipoLongadouro: "Residencia",
+    tipoResidencia: "Residencia",
+    numero: "19",
+    bairro: "Vila Maluf",
+    cidade: "Suzano",
+    estado: "Sao Paulo",
+    cep: "08685-060",
+    pais: "Brasil",
+
+    frete: 50,
+    statusEnvio: "Em Processo de Aprovação",
+  };
+
+  const [pagamento, setPagamento] = useState(auxPagamento);
+  const [envio, setEnvio] = useState(auxEnvio);
+  const [openCatoes, setOpenCatoes] = useState(false);
+
+  const showTotal = () => {
+    let total = pagamento.formasPagamento.reduce(
+      (a, b) => a + Number(b.valor),
+      0
+    );
+
+    pagamento.valorTotal = total;
+
+    setPagamento(pagamento);
+  };
 
   return (
     <Layout title="Checkout" description="Checkout da Compra">
@@ -27,144 +76,142 @@ const Checkout = () => {
 
         {cartItems.length > 0 && (
           <>
-            <div className="col-sm-8 p-1">
-              <h4 className="mb-3">Endereço de Cobrança</h4>
-              <form>
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="firstName">Primeiro Nome</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="firstName"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Valid first name is required.
-                    </div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="lastName">Sobrenome</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="lastName"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Valid last name is required.
-                    </div>
-                  </div>
-                </div>
+            <Col sm={8} className="p-1">
+              <h4 className="mb-3">Endereço de Entrega</h4>
+              <Form>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Remetente</Form.Label>
+                      <FormControl
+                        defaultValue={envio.remetente}
+                        type="text"
+                        aria-label="remetente"
+                        placeholder="remetente"
+                        name="remetente"
+                        onChange={(e) => {
+                          envio[e.target.name] = e.target.value;
+                          setEnvio(envio);
+                        }}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-                <div className="mb-3">
-                  <label htmlFor="username">Username</label>
-                  <div className="input-group">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">@</span>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="username"
-                      placeholder="Username"
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Your username is required.
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="email">
-                    Email <span className="text-muted">(opcional)</span>
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    placeholder="...@gmail.com"
-                  />
-                  <div className="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <label htmlFor="address">Endereço</label>
-                  <input
+                <Form.Group className="mb-3">
+                  <Form.Label>Longadouro</Form.Label>
+                  <FormControl
                     type="text"
-                    className="form-control"
-                    id="address"
-                    placeholder="Rua General Oliveira"
-                    required=""
+                    aria-label="longadouro"
+                    placeholder="longadouro"
+                    defaultValue={envio.longadouro}
+                    name="longadouro"
+                    onChange={(e) => {
+                      envio[e.target.name] = e.target.value;
+                      setEnvio(envio);
+                    }}
                   />
-                  <div className="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
-                </div>
+                </Form.Group>
 
-                <div className="mb-3">
-                  <label htmlFor="address2">
-                    Endereço 2 <span className="text-muted">(opcional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="address2"
-                    placeholder="Condominio / Apartamento"
-                  />
-                </div>
+                <Row>
+                  <Col md={5} className="mb-3">
+                    <Form.Label>Numero</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="numero"
+                      placeholder="Numero"
+                      defaultValue={envio.numero}
+                      name="numero"
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
+                    />
+                  </Col>
 
-                <div className="row">
-                  <div className="col-md-5 mb-3">
-                    <label htmlFor="country">Pais</label>
-                    <select
-                      className="custom-select d-block w-100"
-                      id="country"
-                      required=""
+                  <Col md={4} className="mb-3">
+                    <Form.Label>Bairro</Form.Label>
+                    <Form.Control
+                      type="text"
+                      id="bairro"
+                      placeholder="Bairro"
+                      defaultValue={envio.bairro}
+                      name="bairro"
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
+                    />
+                  </Col>
+
+                  <Col md={3} className="mb-3">
+                    <Form.Label>Cidade</Form.Label>
+                    <FormControl
+                      type="text"
+                      placeholder="Cidade"
+                      defaultValue={envio.cidade}
+                      name="cidade"
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
+                    />
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md={5} className="mb-3">
+                    <Form.Label>Pais</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="pais"
+                      defaultValue={envio.pais}
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
                     >
                       <option value="">Select...</option>
-                      <option>Brasil</option>
-                      <option>United States</option>
-                    </select>
-                    <div className="invalid-feedback">
-                      Please select a valid country.
-                    </div>
-                  </div>
-                  <div className="col-md-4 mb-3">
-                    <label htmlFor="state">Estado</label>
-                    <select
-                      className="custom-select d-block w-100"
-                      id="state"
-                      required=""
+                      <option value="Brasil">Brasil</option>
+                      <option Value="EUA">United States</option>
+                    </Form.Control>
+                  </Col>
+
+                  <Col md={4} className="mb-3">
+                    <Form.Label>Estado</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="estado"
+                      defaultValue={envio.estado}
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
                     >
                       <option value="">Select...</option>
                       <option>São Paulo</option>
                       <option>Rio de Janeiro</option>
-                      <option>California</option>
-                    </select>
-                    <div className="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
-                  </div>
-                  <div className="col-md-3 mb-3">
-                    <label htmlFor="zip">CEP</label>
-                    <input
+                    </Form.Control>
+                  </Col>
+
+                  <Col md={3} className="mb-3">
+                    <Form.Label>CEP</Form.Label>
+                    <FormControl
                       type="text"
-                      className="form-control"
                       id="zip"
                       placeholder=""
-                      required=""
+                      name="cep"
+                      defaultValue={envio.cep}
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
                     />
-                    <div className="invalid-feedback">Zip code required.</div>
-                  </div>
-                </div>
+                  </Col>
+                </Row>
 
                 <hr className="mb-4" />
+
                 <div className="custom-control custom-checkbox">
                   <input
                     type="checkbox"
@@ -192,7 +239,10 @@ const Checkout = () => {
 
                 <hr className="mb-4" />
 
-                <h4 className="mb-3">Metodo de Pagamento</h4>
+                <h4 className="mb-3">
+                  Metodo de Pagamento - Valor Obtido :
+                  {formatNumber(pagamento.valorTotal)}
+                </h4>
 
                 <div className="d-block my-3">
                   <div className="custom-control custom-radio">
@@ -203,6 +253,7 @@ const Checkout = () => {
                       className="custom-control-input"
                       defaultChecked=""
                       required=""
+                      checked
                     />
                     <label className="custom-control-label" htmlFor="credit">
                       Cartão de Credito
@@ -221,93 +272,44 @@ const Checkout = () => {
                       Cartão de Debito
                     </label>
                   </div>
-
-                  <div className="custom-control custom-radio">
-                    <input
-                      id="paypal"
-                      name="paymentMethod"
-                      type="radio"
-                      className="custom-control-input"
-                      required=""
-                    />
-                    <label className="custom-control-label" htmlFor="paypal">
-                      PIX
-                    </label>
-                  </div>
                 </div>
 
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="cc-name">Nome no cartão</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cc-name"
-                      placeholder=""
-                      required=""
-                    />
-                    <small className="text-muted">
-                      Nome completo conforme exibido no cartão
-                    </small>
-                    <div className="invalid-feedback">
-                      Name on card is required
-                    </div>
+                <Button
+                  className="btn btn-primary btn-md btn-block mb-3"
+                  onClick={() => {
+                    showTotal();
+                    setOpenCatoes(!openCatoes);
+                  }}
+                  aria-controls="cartões"
+                  aria-expanded={openCatoes}
+                >
+                  Cartões
+                </Button>
+                <Collapse in={openCatoes}>
+                  <div>
+                    {pagamento.formasPagamento.map((formaPagamento, index) => (
+                      <FormaPagamento
+                        index={index}
+                        formaPagamento={formaPagamento}
+                        pagamento={pagamento}
+                        setPagamento={setPagamento}
+                        openData={openCatoes}
+                        setOpenData={setOpenCatoes}
+                      />
+                    ))}
                   </div>
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="cc-number">
-                      Número do Cartão de Crédito
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cc-number"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Credit card number is required
-                    </div>
-                  </div>
-                </div>
+                </Collapse>
 
-                <div className="row">
-                  <div className="col-md-3 mb-3">
-                    <label htmlFor="cc-expiration">Validade</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cc-expiration"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Expiration date required
-                    </div>
-                  </div>
-                  <div className="col-md-3 mb-3">
-                    <label htmlFor="cc-cvv">Cod. Segurança</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cc-cvv"
-                      placeholder=""
-                      required=""
-                    />
-                    <div className="invalid-feedback">
-                      Security code required
-                    </div>
-                  </div>
-                </div>
                 <hr className="mb-4" />
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   type="button"
-                  onClick={handleCheckout}
+                  onClick={() => handleCheckout(pagamento, envio)}
                 >
                   FINALIZAR COMPRA
                 </button>
-              </form>
-            </div>
+              </Form>
+            </Col>
 
             <div className="col-sm-4 p-3">
               <div className="card card-body">

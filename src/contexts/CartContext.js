@@ -6,10 +6,12 @@ export const CartContext = createContext();
 const storage = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : [];
+
 const initialState = {
   cartItems: storage,
-  ...sumItems(storage),
+  ...sumItems(storage), // essa função retorna mais dois parametros ao state : itemCount e total
   checkout: false,
+  discount: {},
 };
 
 const CartContextProvider = ({ children }) => {
@@ -35,71 +37,39 @@ const CartContextProvider = ({ children }) => {
     dispatch({ type: "CLEAR" });
   };
 
-  const handleCheckout = () => {
-    const listaDoPedido = state.cartItems.map((produto) => ({
-      produto: {
-        id: produto.id,
-      },
-      quantidade: produto.quantity,
-    }));
+  const discountRequest = (codigoCupom) => {
+    fetch(`api/cupom/cod/${codigoCupom}`)
+      .then((response) => response.json())
+      .then((payload) => {
+        if (payload !== undefined) {
+          dispatch({ type: "DISCOUNT", payload });
+        }
+      });
+  };
 
-    const pedido = {
+  const handleCheckout = (pagamento, envio) => {
+    const payload = {
       totalItens: state.itemCount,
       valorTotal: state.total,
       status: "Aguardando Pagamento",
 
-      itemsDoPedido: listaDoPedido,
+      itemsDoPedido: state.cartItems.map((produto) => ({
+        produto: {
+          id: produto.id,
+        },
+        quantidade: produto.quantity,
+      })),
 
       cliente: {
         id: 1,
       },
 
-      envio: {
-        longadouro: "Rua Salvador Rugiero",
-        tipoLongadouro: "Residencia",
-        tipoResidencia: "Residencia",
-        numero: "19",
-        bairro: "Vila Maluf",
-        cidade: "Suzano",
-        estado: "Sao Paulo",
-        cep: "08685-060",
-        pais: "Brasil",
+      envio: envio,
 
-        frete: 50,
-        statusEnvio: "Em Processo de Aprovação",
-      },
-
-      pagamentos: [
-        {
-          valorTotal: state.total,
-          formaPagamento: {
-            valor: 500,
-            nomeNoCartao: "Bruno Abner",
-            numeroCartao: "7654321",
-            validade: "2022-04-24",
-            tipoConta: "Poupanca",
-            codigoSeguranca: "4321",
-            bandeira: "Master Card",
-          },
-        },
-      ],
+      pagamento: pagamento,
     };
 
-    console.log("O que esta sendo enviado", pedido);
-
-    // POST request using fetch inside useEffect React hook
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pedido),
-    };
-    fetch("/api/pedido", requestOptions);
-
-    console.log("CHECKOUT", state);
-    dispatch({ type: "CHECKOUT" });
+    dispatch({ type: "CHECKOUT", payload });
   };
 
   const contextValues = {
@@ -109,6 +79,7 @@ const CartContextProvider = ({ children }) => {
     decrease,
     clearCart,
     handleCheckout,
+    discountRequest,
     ...state,
   };
 
