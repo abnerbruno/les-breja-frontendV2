@@ -38,13 +38,18 @@ const CartContextProvider = ({ children }) => {
   };
 
   const discountRequest = (codigoCupom) => {
-    fetch(`api/cupom/cod/${codigoCupom}`)
-      .then((response) => response.json())
-      .then((payload) => {
-        if (payload !== undefined) {
-          dispatch({ type: "DISCOUNT", payload });
-        }
-      });
+    const numberCheck = isNaN(codigoCupom);
+
+    if (numberCheck) {
+      fetch(`api/cupom/cod/${codigoCupom}`)
+        .then((response) => response.json())
+        .then((payload) => {
+          if (payload !== undefined) {
+            dispatch({ type: "DISCOUNT", payload });
+          }
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const handleCheckout = (pagamento, envio) => {

@@ -89,6 +89,7 @@ const FormaPagamento = ({
             className="mr-1"
             aria-label="codigoSeguranca"
             name="codigoSeguranca"
+            defaultValue={formaPagamento.codigoSeguranca}
             onChange={(e) => editItem(e)}
           />
         </Form.Group>

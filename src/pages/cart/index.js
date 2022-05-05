@@ -54,9 +54,11 @@ const Cart = () => {
                 <hr className="my-4" />
                 {openDiscount && (
                   <>
-                    <p className="mb-1">Cupom {discount.tipoCupom}</p>
+                    <p className="mb-1">Cupom {discount.tipoCupom || ""}</p>
                     <h3 className="m-0 text-danger txt-right mb-3">
-                      - {formatNumber(discount.valor)}
+                      {isNaN(discount.valor)
+                        ? formatNumber(0)
+                        : formatNumber(discount.valor)}
                     </h3>
                   </>
                 )}
@@ -65,6 +67,7 @@ const Cart = () => {
                     <input
                       type="text"
                       name="discount"
+                      id="discountInput"
                       className="form-control"
                       placeholder="Cod Cupom"
                       onChange={(e) => setinputDiscount(e.target.value)}

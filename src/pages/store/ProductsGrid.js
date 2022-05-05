@@ -20,6 +20,7 @@ const ProductsGrid = () => {
             <input
               type="text"
               name=""
+              id="searchProduct"
               placeholder="Search product"
               className="form-control"
               onChange={(event) => setQuery(event.target.value)}
