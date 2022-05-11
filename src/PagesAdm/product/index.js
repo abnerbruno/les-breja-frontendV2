@@ -59,7 +59,7 @@ const ProductList = () => {
             }
           })()}
         </td>
-        <td className="text-center"> {product.quantidade}</td>
+        <td className="text-center"> {product.estoqueProduto.quantidadeAtual}</td>
         <td className="text-center"> {product.dataCadastro}</td>
         <td className="text-center">
           <ButtonGroup>

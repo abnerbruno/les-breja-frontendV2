@@ -29,7 +29,7 @@ const Cart = () => {
         </div>
 
         <div className="row no-gutters justify-content-center">
-          <div className="col-sm-8 p-1">
+          <div className="col-md-8 p-1">
             {cartItems.length > 0 ? (
               <CartProducts />
             ) : (
@@ -48,7 +48,7 @@ const Cart = () => {
             )}
           </div>
           {cartItems.length > 0 && (
-            <div className="col-sm-4 p-3">
+            <div className="col-md-4 p-3">
               <div className="card card-body mb-3">
                 <h5 className=" mb-3 text-center">Area Cupom</h5>
                 <hr className="my-4" />

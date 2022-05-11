@@ -11,6 +11,8 @@ import {
 const CartItem = ({ product }) => {
   const { increase, decrease, removeProduct } = useCart();
 
+  const estoque = product.estoqueProduto.quantidadeAtual;
+
   return (
     <div className="row no-gutters py-2">
       <div className="col-sm-2 p-2">
@@ -23,18 +25,21 @@ const CartItem = ({ product }) => {
       </div>
       <div className="col-sm-4 p-2">
         <h5 className="mb-1">{product.nome}</h5>
-        <p className="mb-1">Valor: {formatNumber(product.valorDeVenda)} </p>
+        <p className="text-primary">Estoque : {estoque}</p>
       </div>
       <div className="col-sm-2 p-2 text-center ">
         <p className="mb-0">Qnt: {product.quantity}</p>
+        <p className="mb-0">{formatNumber(product.valorDeVenda)}</p>
       </div>
       <div className="col-sm-4 p-2 text-right">
-        <button
-          onClick={() => increase(product)}
-          className="btn btn-primary btn-sm mr-2 mb-1"
-        >
-          <PlusCircleIcon width={"20px"} />
-        </button>
+        {product.quantity < estoque && (
+          <button
+            onClick={() => increase(product)}
+            className="btn btn-primary btn-sm mr-2 mb-1"
+          >
+            <PlusCircleIcon width={"20px"} />
+          </button>
+        )}
 
         {product.quantity > 1 && (
           <button

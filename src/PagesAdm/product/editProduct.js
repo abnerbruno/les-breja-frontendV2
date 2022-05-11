@@ -14,7 +14,7 @@ import Category from "./category";
 const EditProduct = (props) => {
   const [product, setProduct] = useState(props.location.state.product);
 
-  const { handleChangeEntity, handleSubmit, handleGoBack } = useHandle();
+  const { handleChangeEntity, handleChangeChildrenEntity, handleSubmit, handleGoBack } = useHandle();
 
   const [openCategory, setOpenCategory] = useState(false);
 
@@ -77,14 +77,14 @@ const EditProduct = (props) => {
           </InputGroup>
 
           <InputGroup className="mb-3">
-            <InputGroup.Text>Estoque</InputGroup.Text>
+            <InputGroup.Text>Em Estoque</InputGroup.Text>
             <FormControl
               className="mr-1"
-              placeholder="quantidade"
-              aria-label="quantidade"
-              name="quantidade"
-              defaultValue={product.quantidade || ""}
-              onChange={(e) => handleChangeEntity(e, product, setProduct)}
+              placeholder="quantidadeAtual"
+              aria-label="quantidadeAtual"
+              name="quantidadeAtual"
+              defaultValue={product.estoqueProduto.quantidadeAtual || ""}
+              onChange={(e) => handleChangeChildrenEntity(e, "estoqueProduto", product, setProduct)}
             />
 
             <InputGroup.Text>Imagem</InputGroup.Text>

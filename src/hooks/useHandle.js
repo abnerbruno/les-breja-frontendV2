@@ -29,10 +29,17 @@ export const useHandle = () => {
     setEntity(entity);
   };
 
+  const handleChangeChildrenEntity = (event, childrenName, entity, setEntity) => {
+    event.preventDefault();
+    entity[childrenName][event.target.name] = event.target.value;
+    setEntity(entity);
+  };
+
   const ctx = {
     handleGoBack,
     handleSubmit,
     handleChangeEntity,
+    handleChangeChildrenEntity
   };
 
   return {

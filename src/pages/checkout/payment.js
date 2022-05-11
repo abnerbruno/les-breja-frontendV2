@@ -5,6 +5,7 @@ import {
   Form,
   FormControl,
   InputGroup,
+  Col,
   Row,
 } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "../../components/icons";
@@ -51,6 +52,15 @@ const FormaPagamento = ({
   return (
     <div>
       <Row>
+        <Col md={12} className="mb-3">
+          <Form.Label>Selecionar Cartão</Form.Label>
+          <Form.Control as="select" name="pais">
+            <option value="">Select...</option>
+            <option value="Brasil">Cartão 1</option>
+            <option Value="EUA">Cartão 2</option>
+          </Form.Control>
+        </Col>
+
         <Form.Group className="col-md-6 mb-3">
           <Form.Label>Nome no Cartão</Form.Label>
           <FormControl

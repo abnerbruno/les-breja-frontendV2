@@ -79,6 +79,24 @@ const Checkout = () => {
             <Col sm={8} className="p-1">
               <h4 className="mb-3">Endereço de Entrega</h4>
               <Form>
+                <Row className="mb-3">
+                  <Col>
+                    <Form.Label>Selecionar Endereço</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="pais"
+                      defaultValue={envio.pais}
+                      onChange={(e) => {
+                        envio[e.target.name] = e.target.value;
+                        setEnvio(envio);
+                      }}
+                    >
+                      <option value="">Select...</option>
+                      <option value="Brasil">Endereço 1</option>
+                      <option Value="EUA">Endereço2</option>
+                    </Form.Control>
+                  </Col>
+                </Row>
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
