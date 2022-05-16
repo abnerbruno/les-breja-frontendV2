@@ -12,6 +12,7 @@ const initialState = {
   ...sumItems(storage), // essa função retorna mais dois parametros ao state : itemCount e total
   checkout: false,
   discount: {},
+  frete: 0.0,
 };
 
 const CartContextProvider = ({ children }) => {
@@ -52,6 +53,36 @@ const CartContextProvider = ({ children }) => {
     }
   };
 
+  const calcularFrete = (sCepOrigem) => {
+    const pattern = /^[0-9]{5}-[0-9]{3}|[0-9]{8}$/;
+
+    if (pattern.test(sCepOrigem)) {
+      const { calcularPrecoPrazo } = require("correios-brasil");
+
+      let args = {
+        // Não se preocupe com a formatação dos valores de entrada do cep, qualquer uma será válida (ex: 21770-200, 21770 200, 21asa!770@###200 e etc),
+        sCepOrigem: sCepOrigem,
+        sCepDestino: "09751000",
+        nVlPeso: "1",
+        nCdFormato: "1",
+        nVlComprimento: "20",
+        nVlAltura: "20",
+        nVlLargura: "20",
+        nCdServico: ["04014"], //Array com os códigos de serviço
+        nVlDiametro: "0",
+      };
+
+      calcularPrecoPrazo(args)
+        .then((response) => {
+          if (response !== undefined) {
+            const payload = parseFloat(response[0].Valor).toFixed(2);
+            dispatch({ type: "FRETE", payload });
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
   const handleCheckout = (pagamento, envio) => {
     const payload = {
       totalItens: state.itemCount,
@@ -85,6 +116,7 @@ const CartContextProvider = ({ children }) => {
     clearCart,
     handleCheckout,
     discountRequest,
+    calcularFrete,
     ...state,
   };
 

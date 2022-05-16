@@ -9,6 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "../../components/icons";
+import { useCliente } from "../../hooks/UseUser";
 
 const FormaPagamento = ({
   index,
@@ -18,6 +19,8 @@ const FormaPagamento = ({
   openData,
   setOpenData,
 }) => {
+  const { cliente } = useCliente();
+
   const emptyItem = {
     valor: 0,
     nomeNoCartao: "",
@@ -37,9 +40,6 @@ const FormaPagamento = ({
   const editItem = (event) => {
     event.preventDefault();
     pagamento.formasPagamento[index][event.target.name] = event.target.value;
-    console.log(
-      "Valor Cuzao" + pagamento.formasPagamento[index][event.target.name]
-    );
     setPagamento(pagamento);
   };
 
@@ -54,10 +54,28 @@ const FormaPagamento = ({
       <Row>
         <Col md={12} className="mb-3">
           <Form.Label>Selecionar Cartão</Form.Label>
-          <Form.Control as="select" name="pais">
-            <option value="">Select...</option>
-            <option value="Brasil">Cartão 1</option>
-            <option Value="EUA">Cartão 2</option>
+          <Form.Control
+            as="select"
+            name="cartao"
+            onChange={(e) => {
+              if (!isNaN(e.target.value)) {
+                e.preventDefault();
+                const selectCartao = cliente.cartoes[e.target.value];
+                selectCartao.id = null;
+                pagamento.formasPagamento[index] = selectCartao;
+                setPagamento(pagamento);
+                setOpenData(!openData);
+              }
+            }}
+          >
+            <option>Select..</option>
+            {cliente.cartoes.map((cartao, index) => {
+              return (
+                <option key={index} value={index}>
+                  {cartao.descricao}
+                </option>
+              );
+            })}
           </Form.Control>
         </Col>
 
@@ -77,7 +95,7 @@ const FormaPagamento = ({
             className="mr-1"
             aria-label="numeroCartao"
             name="numeroCartao"
-            defaultValue={formaPagamento.numeroCartao}
+            value={formaPagamento.numeroCartao}
             onChange={(e) => editItem(e)}
           />
         </Form.Group>

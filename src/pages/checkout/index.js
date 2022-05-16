@@ -1,7 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useCliente } from "../../hooks/UseUser";
 import { Link } from "react-router-dom";
 
-import { Button, Col, Collapse, Form, FormControl, Row } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  ButtonToolbar,
+  Col,
+  Collapse,
+  Form,
+  FormControl,
+  Row,
+} from "react-bootstrap";
 
 import Layout from "../../components/Layout";
 import { useCart } from "../../hooks/useCart";
@@ -9,42 +19,23 @@ import { formatNumber } from "../../helpers/utils";
 import FormaPagamento from "./payment";
 
 const Checkout = () => {
-  const { total, itemCount, cartItems, checkout, handleCheckout } = useCart();
+  const {
+    total,
+    itemCount,
+    cartItems,
+    checkout,
+    handleCheckout,
+    calcularFrete,
+    frete,
+  } = useCart();
 
-  const auxPagamento = {
-    valorTotal: 0,
-    formasPagamento: [
-      {
-        valor: 0,
-        nomeNoCartao: "Bruno Abner",
-        numeroCartao: "7654321",
-        validade: "2022-04-24",
-        tipoConta: "Poupanca",
-        codigoSeguranca: "4321",
-        bandeira: "Master Card",
-      },
-    ],
-  };
-
-  const auxEnvio = {
-    remetente: "Bruno Abner da Silva Santos",
-    longadouro: "Rua Salvador Rugiero",
-    tipoLongadouro: "Residencia",
-    tipoResidencia: "Residencia",
-    numero: "19",
-    bairro: "Vila Maluf",
-    cidade: "Suzano",
-    estado: "Sao Paulo",
-    cep: "08685-060",
-    pais: "Brasil",
-
-    frete: 50,
-    statusEnvio: "Em Processo de Aprovação",
-  };
+  const { cliente, auxPagamento, auxEnvio, handleSelectEnvio } = useCliente();
 
   const [pagamento, setPagamento] = useState(auxPagamento);
-  const [envio, setEnvio] = useState(auxEnvio);
   const [openCatoes, setOpenCatoes] = useState(false);
+
+  const [envio, setEnvio] = useState(auxEnvio);
+  const [openEnvio, setOpenEnvio] = useState(false);
 
   const showTotal = () => {
     let total = pagamento.formasPagamento.reduce(
@@ -77,156 +68,191 @@ const Checkout = () => {
         {cartItems.length > 0 && (
           <>
             <Col sm={8} className="p-1">
-              <h4 className="mb-3">Endereço de Entrega</h4>
+              <h4 className="mb-3 text-center">Endereço de Entrega</h4>
               <Form>
-                <Row className="mb-3">
-                  <Col>
-                    <Form.Label>Selecionar Endereço</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="pais"
-                      defaultValue={envio.pais}
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    >
-                      <option value="">Select...</option>
-                      <option value="Brasil">Endereço 1</option>
-                      <option Value="EUA">Endereço2</option>
-                    </Form.Control>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
+                <Button
+                  className="btn btn-primary btn-md btn-block mb-3"
+                  onClick={() => {
+                    setOpenEnvio(!openEnvio);
+                  }}
+                  aria-controls="envio"
+                  aria-expanded={openEnvio}
+                >
+                  Envio
+                </Button>
+                <Collapse in={openEnvio}>
+                  <div>
+                    <Row className="mb-3">
+                      <Col>
+                        <Form.Label>Selecionar Endereço</Form.Label>
+                        <Form.Control
+                          as="select"
+                          name="pais"
+                          onChange={(e) => {
+                            if (!isNaN(e.target.value)) {
+                              e.preventDefault();
+                              setEnvio(
+                                handleSelectEnvio(
+                                  cliente.enderecos[e.target.value],
+                                  envio
+                                )
+                              );
+                              setOpenEnvio(!openEnvio);
+                            }
+                          }}
+                        >
+                          <option>Select..</option>
+                          {cliente.enderecos.map((endereco, index) => {
+                            return (
+                              <option key={index} value={index}>
+                                {endereco.descricao}
+                              </option>
+                            );
+                          })}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <Form.Group className="mb-3">
+                          <Form.Label>Remetente</Form.Label>
+                          <FormControl
+                            defaultValue={envio.remetente}
+                            type="text"
+                            aria-label="remetente"
+                            placeholder="remetente"
+                            name="remetente"
+                            onChange={(e) => {
+                              envio[e.target.name] = e.target.value;
+                              setEnvio(envio);
+                            }}
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
+
                     <Form.Group className="mb-3">
-                      <Form.Label>Remetente</Form.Label>
+                      <Form.Label>Longadouro</Form.Label>
                       <FormControl
-                        defaultValue={envio.remetente}
                         type="text"
-                        aria-label="remetente"
-                        placeholder="remetente"
-                        name="remetente"
+                        aria-label="longadouro"
+                        placeholder="longadouro"
+                        defaultValue={envio.longadouro}
+                        name="longadouro"
                         onChange={(e) => {
                           envio[e.target.name] = e.target.value;
                           setEnvio(envio);
                         }}
                       />
                     </Form.Group>
-                  </Col>
-                </Row>
 
-                <Form.Group className="mb-3">
-                  <Form.Label>Longadouro</Form.Label>
-                  <FormControl
-                    type="text"
-                    aria-label="longadouro"
-                    placeholder="longadouro"
-                    defaultValue={envio.longadouro}
-                    name="longadouro"
-                    onChange={(e) => {
-                      envio[e.target.name] = e.target.value;
-                      setEnvio(envio);
-                    }}
-                  />
-                </Form.Group>
+                    <Row>
+                      <Col md={5} className="mb-3">
+                        <Form.Label>Numero</Form.Label>
+                        <Form.Control
+                          type="text"
+                          id="numero"
+                          placeholder="Numero"
+                          defaultValue={envio.numero}
+                          name="numero"
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        />
+                      </Col>
 
-                <Row>
-                  <Col md={5} className="mb-3">
-                    <Form.Label>Numero</Form.Label>
-                    <Form.Control
-                      type="text"
-                      id="numero"
-                      placeholder="Numero"
-                      defaultValue={envio.numero}
-                      name="numero"
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    />
-                  </Col>
+                      <Col md={4} className="mb-3">
+                        <Form.Label>Bairro</Form.Label>
+                        <Form.Control
+                          type="text"
+                          id="bairro"
+                          placeholder="Bairro"
+                          defaultValue={envio.bairro}
+                          name="bairro"
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        />
+                      </Col>
 
-                  <Col md={4} className="mb-3">
-                    <Form.Label>Bairro</Form.Label>
-                    <Form.Control
-                      type="text"
-                      id="bairro"
-                      placeholder="Bairro"
-                      defaultValue={envio.bairro}
-                      name="bairro"
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    />
-                  </Col>
+                      <Col md={3} className="mb-3">
+                        <Form.Label>Cidade</Form.Label>
+                        <FormControl
+                          type="text"
+                          placeholder="Cidade"
+                          defaultValue={envio.cidade}
+                          name="cidade"
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        />
+                      </Col>
+                    </Row>
 
-                  <Col md={3} className="mb-3">
-                    <Form.Label>Cidade</Form.Label>
-                    <FormControl
-                      type="text"
-                      placeholder="Cidade"
-                      defaultValue={envio.cidade}
-                      name="cidade"
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    />
-                  </Col>
-                </Row>
+                    <Row>
+                      <Col md={4} className="mb-3">
+                        <Form.Label>Pais</Form.Label>
+                        <Form.Control
+                          as="select"
+                          name="pais"
+                          defaultValue={envio.pais}
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        >
+                          <option value="">Select...</option>
+                          <option value="Brasil">Brasil</option>
+                          <option value="EUA">United States</option>
+                        </Form.Control>
+                      </Col>
 
-                <Row>
-                  <Col md={5} className="mb-3">
-                    <Form.Label>Pais</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="pais"
-                      defaultValue={envio.pais}
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    >
-                      <option value="">Select...</option>
-                      <option value="Brasil">Brasil</option>
-                      <option Value="EUA">United States</option>
-                    </Form.Control>
-                  </Col>
+                      <Col md={4} className="mb-3">
+                        <Form.Label>Estado</Form.Label>
+                        <Form.Control
+                          as="select"
+                          name="estado"
+                          defaultValue={envio.estado}
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        >
+                          <option value="">Select...</option>
+                          <option>São Paulo</option>
+                          <option>Rio de Janeiro</option>
+                        </Form.Control>
+                      </Col>
 
-                  <Col md={4} className="mb-3">
-                    <Form.Label>Estado</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="estado"
-                      defaultValue={envio.estado}
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    >
-                      <option value="">Select...</option>
-                      <option>São Paulo</option>
-                      <option>Rio de Janeiro</option>
-                    </Form.Control>
-                  </Col>
-
-                  <Col md={3} className="mb-3">
-                    <Form.Label>CEP</Form.Label>
-                    <FormControl
-                      type="text"
-                      id="zip"
-                      placeholder=""
-                      name="cep"
-                      defaultValue={envio.cep}
-                      onChange={(e) => {
-                        envio[e.target.name] = e.target.value;
-                        setEnvio(envio);
-                      }}
-                    />
-                  </Col>
-                </Row>
+                      <Col md={4} className="mb-3">
+                        <Form.Label>CEP</Form.Label>
+                        <FormControl
+                          type="text"
+                          id="zip"
+                          placeholder=""
+                          name="cep"
+                          defaultValue={envio.cep}
+                          onChange={(e) => {
+                            envio[e.target.name] = e.target.value;
+                            setEnvio(envio);
+                          }}
+                        />
+                        <Button
+                          size="sm"
+                          className="float-right"
+                          onClick={() => {
+                            calcularFrete(envio.cep);
+                          }}
+                        >
+                          Calcular Frete
+                        </Button>
+                      </Col>
+                    </Row>
+                  </div>
+                </Collapse>
 
                 <hr className="mb-4" />
 
@@ -257,9 +283,11 @@ const Checkout = () => {
 
                 <hr className="mb-4" />
 
-                <h4 className="mb-3">
+                <h4 className="mb-3 text-center">
                   Metodo de Pagamento - Valor Obtido :
-                  {formatNumber(pagamento.valorTotal)}
+                  {isNaN(pagamento.valorTotal)
+                    ? formatNumber(0)
+                    : formatNumber(pagamento.valorTotal)}
                 </h4>
 
                 <div className="d-block my-3">
@@ -271,7 +299,6 @@ const Checkout = () => {
                       className="custom-control-input"
                       defaultChecked=""
                       required=""
-                      checked
                     />
                     <label className="custom-control-label" htmlFor="credit">
                       Cartão de Credito
@@ -307,6 +334,7 @@ const Checkout = () => {
                   <div>
                     {pagamento.formasPagamento.map((formaPagamento, index) => (
                       <FormaPagamento
+                        key={index}
                         index={index}
                         formaPagamento={formaPagamento}
                         pagamento={pagamento}
@@ -333,6 +361,11 @@ const Checkout = () => {
               <div className="card card-body">
                 <p className="mb-1">Total de Itens</p>
                 <h3 className=" mb-3 txt-right">{itemCount}</h3>
+                <hr className="my-4" />
+                <p className="mb-1">Frete</p>
+                <h3 className=" mb-3 txt-right text-danger">
+                  {isNaN(frete) ? formatNumber(0) : formatNumber(frete)}
+                </h3>
                 <hr className="my-4" />
                 <p className="mb-1">Total a pagar</p>
                 <h2 className="m-0 txt-right">{formatNumber(total)}</h2>

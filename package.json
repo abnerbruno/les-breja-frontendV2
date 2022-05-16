@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
     "bootswatch": "^4.4.1",
+    "correios-brasil": "^2.2.2",
+    "i": "^0.3.7",
     "react": "^18.0.0",
     "react-bootstrap": "^2.2.2",
     "react-dom": "^16.13.1",

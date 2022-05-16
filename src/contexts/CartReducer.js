@@ -103,6 +103,10 @@ export const CartReducer = (state, action) => {
       state.total = state.total - action.payload.valor;
       return { ...state };
 
+    case "FRETE":
+      state.frete = action.payload;
+      return { ...state };
+
     default:
       return state;
   }
