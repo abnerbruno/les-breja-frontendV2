@@ -67,10 +67,10 @@ const Item = ({ index, item, order, setOrder }) => {
         <InputGroup.Text>Status</InputGroup.Text>
         <FormControl
           className="mr-1"
-          placeholder="codigoSeguranca"
-          aria-label="codigoSeguranca"
-          name="codigoSeguranca"
-          defaultValue={item.produto.status || ""}
+          placeholder="Status"
+          aria-label="Status"
+          name="status"
+          defaultValue={item.status || ""}
           disabled
         />
       </InputGroup>

@@ -86,6 +86,8 @@ export const CartReducer = (state, action) => {
         body: JSON.stringify(action.payload),
       });
 
+      state.frete = 0.0;
+
       return {
         cartItems: [],
         checkout: true,

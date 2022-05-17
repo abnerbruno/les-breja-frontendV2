@@ -350,7 +350,7 @@ const Checkout = () => {
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   type="button"
-                  onClick={() => handleCheckout(pagamento, envio)}
+                  onClick={() => handleCheckout(cliente.id, pagamento, envio)}
                 >
                   FINALIZAR COMPRA
                 </button>
@@ -363,12 +363,14 @@ const Checkout = () => {
                 <h3 className=" mb-3 txt-right">{itemCount}</h3>
                 <hr className="my-4" />
                 <p className="mb-1">Frete</p>
-                <h3 className=" mb-3 txt-right text-danger">
+                <h3 className=" mb-3 txt-right text-warning">
                   {isNaN(frete) ? formatNumber(0) : formatNumber(frete)}
                 </h3>
                 <hr className="my-4" />
                 <p className="mb-1">Total a pagar</p>
-                <h2 className="m-0 txt-right">{formatNumber(total)}</h2>
+                <h2 className="m-0 txt-right">
+                  {formatNumber(parseFloat(total) + parseFloat(frete))}
+                </h2>
               </div>
             </div>
           </>

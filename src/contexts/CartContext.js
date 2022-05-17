@@ -12,7 +12,7 @@ const initialState = {
   ...sumItems(storage), // essa função retorna mais dois parametros ao state : itemCount e total
   checkout: false,
   discount: {},
-  frete: 0.0,
+  frete: 0,
 };
 
 const CartContextProvider = ({ children }) => {
@@ -83,21 +83,27 @@ const CartContextProvider = ({ children }) => {
     }
   };
 
-  const handleCheckout = (pagamento, envio) => {
+  const handleCheckout = (clienteId, pagamento, envio) => {
+    const valorTotalPedido = parseFloat(state.total) + parseFloat(state.frete);
+    envio.frete = state.frete;
+
     const payload = {
       totalItens: state.itemCount,
-      valorTotal: state.total,
+      valorTotal: valorTotalPedido,
       status: "Aguardando Pagamento",
 
       itemsDoPedido: state.cartItems.map((produto) => ({
         produto: {
           id: produto.id,
         },
+
         quantidade: produto.quantity,
+
+        status: "Em Processo",
       })),
 
       cliente: {
-        id: 1,
+        id: clienteId,
       },
 
       envio: envio,

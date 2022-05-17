@@ -151,6 +151,22 @@ const EditOrder = (props) => {
         <Collapse in={openEnvio}>
           <div id="envio">
             <InputGroup className="mb-3">
+              <InputGroup.Text>Remetente</InputGroup.Text>
+              <FormControl
+                placeholder="Remetente"
+                type="Remetente"
+                aria-label="Remetente"
+                name="remetente"
+                defaultValue={order.envio.remetente || ""}
+                onChange={(e) => {
+                  e.preventDefault();
+                  order.envio[e.target.name] = e.target.value;
+                  setOrder(order);
+                }}
+              />
+            </InputGroup>
+
+            <InputGroup className="mb-3">
               <InputGroup.Text>Longadouro</InputGroup.Text>
               <FormControl
                 placeholder="longadouro"
