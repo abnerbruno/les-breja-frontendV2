@@ -86,7 +86,7 @@ export const CartReducer = (state, action) => {
         body: JSON.stringify(action.payload),
       });
 
-      state.frete = 0.0;
+      state.frete = 0;
 
       return {
         cartItems: [],

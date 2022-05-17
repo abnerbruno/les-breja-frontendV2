@@ -7,7 +7,7 @@ import { useCliente } from "../../hooks/UseUser";
 const Devolution = () => {
   const { cliente } = useCliente();
 
-  const auxDevolution = {
+  let auxDevolution = {
     status: "Aguardando Aprovação",
     descricaoTroca: "",
     cliente: {
@@ -71,6 +71,7 @@ const Devolution = () => {
                 onChange={(e) => {
                   e.preventDefault();
                   devolution.pedido.id = Number(e.target.value);
+                  console.log("pedido id" + devolution.pedido.id);
                   setDevolution(devolution);
                 }}
               />
