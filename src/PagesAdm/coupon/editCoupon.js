@@ -17,6 +17,7 @@ const EditCoupon = (props) => {
     tipoCupom: "Desconto",
     status: "Ativo",
     dataValidade: "",
+    cliente: null,
   };
 
   if (props.location.state !== undefined) {
@@ -100,7 +101,8 @@ const EditCoupon = (props) => {
             name="id"
             onChange={(e) => {
               e.preventDefault();
-              coupon.cliente[e.target.name] = e.target.value;
+              const id = e.target.value;
+              coupon.cliente = { id };
               setCoupon(coupon);
             }}
           />
