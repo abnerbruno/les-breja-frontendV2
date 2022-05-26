@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { EditIcon, TrashIcon } from "../../components/icons";
 import LayoutAdm from "../../components/LayoutAdm";
 import { formatNumber } from "../../helpers/utils";
@@ -66,7 +67,7 @@ const ShippingList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Envios"} entityName={"Envio"}>
+    <LayoutAdm title={"Lista Envios"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -101,6 +102,11 @@ const ShippingList = () => {
         </thead>
         <tbody id="tbody">{shippingsList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };

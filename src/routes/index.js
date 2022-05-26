@@ -22,6 +22,8 @@ import EditClient from "../PagesAdm/client/editClient";
 import EditOrder from "../PagesAdm/order/editOrder";
 import EditCoupon from "../PagesAdm/coupon/editCoupon";
 import EditDevolution from "../PagesAdm/devolution/editDevolution";
+import GoogleCharts from "../PagesAdm/googleCharts";
+import GoogleChartsOriginal from "../PagesAdm/googleCharts/google2";
 
 const Routes = () => {
   return (
@@ -52,6 +54,9 @@ const Routes = () => {
 
         <Route path="/devolution" component={DevolutionList} />
         <Route path="/editDevolution" component={EditDevolution} />
+
+        <Route path="/dashboard" component={GoogleCharts} />
+        <Route path="/dashboard1" component={GoogleChartsOriginal} />
 
         <Route path="/user" component={UsersList} />
         <Route path="/adm" component={ProductList} />

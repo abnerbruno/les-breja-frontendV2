@@ -87,7 +87,7 @@ const ProductList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Produtos"} entityName={"Produto"}>
+    <LayoutAdm title={"Lista Produtos"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -122,6 +122,11 @@ const ProductList = () => {
         </thead>
         <tbody id="tbody">{productsList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };

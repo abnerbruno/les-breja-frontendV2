@@ -123,6 +123,11 @@ const ClientList = () => {
         </thead>
         <tbody id="tbody">{clientList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };

@@ -89,7 +89,6 @@ const CouponList = () => {
     <LayoutAdm
       title={"Lista Cupons"}
       entityName={"Cupom"}
-      editToEntity={"/editCoupon"}
     >
       <Table id="lista" className="table table-hover table-sm">
         <thead>
@@ -122,6 +121,11 @@ const CouponList = () => {
         </thead>
         <tbody id="tbody">{couponsList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link to={"/editCoupon"}>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };

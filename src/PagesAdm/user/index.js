@@ -67,7 +67,7 @@ const UsersList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Usuarios"} entityName={"Usuario"}>
+    <LayoutAdm title={"Lista Usuarios"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -93,6 +93,11 @@ const UsersList = () => {
         </thead>
         <tbody id="tbody">{usersList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };

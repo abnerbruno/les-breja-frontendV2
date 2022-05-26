@@ -100,7 +100,7 @@ const DevolutionList = () => {
   });
 
   return (
-    <LayoutAdm title={"Lista Trocas"} entityName={"Troca"}>
+    <LayoutAdm title={"Lista Trocas"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>
@@ -132,6 +132,11 @@ const DevolutionList = () => {
         </thead>
         <tbody id="tbody">{devolutionsList}</tbody>
       </Table>
+      <div className="p-5 text-center">
+        <Link>
+          <button className="btn btn-primary">Adicionar</button>
+        </Link>
+      </div>
     </LayoutAdm>
   );
 };
