@@ -1,217 +1,259 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
-import { ListGroup, Tab, Row, Col } from "react-bootstrap";
-import { useCliente } from "../../hooks/UseUser";
+import {
+  ListGroup,
+  Tab,
+  Row,
+  Col,
+  Form,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import { formatNumber } from "../../helpers/utils";
+import { useHandle } from "../../hooks/useHandle";
 
 const Account = () => {
-  const { cliente } = useCliente();
+  const [cliente, setCliente] = useState([]);
+  const [listaPedidos, setListaPedido] = useState([]);
+  const [listaEnderecos, setListaEndereco] = useState([]);
+  const [listaCartoes, setListaCartoes] = useState([]);
+  const [listaTrocas, setListaTrocas] = useState([]);
+  const [listaCupon, setListaCupon] = useState([]);
 
-  const listaPedidos = cliente.pedidos.map((pedido) => {
-    return (
-      <tr key={pedido.id}>
-        <td className="text-center"> {pedido.id}</td>
-        <td className="text-center"> {pedido.totalItens}</td>
-        <td className="text-center">
-          {(() => {
-            switch (pedido.status) {
-              case (pedido.status = "Aguardando Pagamento"):
-                return (
-                  <span className="rounded badge badge-info m-0">
-                    {pedido.status}
-                  </span>
-                );
-              case (pedido.status = "Pagamento Aprovado"):
-                return (
-                  <span className="rounded badge badge-success m-0">
-                    {pedido.status}
-                  </span>
-                );
-              case (pedido.status = "Pagamento Recusado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {pedido.status}
-                  </span>
-                );
-              case (pedido.status = "Pedido Cancelado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {pedido.status}
-                  </span>
-                );
-              default:
-                return null;
-            }
-          })()}
-        </td>
-        <td className="text-center"> {formatNumber(pedido.envio.frete)}</td>
-        <td className="text-center">
-          {(() => {
-            switch (pedido.envio.statusEnvio) {
-              case (pedido.envio.statusEnvio = "Em Processo de Aprovação"):
-                return (
-                  <span className="rounded badge badge-info m-0">
-                    {pedido.envio.statusEnvio}
-                  </span>
-                );
-              case (pedido.envio.statusEnvio = "Em Transito"):
-                return (
-                  <span className="rounded badge badge-warning m-0">
-                    {pedido.envio.statusEnvio}
-                  </span>
-                );
-              case (pedido.envio.statusEnvio = "Entregue"):
-                return (
-                  <span className="rounded badge badge-success m-0">
-                    {pedido.envio.statusEnvio}
-                  </span>
-                );
-              case (pedido.envio.statusEnvio = "Retornado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {pedido.envio.statusEnvio}
-                  </span>
-                );
-              default:
-                return null;
-            }
-          })()}
-        </td>
-        <td className="text-center"> {formatNumber(pedido.valorTotal)}</td>
-      </tr>
-    );
-  });
+  // Similar ao componentDidMount e componentDidUpdate:
+  useEffect(() => {
+    // Atualiza o título do documento usando a API do browser
+    fetch("api/cliente/1")
+      .then((response) => response.json())
+      .then((data) => {
+        setCliente(data);
 
-  const listaEnderecos = cliente.enderecos.map((endereco) => {
-    return (
-      <tr key={endereco.id}>
-        <td className="text-center"> {endereco.id}</td>
-        <td className="text-center"> {endereco.longadouro}</td>
-        <td className="text-center"> {endereco.tipoResidencia}</td>
-        <td className="text-center"> {endereco.cidade}</td>
-        <td className="text-center"> {endereco.estado}</td>
-        <td className="text-center"> {endereco.descricao}</td>
-      </tr>
-    );
-  });
+        setListaPedido(
+          data.pedidos.map((pedido) => {
+            return (
+              <tr key={pedido.id}>
+                <td className="text-center"> {pedido.id}</td>
+                <td className="text-center"> {pedido.totalItens}</td>
+                <td className="text-center">
+                  {(() => {
+                    switch (pedido.status) {
+                      case (pedido.status = "Aguardando Pagamento"):
+                        return (
+                          <span className="rounded badge badge-info m-0">
+                            {pedido.status}
+                          </span>
+                        );
+                      case (pedido.status = "Pagamento Aprovado"):
+                        return (
+                          <span className="rounded badge badge-success m-0">
+                            {pedido.status}
+                          </span>
+                        );
+                      case (pedido.status = "Pagamento Recusado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {pedido.status}
+                          </span>
+                        );
+                      case (pedido.status = "Pedido Cancelado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {pedido.status}
+                          </span>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                </td>
+                <td className="text-center">
+                  {" "}
+                  {formatNumber(pedido.envio.frete)}
+                </td>
+                <td className="text-center">
+                  {(() => {
+                    switch (pedido.envio.statusEnvio) {
+                      case (pedido.envio.statusEnvio =
+                        "Em Processo de Aprovação"):
+                        return (
+                          <span className="rounded badge badge-info m-0">
+                            {pedido.envio.statusEnvio}
+                          </span>
+                        );
+                      case (pedido.envio.statusEnvio = "Em Transito"):
+                        return (
+                          <span className="rounded badge badge-warning m-0">
+                            {pedido.envio.statusEnvio}
+                          </span>
+                        );
+                      case (pedido.envio.statusEnvio = "Entregue"):
+                        return (
+                          <span className="rounded badge badge-success m-0">
+                            {pedido.envio.statusEnvio}
+                          </span>
+                        );
+                      case (pedido.envio.statusEnvio = "Retornado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {pedido.envio.statusEnvio}
+                          </span>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                </td>
+                <td className="text-center">
+                  {" "}
+                  {formatNumber(pedido.valorTotal)}
+                </td>
+              </tr>
+            );
+          })
+        );
 
-  const listaCartoes = cliente.cartoes.map((cartao) => {
-    return (
-      <tr key={cartao.id}>
-        <td className="text-center"> {cartao.id}</td>
-        <td className="text-center"> {cartao.nomeNoCartao}</td>
-        <td className="text-center"> {cartao.numeroCartao}</td>
-        <td className="text-center"> {cartao.tipoConta}</td>
-        <td className="text-center"> {cartao.bandeira}</td>
-        <td className="text-center"> {cartao.descricao}</td>
-      </tr>
-    );
-  });
+        setListaEndereco(
+          data.enderecos.map((endereco) => {
+            return (
+              <tr key={endereco.id}>
+                <td className="text-center"> {endereco.id}</td>
+                <td className="text-center"> {endereco.longadouro}</td>
+                <td className="text-center"> {endereco.tipoResidencia}</td>
+                <td className="text-center"> {endereco.cidade}</td>
+                <td className="text-center"> {endereco.estado}</td>
+                <td className="text-center"> {endereco.descricao}</td>
+              </tr>
+            );
+          })
+        );
 
-  const devolutionsList = cliente.trocas.map((devolution) => {
-    return (
-      <tr key={devolution.id}>
-        <td className="text-center"> {devolution.id}</td>
-        <td className="text-center">{devolution.pedido.id}</td>
-        <td className="text-center">
-          {(() => {
-            switch (devolution.pedido.status) {
-              case (devolution.pedido.status = "Aguardando Pagamento"):
-                return (
-                  <span className="rounded badge badge-info m-0">
-                    {devolution.pedido.status}
-                  </span>
-                );
-              case (devolution.pedido.status = "Pagamento Aprovado"):
-                return (
-                  <span className="rounded badge badge-success m-0">
-                    {devolution.pedido.status}
-                  </span>
-                );
-              case (devolution.pedido.status = "Pagamento Recusado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {devolution.pedido.status}
-                  </span>
-                );
-              case (devolution.pedido.status = "Pedido Cancelado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {devolution.pedido.status}
-                  </span>
-                );
-              default:
-                return null;
-            }
-          })()}
-        </td>
-        <td className="text-center">{devolution.descricaoTroca}</td>
-        <td className="text-center">
-          {(() => {
-            switch (devolution.status) {
-              case (devolution.status = "Aguardando Aprovação"):
-                return (
-                  <span className="rounded badge badge-info m-0">
-                    {devolution.status}
-                  </span>
-                );
-              case (devolution.status = "Troca Aprovado"):
-                return (
-                  <span className="rounded badge badge-success m-0">
-                    {devolution.status}
-                  </span>
-                );
-              case (devolution.status = "Troca Recusado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {devolution.status}
-                  </span>
-                );
-              case (devolution.status = "Troca Cancelado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {devolution.status}
-                  </span>
-                );
-              default:
-                return null;
-            }
-          })()}
-        </td>
-      </tr>
-    );
-  });
+        setListaCartoes(
+          data.cartoes.map((cartao) => {
+            return (
+              <tr key={cartao.id}>
+                <td className="text-center"> {cartao.id}</td>
+                <td className="text-center"> {cartao.nomeNoCartao}</td>
+                <td className="text-center"> {cartao.numeroCartao}</td>
+                <td className="text-center"> {cartao.tipoConta}</td>
+                <td className="text-center"> {cartao.bandeira}</td>
+                <td className="text-center"> {cartao.descricao}</td>
+              </tr>
+            );
+          })
+        );
 
-  const couponsList = cliente.cupoms.map((coupon) => {
-    return (
-      <tr key={coupon.id}>
-        <td className="text-center"> {coupon.id}</td>
-        <td className="text-center">{coupon.codigoCupom}</td>
-        <td className="text-center">{formatNumber(coupon.valor)}</td>
-        <td className="text-center">{coupon.tipoCupom}</td>
-        <td className="text-center">
-          {(() => {
-            switch (coupon.status) {
-              case (coupon.status = "Ativo"):
-                return (
-                  <span className="rounded badge badge-success m-0">
-                    {coupon.status}
-                  </span>
-                );
-              case (coupon.status = "Desativado"):
-                return (
-                  <span className="rounded badge badge-danger m-0">
-                    {coupon.status}
-                  </span>
-                );
-              default:
-                return null;
-            }
-          })()}
-        </td>
-      </tr>
-    );
-  });
+        setListaTrocas(
+          data.trocas.map((devolution) => {
+            return (
+              <tr key={devolution.id}>
+                <td className="text-center"> {devolution.id}</td>
+                <td className="text-center">{devolution.pedido.id}</td>
+                <td className="text-center">
+                  {(() => {
+                    switch (devolution.pedido.status) {
+                      case (devolution.pedido.status = "Aguardando Pagamento"):
+                        return (
+                          <span className="rounded badge badge-info m-0">
+                            {devolution.pedido.status}
+                          </span>
+                        );
+                      case (devolution.pedido.status = "Pagamento Aprovado"):
+                        return (
+                          <span className="rounded badge badge-success m-0">
+                            {devolution.pedido.status}
+                          </span>
+                        );
+                      case (devolution.pedido.status = "Pagamento Recusado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {devolution.pedido.status}
+                          </span>
+                        );
+                      case (devolution.pedido.status = "Pedido Cancelado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {devolution.pedido.status}
+                          </span>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                </td>
+                <td className="text-center">{devolution.descricaoTroca}</td>
+                <td className="text-center">
+                  {(() => {
+                    switch (devolution.status) {
+                      case (devolution.status = "Aguardando Aprovação"):
+                        return (
+                          <span className="rounded badge badge-info m-0">
+                            {devolution.status}
+                          </span>
+                        );
+                      case (devolution.status = "Troca Aprovado"):
+                        return (
+                          <span className="rounded badge badge-success m-0">
+                            {devolution.status}
+                          </span>
+                        );
+                      case (devolution.status = "Troca Recusado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {devolution.status}
+                          </span>
+                        );
+                      case (devolution.status = "Troca Cancelado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {devolution.status}
+                          </span>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                </td>
+              </tr>
+            );
+          })
+        );
+
+        setListaCupon(
+          data.cupoms.map((coupon) => {
+            return (
+              <tr key={coupon.id}>
+                <td className="text-center"> {coupon.id}</td>
+                <td className="text-center">{coupon.codigoCupom}</td>
+                <td className="text-center">{formatNumber(coupon.valor)}</td>
+                <td className="text-center">{coupon.tipoCupom}</td>
+                <td className="text-center">
+                  {(() => {
+                    switch (coupon.status) {
+                      case (coupon.status = "Ativo"):
+                        return (
+                          <span className="rounded badge badge-success m-0">
+                            {coupon.status}
+                          </span>
+                        );
+                      case (coupon.status = "Desativado"):
+                        return (
+                          <span className="rounded badge badge-danger m-0">
+                            {coupon.status}
+                          </span>
+                        );
+                      default:
+                        return null;
+                    }
+                  })()}
+                </td>
+              </tr>
+            );
+          })
+        );
+      });
+  }, []);
+
+  const { handleChangeEntity, handleSubmit, handleGoBack } = useHandle();
 
   return (
     <Layout title="Conta Cliente" description="Esta é a pagina do Clinete">
@@ -254,78 +296,87 @@ const Account = () => {
           <Col sm={8}>
             <Tab.Content>
               <Tab.Pane eventKey="#link1">
-                <form className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-fn">First Name</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        id="account-fn"
-                        defaultValue="Bruno"
-                        required=""
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-ln">Last Name</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        id="account-ln"
-                        defaultValue="Abner"
-                        required=""
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-email">Email</label>
-                      <input
-                        className="form-control"
-                        type="email"
-                        id="account-email"
-                        defaultValue={cliente.email}
-                        disabled=""
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-phone">Telefone</label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        id="account-phone"
-                        defaultValue={cliente.telefone}
-                        required=""
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-pass">Senha</label>
-                      <input
-                        className="form-control"
-                        type="password"
-                        id="account-pass"
-                        defaultValue={cliente.senha}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label htmlFor="account-confirm-pass">
-                        Confirmar Senha
-                      </label>
-                      <input
-                        className="form-control"
-                        type="password"
-                        id="account-confirm-pass"
-                      />
-                    </div>
-                  </div>
+                <Form
+                  onSubmit={(e) =>
+                    handleSubmit(e, cliente, "cliente", "account")
+                  }
+                >
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>Nome</InputGroup.Text>
+                    <FormControl
+                      name="nomeCompleto"
+                      aria-label="Default"
+                      defaultValue={cliente.nomeCompleto}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+                  </InputGroup>
+
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>Email</InputGroup.Text>
+                    <FormControl
+                      name="email"
+                      type="text"
+                      aria-label="email"
+                      defaultValue={cliente.email || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+                  </InputGroup>
+
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>Senha</InputGroup.Text>
+                    <FormControl
+                      className="mr-1"
+                      placeholder="Senha"
+                      aria-label="Senha"
+                      name="senha"
+                      type="password"
+                      defaultValue={cliente.senha || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+
+                    <FormControl
+                      placeholder="Repetir Senha"
+                      aria-label="RepetirSenha"
+                      name="senha"
+                      type="password"
+                      defaultValue={cliente.senha || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+                  </InputGroup>
+
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text>Telefone</InputGroup.Text>
+                    <FormControl
+                      className="mr-1"
+                      placeholder="Telefone (XX) XXXXX-..."
+                      aria-label="Telefone"
+                      name="telefone"
+                      defaultValue={cliente.telefone || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+
+                    <InputGroup.Text>CPF</InputGroup.Text>
+                    <FormControl
+                      placeholder="CPF"
+                      aria-label="CPF"
+                      name="cpf"
+                      defaultValue={cliente.cpf || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                    />
+                  </InputGroup>
+
                   <div className="col-12">
                     <hr className="mt-2 mb-3" />
                     <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -344,7 +395,7 @@ const Account = () => {
                       </div>
                       <button
                         className="btn btn-style-1 btn-primary"
-                        type="button"
+                        type="submit"
                         data-toast=""
                         data-toast-position="topRight"
                         data-toast-type="success"
@@ -356,7 +407,7 @@ const Account = () => {
                       </button>
                     </div>
                   </div>
-                </form>
+                </Form>
               </Tab.Pane>
               <Tab.Pane eventKey="#link2">
                 <div className="d-flex justify-content-end pb-3">
@@ -477,7 +528,7 @@ const Account = () => {
                         <th>Status</th>
                       </tr>
                     </thead>
-                    <tbody>{devolutionsList}</tbody>
+                    <tbody>{listaTrocas}</tbody>
                   </table>
                 </div>
               </Tab.Pane>
@@ -507,7 +558,7 @@ const Account = () => {
                         <th>Status</th>
                       </tr>
                     </thead>
-                    <tbody>{couponsList}</tbody>
+                    <tbody>{listaCupon}</tbody>
                   </table>
                 </div>
               </Tab.Pane>

@@ -1,6 +1,6 @@
 export const dummyUser = {
   id: 1,
-  nomeCompleto: "Bruno Abner Silva Santos - Mock",
+  nomeCompleto: "Bruno Abner Silva Santos",
   cpf: "47798740848",
   classificacao: "Rank B",
   email: "brunoAbner@gmail.com",

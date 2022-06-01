@@ -124,7 +124,7 @@ const ClientList = () => {
         <tbody id="tbody">{clientList}</tbody>
       </Table>
       <div className="p-5 text-center">
-        <Link>
+        <Link to={"/editClient"}>
           <button className="btn btn-primary">Adicionar</button>
         </Link>
       </div>

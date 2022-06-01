@@ -59,7 +59,10 @@ const ProductList = () => {
             }
           })()}
         </td>
-        <td className="text-center"> {product.estoqueProduto.quantidadeAtual}</td>
+        <td className="text-center">
+          {" "}
+          {product.estoqueProduto.quantidadeAtual}
+        </td>
         <td className="text-center"> {product.dataCadastro}</td>
         <td className="text-center">
           <ButtonGroup>
@@ -123,7 +126,7 @@ const ProductList = () => {
         <tbody id="tbody">{productsList}</tbody>
       </Table>
       <div className="p-5 text-center">
-        <Link>
+        <Link to={"/editProduct"}>
           <button className="btn btn-primary">Adicionar</button>
         </Link>
       </div>

@@ -12,9 +12,42 @@ import { useHandle } from "../../hooks/useHandle";
 import Category from "./category";
 
 const EditProduct = (props) => {
-  const [product, setProduct] = useState(props.location.state.product);
+  let auxProduct = {
+    valorDeVenda: 60.0,
+    margemDeLucro: 8.0,
+    nome: "",
+    status: "Ativo",
+    nomeFornecedor: "",
+    descricao:
+      "As cervejas artesanais são elaboradas por meio de um processo mais\ncuidadoso, com foco em qualidade",
+    dataCadastro: "2022-05-10",
+    photo: "/img/11.jpg",
+    categorias: [
+      {
+        nome: "Artesanal",
+        descricao: "Feita a Mão",
+      },
+    ],
+    entradasEstoque: [],
+    estoqueProduto: {
+      quantidadeAtual: 10,
+      valorBruto: 60000.0,
+      dataUpdate: "2022-05-10",
+    },
+  };
 
-  const { handleChangeEntity, handleChangeChildrenEntity, handleSubmit, handleGoBack } = useHandle();
+  if (props.location.state !== undefined) {
+    auxProduct = props.location.state.product;
+  }
+
+  const [product, setProduct] = useState(auxProduct);
+
+  const {
+    handleChangeEntity,
+    handleChangeChildrenEntity,
+    handleSubmit,
+    handleGoBack,
+  } = useHandle();
 
   const [openCategory, setOpenCategory] = useState(false);
 
@@ -84,7 +117,14 @@ const EditProduct = (props) => {
               aria-label="quantidadeAtual"
               name="quantidadeAtual"
               defaultValue={product.estoqueProduto.quantidadeAtual || ""}
-              onChange={(e) => handleChangeChildrenEntity(e, "estoqueProduto", product, setProduct)}
+              onChange={(e) =>
+                handleChangeChildrenEntity(
+                  e,
+                  "estoqueProduto",
+                  product,
+                  setProduct
+                )
+              }
             />
 
             <InputGroup.Text>Imagem</InputGroup.Text>

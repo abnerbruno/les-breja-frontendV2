@@ -13,7 +13,69 @@ import Address from "./address";
 import Card from "./card";
 
 const EditClient = (props) => {
-  const [client, setClient] = useState(props.location.state.client);
+  let auxClient = {
+    nomeCompleto: "Bruno Abner Silva Santos",
+    cpf: "47798740848",
+    classificacao: "Rank B",
+    email: "brunoabner@gmail.com",
+    senha: "12345",
+    telefone: "97123-0887",
+    dataNascimento: "02-08-1999",
+    genero: "Masculino",
+    status: "Ativo",
+
+    enderecos: [
+      {
+        longadouro: "Rua Salvador Rugiero",
+        tipoLongadouro: "Residencia",
+        tipoResidencia: "Residencia",
+        numero: "19",
+        bairro: "Vila Maluf",
+        cidade: "Suzano",
+        estado: "Sao Paulo",
+        cep: "08685-060",
+        pais: "Brasil",
+        descricao: "Endereco 01",
+      },
+      {
+        longadouro: "Rua MarioCovas",
+        tipoLongadouro: "Residencia",
+        tipoResidencia: "Residencia",
+        numero: "24",
+        bairro: "Vila Orlanda",
+        cidade: "Mogi das Cruzes",
+        estado: "Sao Paulo",
+        cep: "12345-080",
+        pais: "Brasil",
+        descricao: "Endereco 02",
+      },
+    ],
+
+    cartoes: [
+      {
+        nomeNoCartao: "Bruno Abner",
+        numeroCartao: "1234567",
+        tipoConta: "Poupanca",
+        codigoSeguranca: "1234",
+        bandeira: "Visa",
+        descricao: "cartao Principal",
+      },
+      {
+        nomeNoCartao: "Bruno Abner",
+        numeroCartao: "7654321",
+        tipoConta: "Poupanca",
+        codigoSeguranca: "4321",
+        bandeira: "Master Card",
+        descricao: "cartao Secundario",
+      },
+    ],
+  };
+
+  if (props.location.state !== undefined) {
+    auxClient = props.location.state.client;
+  }
+
+  const [client, setClient] = useState(auxClient);
 
   const { handleChangeEntity, handleSubmit, handleGoBack } = useHandle();
 
