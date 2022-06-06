@@ -8,12 +8,17 @@ import {
   Form,
   InputGroup,
   FormControl,
+  ButtonGroup,
+  Button,
 } from "react-bootstrap";
 import { formatNumber } from "../../helpers/utils";
 import { useHandle } from "../../hooks/useHandle";
+import { EditIcon } from "../../components/icons";
+import { Link } from "react-router-dom";
 
 const Account = () => {
   const [cliente, setCliente] = useState([]);
+
   const [listaPedidos, setListaPedido] = useState([]);
   const [listaEnderecos, setListaEndereco] = useState([]);
   const [listaCartoes, setListaCartoes] = useState([]);
@@ -67,7 +72,6 @@ const Account = () => {
                   })()}
                 </td>
                 <td className="text-center">
-                  {" "}
                   {formatNumber(pedido.envio.frete)}
                 </td>
                 <td className="text-center">
@@ -104,7 +108,6 @@ const Account = () => {
                   })()}
                 </td>
                 <td className="text-center">
-                  {" "}
                   {formatNumber(pedido.valorTotal)}
                 </td>
               </tr>
@@ -113,7 +116,7 @@ const Account = () => {
         );
 
         setListaEndereco(
-          data.enderecos.map((endereco) => {
+          data.enderecos.map((endereco, index) => {
             return (
               <tr key={endereco.id}>
                 <td className="text-center"> {endereco.id}</td>
@@ -122,6 +125,24 @@ const Account = () => {
                 <td className="text-center"> {endereco.cidade}</td>
                 <td className="text-center"> {endereco.estado}</td>
                 <td className="text-center"> {endereco.descricao}</td>
+                <td className="text-center">
+                  <ButtonGroup>
+                    <Link
+                      to={{
+                        pathname: "/editAddress",
+                        state: {
+                          client: data,
+                          address: endereco,
+                          index: index,
+                        },
+                      }}
+                    >
+                      <Button size="sm" className="btn-info mr-1">
+                        <EditIcon width={"15px"} />
+                      </Button>
+                    </Link>
+                  </ButtonGroup>
+                </td>
               </tr>
             );
           })
@@ -137,6 +158,13 @@ const Account = () => {
                 <td className="text-center"> {cartao.tipoConta}</td>
                 <td className="text-center"> {cartao.bandeira}</td>
                 <td className="text-center"> {cartao.descricao}</td>
+                <td className="text-center">
+                  <ButtonGroup>
+                    <Button size="sm" className="btn-info mr-1">
+                      <EditIcon width={"15px"} />
+                    </Button>
+                  </ButtonGroup>
+                </td>
               </tr>
             );
           })
@@ -469,6 +497,18 @@ const Account = () => {
                     </thead>
                     <tbody>{listaEnderecos}</tbody>
                   </table>
+                  <div className="p-5 text-center">
+                    <Link
+                      to={{
+                        pathname: "/editAddress",
+                        state: {
+                          client: cliente,
+                        },
+                      }}
+                    >
+                      <button className="btn btn-primary">Adicionar</button>
+                    </Link>
+                  </div>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="#link4">
@@ -500,6 +540,9 @@ const Account = () => {
                     </thead>
                     <tbody>{listaCartoes}</tbody>
                   </table>
+                  <div className="p-5 text-center">
+                    <button className="btn btn-primary">Adicionar</button>
+                  </div>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="#link5">

@@ -24,6 +24,8 @@ import EditCoupon from "../PagesAdm/coupon/editCoupon";
 import EditDevolution from "../PagesAdm/devolution/editDevolution";
 import GoogleCharts from "../PagesAdm/googleCharts";
 import GoogleChartsOriginal from "../PagesAdm/googleCharts/google2";
+import editAddress from "../pages/account/editAddress";
+import EditAddress from "../pages/account/editAddress";
 
 const Routes = () => {
   return (
@@ -34,7 +36,10 @@ const Routes = () => {
         <Route exact path="/" component={Store} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
+
         <Route path="/account" component={Account} />
+        <Route path="/editAddress" component={EditAddress} />
+
         <Route path="/register" component={Register} />
         <Route path="/detail" component={Detail} />
         <Route path="/requestDevolution" component={Devolution} />

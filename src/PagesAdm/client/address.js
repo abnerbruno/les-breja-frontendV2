@@ -123,6 +123,7 @@ const Address = ({ index, address, client, setClient }) => {
         placeholder="descricao"
         type="descricao"
         aria-label="descricao"
+        name="descricao"
         defaultValue={address.descricao || ""}
         onChange={(e) => editItem(e, index, client, setClient)}
       />
