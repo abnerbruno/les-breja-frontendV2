@@ -6,7 +6,7 @@ const Card = ({ index, card, client, setClient }) => {
   const emptyItem = {
     NomeNoCartao: "",
     numeroCartao: "",
-    validade: "",
+    validade: new Date(),
     codigoSeguranca: "",
     tipoConta: "",
     bandeira: "",
@@ -59,8 +59,11 @@ const Card = ({ index, card, client, setClient }) => {
         <FormControl
           placeholder="Validade"
           aria-label="Validade"
-          name="Validade"
-          defaultValue={card.Validade || ""}
+          name="validade"
+          type="Date"
+          defaultValue={
+            new Date(card.validade).toISOString().split("T")[0] || ""
+          }
           onChange={(e) => editItem(e, index, client, setClient)}
         />
 

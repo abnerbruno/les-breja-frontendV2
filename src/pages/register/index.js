@@ -21,7 +21,7 @@ const Register = () => {
     email: "",
     senha: "",
     telefone: "",
-    dataNascimento: "02-08-1999",
+    dataNascimento: "",
     genero: "",
     status: "Ativo",
 
@@ -58,6 +58,7 @@ const Register = () => {
         numeroCartao: "",
         tipoConta: "",
         codigoSeguranca: "",
+        validade: new Date(),
         bandeira: "",
         descricao: "cartao Principal",
       },
@@ -67,6 +68,7 @@ const Register = () => {
         tipoConta: "",
         codigoSeguranca: "",
         bandeira: "",
+        validade: new Date(),
         descricao: "cartao Secundario",
       },
     ],
@@ -186,6 +188,7 @@ const Register = () => {
                     placeholder="Data Nascimento"
                     aria-label="DataNascimento"
                     name="dataNascimento"
+                    type="Date"
                     defaultValue={client.dataNascimento || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
                   />

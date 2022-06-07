@@ -25,7 +25,7 @@ const FormaPagamento = ({
     valor: 0,
     nomeNoCartao: "",
     numeroCartao: "",
-    validade: "",
+    validade: new Date(),
     tipoConta: "Poupanca",
     codigoSeguranca: "",
     bandeira: "Master Card",
@@ -93,9 +93,9 @@ const FormaPagamento = ({
           <Form.Label>Numero Cartao</Form.Label>
           <FormControl
             className="mr-1"
-            aria-label="numeroCartao"
+            aria-label="Numero do Cartao"
             name="numeroCartao"
-            value={formaPagamento.numeroCartao}
+            defaultValue={formaPagamento.numeroCartao}
             onChange={(e) => editItem(e)}
           />
         </Form.Group>
@@ -103,10 +103,13 @@ const FormaPagamento = ({
         <Form.Group className="col-md-3 mb-3">
           <Form.Label>Validade</Form.Label>
           <FormControl
-            type="date"
+            placeholder="Validade"
             aria-label="Validade"
+            type="Date"
             name="validade"
-            defaultValue={formaPagamento.validade}
+            defaultValue={
+              new Date(formaPagamento.validade).toISOString().split("T")[0]
+            }
             onChange={(e) => editItem(e)}
           />
         </Form.Group>

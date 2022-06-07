@@ -6,7 +6,7 @@ const MethodmethodPayment = ({ index, methodPayment, order, setOrder }) => {
   const emptyItem = {
     NomeNoCartao: "",
     numeroCartao: "",
-    validade: "",
+    validade: new Date(),
     codigoSeguranca: "",
     tipoConta: "",
     bandeira: "",
@@ -60,8 +60,11 @@ const MethodmethodPayment = ({ index, methodPayment, order, setOrder }) => {
         <FormControl
           placeholder="Validade"
           aria-label="Validade"
-          name="Validade"
-          defaultValue={methodPayment.validade || ""}
+          name="validade"
+          type="Date"
+          defaultValue={
+            new Date(methodPayment.validade).toISOString().split("T")[0] || ""
+          }
           onChange={(e) => editItem(e, index, order, setOrder)}
         />
 

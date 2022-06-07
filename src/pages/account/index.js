@@ -149,7 +149,7 @@ const Account = () => {
         );
 
         setListaCartoes(
-          data.cartoes.map((cartao) => {
+          data.cartoes.map((cartao, index) => {
             return (
               <tr key={cartao.id}>
                 <td className="text-center"> {cartao.id}</td>
@@ -160,9 +160,20 @@ const Account = () => {
                 <td className="text-center"> {cartao.descricao}</td>
                 <td className="text-center">
                   <ButtonGroup>
-                    <Button size="sm" className="btn-info mr-1">
-                      <EditIcon width={"15px"} />
-                    </Button>
+                    <Link
+                      to={{
+                        pathname: "/editCard",
+                        state: {
+                          client: data,
+                          card: cartao,
+                          index: index,
+                        },
+                      }}
+                    >
+                      <Button size="sm" className="btn-info mr-1">
+                        <EditIcon width={"15px"} />
+                      </Button>
+                    </Link>
                   </ButtonGroup>
                 </td>
               </tr>
@@ -541,7 +552,16 @@ const Account = () => {
                     <tbody>{listaCartoes}</tbody>
                   </table>
                   <div className="p-5 text-center">
-                    <button className="btn btn-primary">Adicionar</button>
+                    <Link
+                      to={{
+                        pathname: "/editCard",
+                        state: {
+                          client: cliente,
+                        },
+                      }}
+                    >
+                      <button className="btn btn-primary">Adicionar</button>
+                    </Link>
                   </div>
                 </div>
               </Tab.Pane>
