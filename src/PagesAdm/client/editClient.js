@@ -14,58 +14,60 @@ import Card from "./card";
 
 const EditClient = (props) => {
   let auxClient = {
-    nomeCompleto: "Bruno Abner Silva Santos",
-    cpf: "47798740848",
+    nomeCompleto: "",
+    cpf: "",
     classificacao: "Rank B",
-    email: "brunoabner@gmail.com",
-    senha: "12345",
-    telefone: "97123-0887",
-    dataNascimento: "02-08-1999",
-    genero: "Masculino",
+    email: "",
+    senha: "",
+    telefone: "",
+    dataNascimento: "",
+    genero: "",
     status: "Ativo",
 
     enderecos: [
       {
-        longadouro: "Rua Salvador Rugiero",
-        tipoLongadouro: "Residencia",
-        tipoResidencia: "Residencia",
-        numero: "19",
-        bairro: "Vila Maluf",
-        cidade: "Suzano",
-        estado: "Sao Paulo",
-        cep: "08685-060",
+        longadouro: "",
+        tipoLongadouro: "",
+        tipoResidencia: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+        cep: "",
         pais: "Brasil",
-        descricao: "Endereco 01",
+        descricao: "Endereco de Envio",
       },
       {
-        longadouro: "Rua MarioCovas",
-        tipoLongadouro: "Residencia",
-        tipoResidencia: "Residencia",
-        numero: "24",
-        bairro: "Vila Orlanda",
-        cidade: "Mogi das Cruzes",
-        estado: "Sao Paulo",
-        cep: "12345-080",
+        longadouro: "",
+        tipoLongadouro: "",
+        tipoResidencia: "",
+        numero: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+        cep: "",
         pais: "Brasil",
-        descricao: "Endereco 02",
+        descricao: "Endereco de Cobrança",
       },
     ],
 
     cartoes: [
       {
-        nomeNoCartao: "Bruno Abner",
-        numeroCartao: "1234567",
-        tipoConta: "Poupanca",
-        codigoSeguranca: "1234",
-        bandeira: "Visa",
+        nomeNoCartao: "",
+        numeroCartao: "",
+        tipoConta: "",
+        codigoSeguranca: "",
+        validade: new Date(),
+        bandeira: "",
         descricao: "cartao Principal",
       },
       {
-        nomeNoCartao: "Bruno Abner",
-        numeroCartao: "7654321",
-        tipoConta: "Poupanca",
-        codigoSeguranca: "4321",
-        bandeira: "Master Card",
+        nomeNoCartao: "",
+        numeroCartao: "",
+        tipoConta: "",
+        codigoSeguranca: "",
+        bandeira: "",
+        validade: new Date(),
         descricao: "cartao Secundario",
       },
     ],
@@ -100,92 +102,119 @@ const EditClient = (props) => {
           <div>
             <InputGroup className="mb-3">
               <InputGroup.Text>Nome</InputGroup.Text>
-              <FormControl
+              <Form.Control
+                id="nomeCompleto"
                 name="nomeCompleto"
                 aria-label="Default"
+                placeholder="Bruno Abner..."
                 defaultValue={client.nomeCompleto}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                maxLength={50}
+                required
               />
             </InputGroup>
 
             <InputGroup className="mb-3">
               <InputGroup.Text>Email</InputGroup.Text>
               <FormControl
+                id="email"
                 name="email"
                 type="text"
                 aria-label="email"
+                placeholder="...@host.com.br"
                 defaultValue={client.email || ""}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
             </InputGroup>
 
             <InputGroup className="mb-3">
               <InputGroup.Text>Senha</InputGroup.Text>
               <FormControl
+                id="senha"
                 className="mr-1"
                 placeholder="Senha"
                 aria-label="Senha"
                 name="senha"
                 defaultValue={client.senha || ""}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
 
               <FormControl
+                id="repetirSenha"
                 placeholder="Repetir Senha"
                 aria-label="RepetirSenha"
                 name="senha"
                 defaultValue={client.senha || ""}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
             </InputGroup>
 
             <InputGroup className="mb-3">
               <InputGroup.Text>Telefone</InputGroup.Text>
               <FormControl
+                id="telefone"
                 className="mr-1"
-                placeholder="Telefone (XX) XXXXX-..."
+                placeholder="(11) 1234-5678"
                 aria-label="Telefone"
                 name="telefone"
                 defaultValue={client.telefone || ""}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
 
               <InputGroup.Text>Data Nascimento</InputGroup.Text>
               <FormControl
+                id="dataNascimento"
                 className="mr-1"
                 placeholder="Data Nascimento"
                 aria-label="DataNascimento"
                 name="dataNascimento"
-                defaultValue={client.dataNascimento || ""}
+                type="Date"
+                defaultValue={
+                  client.id !== undefined
+                    ? new Date(client.dataNascimento)
+                        .toISOString()
+                        .split("T")[0]
+                    : new Date()
+                }
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
 
               <InputGroup.Text>CPF</InputGroup.Text>
               <FormControl
+                id="cpf"
                 placeholder="CPF"
                 aria-label="CPF"
                 name="cpf"
                 defaultValue={client.cpf || ""}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
+                required
               />
             </InputGroup>
 
             <Form.Group controlId="formBasicSelect" className="mb-3">
               <Form.Label>Classificação</Form.Label>
               <Form.Control
+                id="classificacao"
                 as="select"
                 defaultValue={client.classificacao}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
                 name="classificacao"
+                disabled
               >
-                <option value="A">Rank A</option>
                 <option value="B">Rank B</option>
+                <option value="A">Rank A</option>
               </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="formBasicSelect" className="mb-3">
               <Form.Label>Genero</Form.Label>
               <Form.Control
+                id="genero"
                 as="select"
                 defaultValue={client.genero}
                 onChange={(e) => handleChangeEntity(e, client, setClient)}
@@ -193,19 +222,6 @@ const EditClient = (props) => {
               >
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicSelect" className="mb-3">
-              <Form.Label>Status</Form.Label>
-              <Form.Control
-                as="select"
-                defaultValue={client.status}
-                onChange={(e) => handleChangeEntity(e, client, setClient)}
-                name="status"
-              >
-                <option value="Ativo">Ativo</option>
-                <option value="Desativado">Desativado</option>
               </Form.Control>
             </Form.Group>
           </div>
@@ -228,6 +244,8 @@ const EditClient = (props) => {
                 address={address}
                 client={client}
                 setClient={setClient}
+                openData={openAddress}
+                setOpenData={setOpenAddress}
               />
             ))}
           </div>
@@ -250,6 +268,8 @@ const EditClient = (props) => {
                 card={card}
                 client={client}
                 setClient={setClient}
+                openData={openCard}
+                setOpenData={setOpenCard}
               />
             ))}
           </div>

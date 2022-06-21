@@ -36,7 +36,7 @@ const Register = () => {
         estado: "",
         cep: "",
         pais: "Brasil",
-        descricao: "Endereco 01",
+        descricao: "Endereco de Envio",
       },
       {
         longadouro: "",
@@ -47,8 +47,8 @@ const Register = () => {
         cidade: "",
         estado: "",
         cep: "",
-        pais: "",
-        descricao: "",
+        pais: "Brasil",
+        descricao: "Endereco de Cobrança",
       },
     ],
 
@@ -132,58 +132,72 @@ const Register = () => {
               <div>
                 <InputGroup className="mb-3">
                   <InputGroup.Text>Nome</InputGroup.Text>
-                  <FormControl
+                  <Form.Control
+                    id="nomeCompleto"
                     name="nomeCompleto"
                     aria-label="Default"
+                    placeholder="Bruno Abner..."
                     defaultValue={client.nomeCompleto}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    maxLength={50}
+                    required
                   />
                 </InputGroup>
 
                 <InputGroup className="mb-3">
                   <InputGroup.Text>Email</InputGroup.Text>
                   <FormControl
+                    id="email"
                     name="email"
                     type="text"
                     aria-label="email"
+                    placeholder="...@host.com.br"
                     defaultValue={client.email || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
                 </InputGroup>
 
                 <InputGroup className="mb-3">
                   <InputGroup.Text>Senha</InputGroup.Text>
                   <FormControl
+                    id="senha"
                     className="mr-1"
                     placeholder="Senha"
                     aria-label="Senha"
                     name="senha"
                     defaultValue={client.senha || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
 
                   <FormControl
+                    id="repetirSenha"
                     placeholder="Repetir Senha"
                     aria-label="RepetirSenha"
                     name="senha"
                     defaultValue={client.senha || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
                 </InputGroup>
 
                 <InputGroup className="mb-3">
                   <InputGroup.Text>Telefone</InputGroup.Text>
                   <FormControl
+                    id="telefone"
                     className="mr-1"
-                    placeholder="Telefone (XX) XXXXX-..."
+                    placeholder="(11) 1234-5678"
                     aria-label="Telefone"
                     name="telefone"
                     defaultValue={client.telefone || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
 
                   <InputGroup.Text>Data Nascimento</InputGroup.Text>
                   <FormControl
+                    id="dataNascimento"
                     className="mr-1"
                     placeholder="Data Nascimento"
                     aria-label="DataNascimento"
@@ -191,21 +205,25 @@ const Register = () => {
                     type="Date"
                     defaultValue={client.dataNascimento || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
 
                   <InputGroup.Text>CPF</InputGroup.Text>
                   <FormControl
+                    id="cpf"
                     placeholder="CPF"
                     aria-label="CPF"
                     name="cpf"
                     defaultValue={client.cpf || ""}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
+                    required
                   />
                 </InputGroup>
 
                 <Form.Group controlId="formBasicSelect" className="mb-3">
                   <Form.Label>Classificação</Form.Label>
                   <Form.Control
+                    id="classificacao"
                     as="select"
                     defaultValue={client.classificacao}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
@@ -220,6 +238,7 @@ const Register = () => {
                 <Form.Group controlId="formBasicSelect" className="mb-3">
                   <Form.Label>Genero</Form.Label>
                   <Form.Control
+                    id="genero"
                     as="select"
                     defaultValue={client.genero}
                     onChange={(e) => handleChangeEntity(e, client, setClient)}
@@ -249,6 +268,8 @@ const Register = () => {
                     address={address}
                     client={client}
                     setClient={setClient}
+                    openData={openAddress}
+                    setOpenData={setOpenAddress}
                   />
                 ))}
               </div>
@@ -271,6 +292,8 @@ const Register = () => {
                     card={card}
                     client={client}
                     setClient={setClient}
+                    openData={openCard}
+                    setOpenData={setOpenCard}
                   />
                 ))}
               </div>

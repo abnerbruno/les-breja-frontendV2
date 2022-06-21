@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import { useCliente } from "../../hooks/UseUser";
 import { Link } from "react-router-dom";
 
-import {
-  Button,
-  ButtonGroup,
-  ButtonToolbar,
-  Col,
-  Collapse,
-  Form,
-  FormControl,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Collapse, Form, FormControl, Row } from "react-bootstrap";
 
 import Layout from "../../components/Layout";
 import { useCart } from "../../hooks/useCart";
