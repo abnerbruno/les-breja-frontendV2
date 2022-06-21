@@ -49,6 +49,7 @@ const Detail = (props) => {
 
               {isInCart(product) && (
                 <button
+                  id="increase"
                   onClick={() => increase(product)}
                   className="btn btn-outline-primary btn-sm mr-1"
                 >
@@ -58,6 +59,7 @@ const Detail = (props) => {
 
               {!isInCart(product) && (
                 <button
+                  id="addProduct"
                   onClick={() => addProduct(product)}
                   className="btn btn-outline-primary btn-sm mr-1"
                 >
@@ -66,7 +68,7 @@ const Detail = (props) => {
               )}
 
               {!isInCart(product) && (
-                <Link to="/cart">
+                <Link id="addBeforeCart" to="/cart">
                   <button
                     onClick={() => addProduct(product)}
                     className="btn btn-primary btn-sm mr-1"
@@ -77,7 +79,7 @@ const Detail = (props) => {
               )}
 
               {isInCart(product) && (
-                <Link to="/cart">
+                <Link id="keepExisting" to="/cart">
                   <button className="btn btn-primary btn-sm mr-1">
                     Comprar
                   </button>

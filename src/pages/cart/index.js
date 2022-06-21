@@ -41,7 +41,11 @@ const Cart = () => {
             {checkout && (
               <div className="p-3 text-center text-success">
                 <p>Compra Finalizada</p>
-                <Link to="/" className="btn btn-outline-success btn-sm">
+                <Link
+                  id="continuarComprando"
+                  to="/"
+                  className="btn btn-outline-success btn-sm"
+                >
                   Continuar comprando
                 </Link>
               </div>
@@ -74,6 +78,7 @@ const Cart = () => {
                     />
                     <div className="input-group-append">
                       <button
+                        id="resgatar"
                         type="button"
                         className="btn btn-primary"
                         onClick={() => {
@@ -96,11 +101,16 @@ const Cart = () => {
                 <hr className="my-4" />
                 <div className="text-center">
                   <Link to="/checkout">
-                    <button type="button" className="btn btn-primary mb-2">
+                    <button
+                      id="checkout"
+                      type="button"
+                      className="btn btn-primary mb-2"
+                    >
                       CHECKOUT
                     </button>
                   </Link>
                   <button
+                    id="limpar"
                     type="button"
                     className="btn text-danger mb-2"
                     onClick={clearCart}

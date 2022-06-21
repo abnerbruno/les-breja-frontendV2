@@ -63,6 +63,7 @@ const CouponList = () => {
         <td className="text-center">
           <ButtonGroup>
             <Link
+              id="editarCupom"
               to={{
                 pathname: "/editCoupon",
                 state: { coupon: coupon },
@@ -73,6 +74,7 @@ const CouponList = () => {
               </Button>
             </Link>
             <Button
+              id="removeCupom"
               size="sm"
               className="btn-danger"
               onClick={() => remove(coupon.id)}
@@ -120,7 +122,9 @@ const CouponList = () => {
       </Table>
       <div className="p-5 text-center">
         <Link to={"/editCoupon"}>
-          <button className="btn btn-primary">Adicionar</button>
+          <button id="novoCupom" className="btn btn-primary">
+            Adicionar
+          </button>
         </Link>
       </div>
     </LayoutAdm>

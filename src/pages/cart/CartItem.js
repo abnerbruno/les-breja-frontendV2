@@ -34,6 +34,7 @@ const CartItem = ({ product }) => {
       <div className="col-sm-4 p-2 text-right">
         {product.quantity < estoque && (
           <button
+            id="increase"
             onClick={() => increase(product)}
             className="btn btn-primary btn-sm mr-2 mb-1"
           >
@@ -43,6 +44,7 @@ const CartItem = ({ product }) => {
 
         {product.quantity > 1 && (
           <button
+            id="decrease"
             onClick={() => decrease(product)}
             className="btn btn-danger btn-sm mb-1"
           >

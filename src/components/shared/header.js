@@ -10,16 +10,30 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <Link to="/">Home</Link>
-      <Link to="/">Produtos</Link>
-      <Link to="/requestDevolution">Troca</Link>
-      <Link to="/about">Sobre</Link>
-      <Link to="/cart">
+      <Link id="home" to="/">
+        Home
+      </Link>
+      <Link id="home1" to="/">
+        Produtos
+      </Link>
+      <Link id="requestDevolution" to="/requestDevolution">
+        Troca
+      </Link>
+      <Link id="about" to="/about">
+        Sobre
+      </Link>
+      <Link id="cart" to="/cart">
         <CartIcon /> Cart[Itens: {itemCount} - {formatNumber(total)}]
       </Link>
-      <Link to="/account">Conta</Link>
-      <Link to="/register">Cadastro</Link>
-      <Link to="/adm">Adm</Link>
+      <Link id="account" to="/account">
+        Conta
+      </Link>
+      <Link id="register" to="/register">
+        Cadastro
+      </Link>
+      <Link id="adm" to="/adm">
+        Adm
+      </Link>
     </header>
   );
 };

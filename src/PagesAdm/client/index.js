@@ -65,6 +65,7 @@ const ClientList = () => {
         <td className="text-center">
           <ButtonGroup>
             <Link
+              id="editarCliente"
               to={{
                 pathname: "/editClient",
                 state: { client: client },
@@ -75,6 +76,7 @@ const ClientList = () => {
               </Button>
             </Link>
             <Button
+              id="removeCliente"
               size="sm"
               className="btn-danger"
               onClick={() => remove(client.id)}
@@ -124,7 +126,7 @@ const ClientList = () => {
         <tbody id="tbody">{clientList}</tbody>
       </Table>
       <div className="p-5 text-center">
-        <Link to={"/editClient"}>
+        <Link id="adicionarCliente" to={"/editClient"}>
           <button className="btn btn-primary">Adicionar</button>
         </Link>
       </div>

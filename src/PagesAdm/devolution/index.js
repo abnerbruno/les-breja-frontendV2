@@ -77,6 +77,7 @@ const DevolutionList = () => {
         <td className="text-center">
           <ButtonGroup>
             <Link
+              id="editarTroca"
               to={{
                 pathname: "/editDevolution",
                 state: { devolution: devolution },
@@ -87,6 +88,7 @@ const DevolutionList = () => {
               </Button>
             </Link>
             <Button
+              id="removeTroca"
               size="sm"
               className="btn-danger"
               onClick={() => remove(devolution.id)}
@@ -134,7 +136,9 @@ const DevolutionList = () => {
       </Table>
       <div className="p-5 text-center">
         <Link>
-          <button className="btn btn-primary">Adicionar</button>
+          <button id="novaTroca" className="btn btn-primary">
+            Adicionar
+          </button>
         </Link>
       </div>
     </LayoutAdm>

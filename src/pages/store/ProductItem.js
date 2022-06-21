@@ -23,6 +23,7 @@ const ProductItem = ({ product }) => {
       <h3 className="text-left">{formatNumber(product.valorDeVenda)}</h3>
       <div className="text-right">
         <Link
+          id="detail"
           className="btn btn-link btn-sm mr-2"
           to={{
             pathname: "/detail",
@@ -34,6 +35,7 @@ const ProductItem = ({ product }) => {
 
         {isInCart(product) && (
           <button
+            id="increase"
             onClick={() => increase(product)}
             className="btn btn-outline-primary btn-sm"
           >
@@ -43,6 +45,7 @@ const ProductItem = ({ product }) => {
 
         {!isInCart(product) && (
           <button
+            id="addProduct"
             onClick={() => addProduct(product)}
             className="btn btn-primary btn-sm"
           >

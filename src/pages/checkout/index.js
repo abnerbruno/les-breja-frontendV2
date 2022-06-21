@@ -60,8 +60,11 @@ const Checkout = () => {
           <>
             <Col sm={8} className="p-1">
               <h4 className="mb-3 text-center">Endereço de Entrega</h4>
-              <Form>
+              <Form
+                onSubmit={() => handleCheckout(cliente.id, pagamento, envio)}
+              >
                 <Button
+                  id="buttonEnvio"
                   className="btn btn-primary btn-md btn-block mb-3"
                   onClick={() => {
                     setOpenEnvio(!openEnvio);
@@ -77,6 +80,7 @@ const Checkout = () => {
                       <Col>
                         <Form.Label>Selecionar Endereço</Form.Label>
                         <Form.Control
+                          id="selectEndereco"
                           as="select"
                           name="pais"
                           onChange={(e) => {
@@ -95,7 +99,7 @@ const Checkout = () => {
                           <option>Select..</option>
                           {cliente.enderecos.map((endereco, index) => {
                             return (
-                              <option key={index} value={index}>
+                              <option id="options" key={index} value={index}>
                                 {endereco.descricao}
                               </option>
                             );
@@ -108,15 +112,17 @@ const Checkout = () => {
                         <Form.Group className="mb-3">
                           <Form.Label>Remetente</Form.Label>
                           <FormControl
+                            id="remetente"
                             defaultValue={envio.remetente}
                             type="text"
                             aria-label="remetente"
-                            placeholder="remetente"
+                            placeholder="Remetente"
                             name="remetente"
                             onChange={(e) => {
                               envio[e.target.name] = e.target.value;
                               setEnvio(envio);
                             }}
+                            required
                           />
                         </Form.Group>
                       </Col>
@@ -125,15 +131,17 @@ const Checkout = () => {
                     <Form.Group className="mb-3">
                       <Form.Label>Longadouro</Form.Label>
                       <FormControl
+                        id="longadouro"
                         type="text"
                         aria-label="longadouro"
-                        placeholder="longadouro"
+                        placeholder="Longadouro"
                         defaultValue={envio.longadouro}
                         name="longadouro"
                         onChange={(e) => {
                           envio[e.target.name] = e.target.value;
                           setEnvio(envio);
                         }}
+                        required
                       />
                     </Form.Group>
 
@@ -150,6 +158,7 @@ const Checkout = () => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         />
                       </Col>
 
@@ -165,12 +174,14 @@ const Checkout = () => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         />
                       </Col>
 
                       <Col md={3} className="mb-3">
                         <Form.Label>Cidade</Form.Label>
                         <FormControl
+                          id="cidade"
                           type="text"
                           placeholder="Cidade"
                           defaultValue={envio.cidade}
@@ -179,6 +190,7 @@ const Checkout = () => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         />
                       </Col>
                     </Row>
@@ -187,6 +199,7 @@ const Checkout = () => {
                       <Col md={4} className="mb-3">
                         <Form.Label>Pais</Form.Label>
                         <Form.Control
+                          id="pais"
                           as="select"
                           name="pais"
                           defaultValue={envio.pais}
@@ -194,8 +207,11 @@ const Checkout = () => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         >
-                          <option value="">Select...</option>
+                          <option value={envio.pais}>
+                            {envio.pais || "Select..."}
+                          </option>
                           <option value="Brasil">Brasil</option>
                           <option value="EUA">United States</option>
                         </Form.Control>
@@ -204,6 +220,7 @@ const Checkout = () => {
                       <Col md={4} className="mb-3">
                         <Form.Label>Estado</Form.Label>
                         <Form.Control
+                          id="estado"
                           as="select"
                           name="estado"
                           defaultValue={envio.estado}
@@ -211,10 +228,13 @@ const Checkout = () => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         >
-                          <option value="">Select...</option>
-                          <option>São Paulo</option>
-                          <option>Rio de Janeiro</option>
+                          <option value={envio.estado}>
+                            {envio.estado || "Select..."}
+                          </option>
+                          <option value="São Paulo">São Paulo</option>
+                          <option value="Rio de Janeiro">Rio de Janeiro</option>
                         </Form.Control>
                       </Col>
 
@@ -222,16 +242,18 @@ const Checkout = () => {
                         <Form.Label>CEP</Form.Label>
                         <FormControl
                           type="text"
-                          id="zip"
-                          placeholder=""
+                          id="cep"
+                          placeholder="CEP"
                           name="cep"
                           defaultValue={envio.cep}
                           onChange={(e) => {
                             envio[e.target.name] = e.target.value;
                             setEnvio(envio);
                           }}
+                          required
                         />
                         <Button
+                          id="calcularFrete"
                           size="sm"
                           className="float-right"
                           onClick={() => {
@@ -311,6 +333,7 @@ const Checkout = () => {
                 </div>
 
                 <Button
+                  id="showcartoes"
                   className="btn btn-primary btn-md btn-block mb-3"
                   onClick={() => {
                     showTotal();
@@ -339,9 +362,9 @@ const Checkout = () => {
 
                 <hr className="mb-4" />
                 <button
+                  id="finalizarCompra"
                   className="btn btn-primary btn-lg btn-block"
-                  type="button"
-                  onClick={() => handleCheckout(cliente.id, pagamento, envio)}
+                  type="submit"
                 >
                   FINALIZAR COMPRA
                 </button>

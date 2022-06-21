@@ -44,8 +44,10 @@ const FormaPagamento = ({
   };
 
   const deleteItem = () => {
-    pagamento.formasPagamento.splice(index, 1);
-    setPagamento(pagamento);
+    if (pagamento.formasPagamento.length > 1) {
+      pagamento.formasPagamento.splice(index, 1);
+      setPagamento(pagamento);
+    }
     setOpenData(!openData);
   };
 
@@ -55,6 +57,7 @@ const FormaPagamento = ({
         <Col md={12} className="mb-3">
           <Form.Label>Selecionar Cartão</Form.Label>
           <Form.Control
+            id="selectCard"
             as="select"
             name="cartao"
             onChange={(e) => {
@@ -71,7 +74,7 @@ const FormaPagamento = ({
             <option>Select..</option>
             {cliente.cartoes.map((cartao, index) => {
               return (
-                <option key={index} value={index}>
+                <option id="optiosCard" key={index} value={index}>
                   {cartao.descricao}
                 </option>
               );
@@ -80,29 +83,34 @@ const FormaPagamento = ({
         </Col>
 
         <Form.Group className="col-md-6 mb-3">
-          <Form.Label>Nome no Cartão</Form.Label>
+          <Form.Label>Nome Completo</Form.Label>
           <FormControl
-            aria-label="NomeNoCartao"
+            id="nomeNoCartao"
+            placeholder="Nome Completo"
             name="nomeNoCartao"
             defaultValue={formaPagamento.nomeNoCartao}
             onChange={(e) => editItem(e)}
+            required
           />
         </Form.Group>
 
         <Form.Group className="col-md-6 mb-3">
-          <Form.Label>Numero Cartao</Form.Label>
+          <Form.Label>Numero do Cartão</Form.Label>
           <FormControl
+            id="numeroCartao"
             className="mr-1"
-            aria-label="Numero do Cartao"
+            placeholder="Numero do Cartao"
             name="numeroCartao"
             defaultValue={formaPagamento.numeroCartao}
             onChange={(e) => editItem(e)}
+            required
           />
         </Form.Group>
 
         <Form.Group className="col-md-3 mb-3">
           <Form.Label>Validade</Form.Label>
           <FormControl
+            id="validade"
             placeholder="Validade"
             aria-label="Validade"
             type="Date"
@@ -111,27 +119,32 @@ const FormaPagamento = ({
               new Date(formaPagamento.validade).toISOString().split("T")[0]
             }
             onChange={(e) => editItem(e)}
+            required
           />
         </Form.Group>
 
         <Form.Group className="col-md-3 mb-3">
           <Form.Label>Cod. Seguranca</Form.Label>
           <FormControl
+            id="codigoSeguranca"
             className="mr-1"
-            aria-label="codigoSeguranca"
+            placeholder="Codigo de Seguranca"
             name="codigoSeguranca"
             defaultValue={formaPagamento.codigoSeguranca}
             onChange={(e) => editItem(e)}
+            required
           />
         </Form.Group>
 
         <Form.Group className="col-md-3 mb-3">
           <Form.Label>Tipo Conta</Form.Label>
           <FormControl
+            id="tipoConta"
             as="select"
             name="tipoConta"
             defaultValue={formaPagamento.tipoConta}
             onChange={(e) => editItem(e)}
+            required
           >
             <option value="Conta Poupança">Poupança</option>
             <option value="Conta Corrente">Corrente</option>
@@ -141,10 +154,12 @@ const FormaPagamento = ({
         <Form.Group className="col-md-3 mb-3">
           <Form.Label>Bandeira</Form.Label>
           <FormControl
+            id="bandeira"
             as="select"
             name="bandeira"
             onChange={(e) => editItem(e)}
             defaultValue={formaPagamento.bandeira}
+            required
           >
             <option value="Master Card">Master Card</option>
             <option value="Visa">Visa</option>
@@ -154,14 +169,17 @@ const FormaPagamento = ({
         <InputGroup className="col-md-6 mb-3">
           <InputGroup.Text>R$</InputGroup.Text>
           <FormControl
+            id="valor"
             name="valor"
-            defaultValue={formaPagamento.valor}
+            defaultValue={formaPagamento.valor || ""}
             onChange={(e) => editItem(e)}
+            required
           />
         </InputGroup>
 
         <ButtonGroup className="col-md-3">
           <Button
+            id="addItem"
             size="sm"
             className="btn btn-primary float-right mb-3"
             onClick={() => addItem()}
@@ -169,6 +187,7 @@ const FormaPagamento = ({
             <PlusCircleIcon width={"15px"} />
           </Button>
           <Button
+            id="deleteItem"
             size="sm"
             className="btn btn-danger float-right mb-3"
             onClick={() => deleteItem()}

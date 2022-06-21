@@ -67,6 +67,7 @@ const ProductList = () => {
         <td className="text-center">
           <ButtonGroup>
             <Link
+              id="editarProduto"
               to={{
                 pathname: "/editProduct",
                 state: { product: product },
@@ -77,6 +78,7 @@ const ProductList = () => {
               </Button>
             </Link>
             <Button
+              id="removeProduto"
               size="sm"
               className="btn-danger"
               onClick={() => remove(product.id)}
@@ -126,7 +128,7 @@ const ProductList = () => {
         <tbody id="tbody">{productsList}</tbody>
       </Table>
       <div className="p-5 text-center">
-        <Link to={"/editProduct"}>
+        <Link id="novoProduto" to={"/editProduct"}>
           <button className="btn btn-primary">Adicionar</button>
         </Link>
       </div>
