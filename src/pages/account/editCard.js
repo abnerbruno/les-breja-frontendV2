@@ -48,8 +48,10 @@ const EditCard = (props) => {
   };
 
   const deleteItem = () => {
-    client.cartoes.splice(index, 1);
-    setClient(client);
+    if (client.cartoes.length > 1) {
+      client.cartoes.splice(index, 1);
+      setClient(client);
+    }
   };
 
   return (
@@ -59,95 +61,133 @@ const EditCard = (props) => {
       </h3>
       <Form onSubmit={(e) => handleSubmit(e, client, "cliente", "account")}>
         <InputGroup className="mb-3">
-          <InputGroup.Text>Nome No Cartao</InputGroup.Text>
+          <InputGroup.Text>Nome Completo</InputGroup.Text>
           <FormControl
-            placeholder="NomeNoCartao"
+            id="nomeNoCartao"
+            placeholder="Nome Completo"
             aria-label="NomeNoCartao"
             name="nomeNoCartao"
             defaultValue={card.nomeNoCartao || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
         </InputGroup>
 
         <InputGroup className="mb-3">
-          <InputGroup.Text>Numero Cartao</InputGroup.Text>
+          <InputGroup.Text>Numero do Cartão</InputGroup.Text>
           <FormControl
+            id="numeroCartao"
             className="mr-1"
-            placeholder="numeroCartao"
+            placeholder="Numero do Cartão"
             aria-label="numeroCartao"
             name="numeroCartao"
             defaultValue={card.numeroCartao || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
 
           <InputGroup.Text>Validade</InputGroup.Text>
           <FormControl
+            id="validade"
             placeholder="Validade"
             aria-label="Validade"
-            type="Date"
             name="validade"
+            type="Date"
             defaultValue={
-              new Date(card.validade).toISOString().split("T")[0] || ""
+              card.id !== undefined
+                ? new Date(card.validade).toISOString().split("T")[0]
+                : new Date()
             }
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
 
-          <InputGroup.Text>Codigo Seguranca</InputGroup.Text>
+          <InputGroup.Text>Codigo de Seguranca</InputGroup.Text>
           <FormControl
+            id="codigoSeguranca"
             className="mr-1"
-            placeholder="codigoSeguranca"
+            placeholder="Codigo de Seguranca"
             aria-label="codigoSeguranca"
             name="codigoSeguranca"
             defaultValue={card.codigoSeguranca || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
         </InputGroup>
 
         <InputGroup className="mb-3">
-          <InputGroup.Text>Tipo Conta</InputGroup.Text>
+          <InputGroup.Text>Tipo de Conta</InputGroup.Text>
           <FormControl
+            id="tipoConta"
             className="mr-1"
-            placeholder="tipoConta"
-            aria-label="tipoConta"
+            placeholder="Tipo de Conta"
+            as="select"
             name="tipoConta"
             defaultValue={card.tipoConta || ""}
-            onChange={(e) => editItem(e)}
-          />
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
+          >
+            <option value={card.tipoConta}>
+              {card.tipoConta || "Select..."}
+            </option>
+            <option value="Corrente">Corrente</option>
+            <option value="Poupança">Poupança</option>
+          </FormControl>
 
           <InputGroup.Text>Bandeira</InputGroup.Text>
           <FormControl
+            id="bandeira"
             className="mr-1"
-            placeholder="bandeira"
-            aria-label="bandeira"
+            placeholder="Bandeira"
+            as="select"
             name="bandeira"
             defaultValue={card.bandeira || ""}
-            onChange={(e) => editItem(e)}
-          />
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
+          >
+            <option value={card.bandeira}>
+              {card.bandeira || "Select..."}
+            </option>
+            <option value="Master Card">Master Card</option>
+            <option value="Visa">Visa</option>
+          </FormControl>
         </InputGroup>
 
         <FormControl
+          id="descricao"
           placeholder="descricao"
           type="descricao"
           aria-label="descricao"
           name="descricao"
           defaultValue={card.descricao || ""}
-          onChange={(e) => editItem(e)}
+          onChange={(e) => editItem(e, index, client, setClient)}
+          required
         />
 
         <hr className="mb-4" />
 
         <FormGroup className="col-md-12 text-center">
-          <Button type="submit" className="mr-1 btn-success" onClick={addItem}>
+          <Button
+            id="salvar"
+            type="submit"
+            className="mr-1 btn-success"
+            onClick={addItem}
+          >
             Salvar
           </Button>
           <Button
+            id="deletar"
             type="submit"
             className="mr-1 btn-danger"
             onClick={deleteItem}
           >
             Deletar
           </Button>
-          <Button className="mr-1 btn-info" onClick={handleGoBack}>
+          <Button
+            id="cancelar"
+            className="mr-1 btn-info"
+            onClick={handleGoBack}
+          >
             Cancelar
           </Button>
         </FormGroup>

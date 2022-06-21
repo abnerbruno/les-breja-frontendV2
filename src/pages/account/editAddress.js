@@ -51,8 +51,10 @@ const EditAddress = (props) => {
   };
 
   const deleteItem = () => {
-    client.enderecos.splice(index, 1);
-    setClient(client);
+    if (client.enderecos.length > 2) {
+      client.enderecos.splice(index, 1);
+      setClient(client);
+    }
   };
 
   return (
@@ -64,108 +66,148 @@ const EditAddress = (props) => {
         <InputGroup className="mb-3">
           <InputGroup.Text>Longadouro</InputGroup.Text>
           <FormControl
-            placeholder="longadouro"
+            id="longadouro"
+            placeholder="Longadouro"
             type="longadouro"
             aria-label="longadouro"
             name="longadouro"
             defaultValue={address.longadouro || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
         </InputGroup>
 
         <InputGroup className="mb-3">
-          <InputGroup.Text>Tipo Residencia</InputGroup.Text>
+          <InputGroup.Text>Tipo Longadouro</InputGroup.Text>
           <FormControl
+            id="tipoLongadouro"
             className="mr-1"
-            placeholder="Tipo Residencia"
-            aria-label="tipo Residencia"
-            name="tipoResidencia"
-            defaultValue={address.tipoResidencia || ""}
-            onChange={(e) => editItem(e)}
+            placeholder="Tipo Longadouro"
+            aria-label="tipoLongadouro"
+            name="tipoLongadouro"
+            defaultValue={address.tipoLongadouro || ""}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
 
           <InputGroup.Text>Numero</InputGroup.Text>
           <FormControl
-            placeholder="numero"
+            id="numero"
+            placeholder="Numero"
             aria-label="numero"
             name="numero"
             defaultValue={address.numero || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
 
           <InputGroup.Text>Bairro</InputGroup.Text>
           <FormControl
+            id="bairro"
             className="mr-1"
-            placeholder="bairro"
+            placeholder="Bairro"
             aria-label="bairro"
             name="bairro"
             defaultValue={address.bairro || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
         </InputGroup>
 
         <InputGroup className="mb-3">
           <InputGroup.Text>Cidade</InputGroup.Text>
           <FormControl
+            id="cidade"
             className="mr-1"
-            placeholder="cidade"
+            placeholder="Cidade"
             aria-label="cidade"
             name="cidade"
             defaultValue={address.cidade || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
 
           <InputGroup.Text>Estado</InputGroup.Text>
           <FormControl
+            id="estado"
             className="mr-1"
-            placeholder="estado"
+            as="select"
+            placeholder="Estado"
             aria-label="estado"
             name="estado"
-            defaultValue={address.estado || ""}
-            onChange={(e) => editItem(e)}
-          />
-
-          <InputGroup.Text>CEP</InputGroup.Text>
-          <FormControl
-            placeholder="CEP"
-            aria-label="CEP"
-            name="cep"
-            defaultValue={address.cep || ""}
-            onChange={(e) => editItem(e)}
-          />
+            defaultValue={address.estado}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
+          >
+            <option value="">{address.estado || "Select..."}</option>
+            <option value="São Paulo">São Paulo</option>
+            <option value="Rio de Janeiro">Rio de Janeiro</option>
+          </FormControl>
 
           <InputGroup.Text>Pais</InputGroup.Text>
           <FormControl
-            placeholder="pais"
+            id="pais"
+            as="select"
+            className="mr-1"
+            placeholder="Pais"
             aria-label="pais"
             name="pais"
             defaultValue={address.pais || ""}
-            onChange={(e) => editItem(e)}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
+          >
+            <option value="">{address.pais || "Select..."}</option>
+            <option value="Brasil">Brasil</option>
+            <option value="EUA">United States</option>
+          </FormControl>
+
+          <InputGroup.Text>CEP</InputGroup.Text>
+          <FormControl
+            id="cep"
+            placeholder="CEP"
+            aria-label="cep"
+            name="cep"
+            defaultValue={address.cep || ""}
+            onChange={(e) => editItem(e, index, client, setClient)}
+            required
           />
         </InputGroup>
 
         <FormControl
-          placeholder="descricao"
+          id="descricao"
+          placeholder="Descricao"
+          type="descricao"
           aria-label="descricao"
           name="descricao"
           defaultValue={address.descricao || ""}
-          onChange={(e) => editItem(e)}
+          onChange={(e) => editItem(e, index, client, setClient)}
+          required
         />
 
         <hr className="mb-4" />
 
         <FormGroup className="col-md-12 text-center">
-          <Button type="submit" className="mr-1 btn-success" onClick={addItem}>
+          <Button
+            type="submit"
+            className="mr-1 btn-success"
+            onClick={addItem}
+            id="salvar"
+          >
             Salvar
           </Button>
           <Button
+            id="deletar"
             type="submit"
             className="mr-1 btn-danger"
             onClick={deleteItem}
           >
             Deletar
           </Button>
-          <Button className="mr-1 btn-info" onClick={handleGoBack}>
+          <Button
+            id="cancelar"
+            className="mr-1 btn-info"
+            onClick={handleGoBack}
+          >
             Cancelar
           </Button>
         </FormGroup>

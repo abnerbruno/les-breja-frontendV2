@@ -121,13 +121,14 @@ const Account = () => {
               <tr key={endereco.id}>
                 <td className="text-center"> {endereco.id}</td>
                 <td className="text-center"> {endereco.longadouro}</td>
-                <td className="text-center"> {endereco.tipoResidencia}</td>
+                <td className="text-center"> {endereco.tipoLongadouro}</td>
                 <td className="text-center"> {endereco.cidade}</td>
                 <td className="text-center"> {endereco.estado}</td>
                 <td className="text-center"> {endereco.descricao}</td>
                 <td className="text-center">
                   <ButtonGroup>
                     <Link
+                      id="editAddress"
                       to={{
                         pathname: "/editAddress",
                         state: {
@@ -161,6 +162,7 @@ const Account = () => {
                 <td className="text-center">
                   <ButtonGroup>
                     <Link
+                      id="editCard"
                       to={{
                         pathname: "/editCard",
                         state: {
@@ -316,19 +318,19 @@ const Account = () => {
               </div>
             </div>
             <ListGroup>
-              <ListGroup.Item action href="#link1">
+              <ListGroup.Item action href="#link1" id="link1">
                 Configurações de Perfil
               </ListGroup.Item>
-              <ListGroup.Item action href="#link2">
+              <ListGroup.Item action href="#link2" id="link2">
                 Lista de Pedidos
               </ListGroup.Item>
-              <ListGroup.Item action href="#link3">
+              <ListGroup.Item action href="#link3" id="link3">
                 Lista de Endereços
               </ListGroup.Item>
-              <ListGroup.Item action href="#link4">
+              <ListGroup.Item action href="#link4" id="link4">
                 Lista de Cartões
               </ListGroup.Item>
-              <ListGroup.Item action href="#link5">
+              <ListGroup.Item action href="#link5" id="link5">
                 Lista de Trocas
               </ListGroup.Item>
               <ListGroup.Item action href="#link6">
@@ -344,21 +346,24 @@ const Account = () => {
                     handleSubmit(e, cliente, "cliente", "account")
                   }
                 >
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text>Nome</InputGroup.Text>
-                    <FormControl
+                  <Form.Group className="mb-3">
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control
+                      id="nomeCompleto"
                       name="nomeCompleto"
-                      aria-label="Default"
+                      placeholder="Bruno Abner..."
                       defaultValue={cliente.nomeCompleto}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
+                      required
                     />
-                  </InputGroup>
+                  </Form.Group>
 
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text>Email</InputGroup.Text>
-                    <FormControl
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      id="email"
                       name="email"
                       type="text"
                       aria-label="email"
@@ -366,12 +371,47 @@ const Account = () => {
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
+                      required
                     />
-                  </InputGroup>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>CPF</Form.Label>
+                    <FormControl
+                      id="cpf"
+                      placeholder="CPF"
+                      aria-label="CPF"
+                      name="cpf"
+                      defaultValue={cliente.cpf || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                      required
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>Telefone</Form.Label>
+                    <FormControl
+                      id="telefone"
+                      className="mr-1"
+                      placeholder="(11) 1234-5678"
+                      aria-label="Telefone"
+                      name="telefone"
+                      defaultValue={cliente.telefone || ""}
+                      onChange={(e) =>
+                        handleChangeEntity(e, cliente, setCliente)
+                      }
+                      required
+                    />
+                  </Form.Group>
+
+                  <hr className="mt-2 mb-3" />
 
                   <InputGroup className="mb-3">
                     <InputGroup.Text>Senha</InputGroup.Text>
-                    <FormControl
+                    <Form.Control
+                      id="senha"
                       className="mr-1"
                       placeholder="Senha"
                       aria-label="Senha"
@@ -381,9 +421,11 @@ const Account = () => {
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
+                      required
                     />
 
-                    <FormControl
+                    <Form.Control
+                      id="RepetirSenha"
                       placeholder="Repetir Senha"
                       aria-label="RepetirSenha"
                       name="senha"
@@ -392,31 +434,7 @@ const Account = () => {
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
-                    />
-                  </InputGroup>
-
-                  <InputGroup className="mb-3">
-                    <InputGroup.Text>Telefone</InputGroup.Text>
-                    <FormControl
-                      className="mr-1"
-                      placeholder="Telefone (XX) XXXXX-..."
-                      aria-label="Telefone"
-                      name="telefone"
-                      defaultValue={cliente.telefone || ""}
-                      onChange={(e) =>
-                        handleChangeEntity(e, cliente, setCliente)
-                      }
-                    />
-
-                    <InputGroup.Text>CPF</InputGroup.Text>
-                    <FormControl
-                      placeholder="CPF"
-                      aria-label="CPF"
-                      name="cpf"
-                      defaultValue={cliente.cpf || ""}
-                      onChange={(e) =>
-                        handleChangeEntity(e, cliente, setCliente)
-                      }
+                      required
                     />
                   </InputGroup>
 
@@ -437,6 +455,7 @@ const Account = () => {
                         </label>
                       </div>
                       <button
+                        id="atualizaConta"
                         className="btn btn-style-1 btn-primary"
                         type="submit"
                         data-toast=""
@@ -514,6 +533,7 @@ const Account = () => {
                   </table>
                   <div className="p-5 text-center">
                     <Link
+                      id="newAddress"
                       to={{
                         pathname: "/editAddress",
                         state: {
@@ -557,6 +577,7 @@ const Account = () => {
                   </table>
                   <div className="p-5 text-center">
                     <Link
+                      id="newCard"
                       to={{
                         pathname: "/editCard",
                         state: {

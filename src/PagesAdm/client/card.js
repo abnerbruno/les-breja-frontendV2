@@ -10,7 +10,7 @@ const Card = ({ index, card, client, setClient, openData, setOpenData }) => {
     codigoSeguranca: "",
     tipoConta: "",
     bandeira: "",
-    descricao: "",
+    descricao: "Novo Cartão",
   };
 
   const addItem = (client, setClient, emptyItem) => {
@@ -130,12 +130,14 @@ const Card = ({ index, card, client, setClient, openData, setOpenData }) => {
       </InputGroup>
 
       <FormControl
+        id="descricao"
         placeholder="descricao"
         type="descricao"
         aria-label="descricao"
         name="descricao"
         defaultValue={card.descricao || ""}
         onChange={(e) => editItem(e, index, client, setClient)}
+        required
       />
 
       <ButtonGroup className="float-right">
