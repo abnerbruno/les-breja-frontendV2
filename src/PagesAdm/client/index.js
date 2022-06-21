@@ -15,7 +15,7 @@ const ClientList = () => {
       .then((data) => {
         setClients(data);
       });
-  }, []);
+  }, [clients]);
 
   console.log(clients);
 

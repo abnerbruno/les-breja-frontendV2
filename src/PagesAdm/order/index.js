@@ -16,7 +16,7 @@ const OrderList = () => {
       .then((data) => {
         setOrders(data);
       });
-  }, []);
+  }, [orders]);
 
   const remove = (id) => {
     fetch(`/api/pedido/${id}`, {

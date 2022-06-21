@@ -16,7 +16,7 @@ const CouponList = () => {
       .then((data) => {
         setCoupons(data);
       });
-  }, []);
+  }, [coupons]);
 
   const remove = (id) => {
     fetch(`/api/cupom/${id}`, {
@@ -86,10 +86,7 @@ const CouponList = () => {
   });
 
   return (
-    <LayoutAdm
-      title={"Lista Cupons"}
-      entityName={"Cupom"}
-    >
+    <LayoutAdm title={"Lista Cupons"} entityName={"Cupom"}>
       <Table id="lista" className="table table-hover table-sm">
         <thead>
           <tr>

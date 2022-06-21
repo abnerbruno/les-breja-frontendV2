@@ -16,7 +16,7 @@ const ProductList = () => {
       .then((data) => {
         setProducts(data);
       });
-  }, []);
+  }, [products]);
 
   const remove = (id) => {
     fetch(`/api/cerveja/${id}`, {

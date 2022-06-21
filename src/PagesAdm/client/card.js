@@ -61,9 +61,7 @@ const Card = ({ index, card, client, setClient }) => {
           aria-label="Validade"
           name="validade"
           type="Date"
-          defaultValue={
-            new Date(card.validade).toISOString().split("T")[0] || ""
-          }
+          defaultValue={new Date().toISOString().split("T")[0] || ""}
           onChange={(e) => editItem(e, index, client, setClient)}
         />
 

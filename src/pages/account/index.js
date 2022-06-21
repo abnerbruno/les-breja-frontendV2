@@ -289,8 +289,12 @@ const Account = () => {
             );
           })
         );
+      })
+      .catch((err) => {
+        console.log(err);
+        return {}; //(or [], or an empty return, or any return at all)
       });
-  }, []);
+  }, [cliente]);
 
   const { handleChangeEntity, handleSubmit, handleGoBack } = useHandle();
 

@@ -16,7 +16,7 @@ const DevolutionList = () => {
       .then((data) => {
         setDevolutions(data);
       });
-  }, []);
+  }, [devolutions]);
 
   const remove = (id) => {
     fetch(`/api/troca/${id}`, {

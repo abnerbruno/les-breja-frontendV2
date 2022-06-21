@@ -15,6 +15,10 @@ const UserContextProvider = ({ children }) => {
         if (data !== undefined) {
           setCliente(data);
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        return {}; //(or [], or an empty return, or any return at all)
       });
   }, []);
 

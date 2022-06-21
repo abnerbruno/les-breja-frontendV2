@@ -16,7 +16,7 @@ const ShippingList = () => {
       .then((data) => {
         setShippings(data);
       });
-  }, []);
+  }, [shippings]);
 
   const remove = (id) => {
     fetch(`/api/envio/${id}`, {
