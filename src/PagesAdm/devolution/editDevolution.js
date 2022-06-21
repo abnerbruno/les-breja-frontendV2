@@ -95,6 +95,7 @@ const EditDevolution = (props) => {
         <Form.Group controlId="formBasicSelect" className="mb-3">
           <Form.Label>Status</Form.Label>
           <Form.Control
+            id="statusTroca"
             as="select"
             defaultValue={devolution.status}
             onChange={(e) => handleChangeEntity(e, devolution, setDevolution)}
@@ -108,10 +109,14 @@ const EditDevolution = (props) => {
         </Form.Group>
 
         <FormGroup className="col-md-12 text-center">
-          <Button type="submit" className="mr-1 btn-success">
+          <Button id="salvar" type="submit" className="mr-1 btn-success">
             Salvar
           </Button>
-          <Button onClick={handleGoBack} className="mr-1 btn-danger">
+          <Button
+            id="cancelar"
+            onClick={handleGoBack}
+            className="mr-1 btn-danger"
+          >
             Cancelar
           </Button>
         </FormGroup>

@@ -83,6 +83,7 @@ const EditOrder = (props) => {
           <Form.Group controlId="orderSelect" className="mb-3">
             <Form.Label>Status</Form.Label>
             <Form.Control
+              id="statusPedido"
               as="select"
               defaultValue={order.status}
               onChange={(e) => handleChangeEntity(e, order, setOrder)}
@@ -284,6 +285,7 @@ const EditOrder = (props) => {
             <Form.Group controlId="envioSelect" className="mb-3">
               <Form.Label>Status Envio</Form.Label>
               <Form.Control
+                id="statusEnvio"
                 as="select"
                 name="statusEnvio"
                 defaultValue={order.envio.statusEnvio}
@@ -305,10 +307,14 @@ const EditOrder = (props) => {
         </Collapse>
 
         <FormGroup className="col-md-12 text-center">
-          <Button type="submit" className="mr-1 btn-success">
+          <Button id="salvar" type="submit" className="mr-1 btn-success">
             Salvar
           </Button>
-          <Button onClick={handleGoBack} className="mr-1 btn-danger">
+          <Button
+            id="cancelar"
+            onClick={handleGoBack}
+            className="mr-1 btn-danger"
+          >
             Cancelar
           </Button>
         </FormGroup>

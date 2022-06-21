@@ -174,10 +174,14 @@ const EditProduct = (props) => {
         </Collapse>
 
         <FormGroup className="col-md-12 text-center">
-          <Button type="submit" className="mr-1 btn-success">
+          <Button id="salvar" type="submit" className="mr-1 btn-success">
             Salvar
           </Button>
-          <Button onClick={handleGoBack} className="mr-1 btn-danger">
+          <Button
+            id="cancelar"
+            onClick={handleGoBack}
+            className="mr-1 btn-danger"
+          >
             Cancelar
           </Button>
         </FormGroup>
