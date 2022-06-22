@@ -296,7 +296,7 @@ const Account = () => {
         console.log(err);
         return {}; //(or [], or an empty return, or any return at all)
       });
-  }, [cliente]);
+  }, []);
 
   const { handleChangeEntity, handleSubmit, handleGoBack } = useHandle();
 
@@ -366,8 +366,7 @@ const Account = () => {
                       id="email"
                       name="email"
                       type="text"
-                      aria-label="email"
-                      defaultValue={cliente.email || ""}
+                      defaultValue={cliente.email}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
@@ -382,7 +381,7 @@ const Account = () => {
                       placeholder="CPF"
                       aria-label="CPF"
                       name="cpf"
-                      defaultValue={cliente.cpf || ""}
+                      defaultValue={cliente.cpf}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
@@ -398,7 +397,7 @@ const Account = () => {
                       placeholder="(11) 1234-5678"
                       aria-label="Telefone"
                       name="telefone"
-                      defaultValue={cliente.telefone || ""}
+                      defaultValue={cliente.telefone}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
@@ -417,7 +416,7 @@ const Account = () => {
                       aria-label="Senha"
                       name="senha"
                       type="password"
-                      defaultValue={cliente.senha || ""}
+                      defaultValue={cliente.senha}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }
@@ -430,7 +429,7 @@ const Account = () => {
                       aria-label="RepetirSenha"
                       name="senha"
                       type="password"
-                      defaultValue={cliente.senha || ""}
+                      defaultValue={cliente.senha}
                       onChange={(e) =>
                         handleChangeEntity(e, cliente, setCliente)
                       }

@@ -142,12 +142,15 @@ const FormaPagamento = ({
             id="tipoConta"
             as="select"
             name="tipoConta"
-            defaultValue={formaPagamento.tipoConta}
+            defaultValue={formaPagamento.tipoConta || ""}
             onChange={(e) => editItem(e)}
             required
           >
-            <option value="Conta Poupança">Poupança</option>
-            <option value="Conta Corrente">Corrente</option>
+            <option value={formaPagamento.tipoConta}>
+              {formaPagamento.tipoConta || "Select..."}
+            </option>
+            <option value="Corrente">Corrente</option>
+            <option value="Poupança">Poupança</option>
           </FormControl>
         </Form.Group>
 
@@ -158,9 +161,12 @@ const FormaPagamento = ({
             as="select"
             name="bandeira"
             onChange={(e) => editItem(e)}
-            defaultValue={formaPagamento.bandeira}
+            defaultValue={formaPagamento.bandeira || ""}
             required
           >
+            <option value={formaPagamento.bandeira}>
+              {formaPagamento.bandeira || "Select..."}
+            </option>
             <option value="Master Card">Master Card</option>
             <option value="Visa">Visa</option>
           </FormControl>

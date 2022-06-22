@@ -139,7 +139,9 @@ const EditAddress = (props) => {
             onChange={(e) => editItem(e, index, client, setClient)}
             required
           >
-            <option value="">{address.estado || "Select..."}</option>
+            <option value={address.estado}>
+              {address.estado || "Select..."}
+            </option>
             <option value="São Paulo">São Paulo</option>
             <option value="Rio de Janeiro">Rio de Janeiro</option>
           </FormControl>
@@ -156,7 +158,7 @@ const EditAddress = (props) => {
             onChange={(e) => editItem(e, index, client, setClient)}
             required
           >
-            <option value="">{address.pais || "Select..."}</option>
+            <option value={address.pais}>{address.pais || "Select..."}</option>
             <option value="Brasil">Brasil</option>
             <option value="EUA">United States</option>
           </FormControl>
