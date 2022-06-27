@@ -75,7 +75,7 @@ const Item = ({ index, item, order, setOrder }) => {
         />
       </InputGroup>
 
-      <ButtonGroup className="float-right">
+      {/*       <ButtonGroup className="float-right">
         <Button
           size="sm"
           className="btn btn-success float-right mb-3"
@@ -90,7 +90,7 @@ const Item = ({ index, item, order, setOrder }) => {
         >
           <TrashIcon width={"15px"} />
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
 
       <hr className="mb-4" />
     </div>

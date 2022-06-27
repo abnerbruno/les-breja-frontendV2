@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import { formatNumber } from "../../helpers/utils";
 import { useHandle } from "../../hooks/useHandle";
-import { EditIcon } from "../../components/icons";
+import { EditIcon, TrashIcon } from "../../components/icons";
 import { Link } from "react-router-dom";
 
 const Account = () => {
@@ -109,6 +109,21 @@ const Account = () => {
                 </td>
                 <td className="text-center">
                   {formatNumber(pedido.valorTotal)}
+                </td>
+                <td className="text-center">
+                  <Link
+                    id="viewerOrder"
+                    to={{
+                      pathname: "/viewerOrder",
+                      state: {
+                        orderId: pedido.id,
+                      },
+                    }}
+                  >
+                    <div className="rounded bg-info text-light">
+                      <EditIcon width={"25px"} />
+                    </div>
+                  </Link>
                 </td>
               </tr>
             );
@@ -495,6 +510,7 @@ const Account = () => {
                         <th scope="col">Frete</th>
                         <th scope="col">Envio</th>
                         <th scope="col">Total</th>
+                        <th scope="col">Ação</th>
                       </tr>
                     </thead>
                     <tbody>{listaPedidos}</tbody>

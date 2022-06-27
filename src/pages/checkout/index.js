@@ -8,6 +8,7 @@ import Layout from "../../components/Layout";
 import { useCart } from "../../hooks/useCart";
 import { formatNumber } from "../../helpers/utils";
 import FormaPagamento from "./payment";
+import { useAlert } from "react-alert";
 
 const Checkout = () => {
   const {
@@ -28,6 +29,8 @@ const Checkout = () => {
   const [envio, setEnvio] = useState(auxEnvio);
   const [openEnvio, setOpenEnvio] = useState(false);
 
+  const alert = useAlert();
+
   const showTotal = () => {
     let total = pagamento.formasPagamento.reduce(
       (a, b) => a + Number(b.valor),
@@ -39,15 +42,18 @@ const Checkout = () => {
     setPagamento(pagamento);
   };
 
-  const valorObtido = (valorObtido) => {
-    const valorTotal = parseFloat(total) + parseFloat(frete);
-
-    if (valorObtido === valorTotal) {
-      return "Valor Aprovado";
-    } else if (valorObtido < valorTotal && valorObtido !== 0) {
-      return "Valor Insuficiente";
+  const finalizarCompra = (event) => {
+    showTotal();
+    setOpenEnvio(false);
+    setOpenCatoes(false);
+    if (
+      pagamento.valorTotal === parseFloat(total) + parseFloat(frete) &&
+      pagamento.valorTotal !== 0
+    ) {
+      handleCheckout(cliente.id, pagamento, envio);
     } else {
-      return "R$ 0,00";
+      alert.show("Ops, Valor incoerente!");
+      event.preventDefault();
     }
   };
 
@@ -72,9 +78,7 @@ const Checkout = () => {
           <>
             <Col sm={8} className="p-1">
               <h4 className="mb-3 text-center">Endereço de Entrega</h4>
-              <Form
-                onSubmit={() => handleCheckout(cliente.id, pagamento, envio)}
-              >
+              <Form onSubmit={(event) => finalizarCompra(event)}>
                 <Button
                   id="buttonEnvio"
                   className="btn btn-primary btn-md btn-block mb-3"
@@ -312,7 +316,7 @@ const Checkout = () => {
                   Metodo de Pagamento - Valor Obtido :
                   {isNaN(pagamento.valorTotal)
                     ? formatNumber(0)
-                    : valorObtido(pagamento.valorTotal)}
+                    : formatNumber(pagamento.valorTotal)}
                 </h4>
 
                 <div className="d-block my-3">

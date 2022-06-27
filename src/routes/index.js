@@ -27,6 +27,7 @@ import GoogleChartsOriginal from "../PagesAdm/googleCharts/google2";
 import editAddress from "../pages/account/editAddress";
 import EditAddress from "../pages/account/editAddress";
 import EditCard from "../pages/account/editCard";
+import ViewerOrder from "../pages/account/viewerOrder";
 
 const Routes = () => {
   return (
@@ -41,6 +42,7 @@ const Routes = () => {
         <Route path="/account" component={Account} />
         <Route path="/editAddress" component={EditAddress} />
         <Route path="/editCard" component={EditCard} />
+        <Route path="/viewerOrder" component={ViewerOrder} />
 
         <Route path="/register" component={Register} />
         <Route path="/detail" component={Detail} />

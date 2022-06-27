@@ -12,6 +12,8 @@
     "focus-trap-react": "^8.11.2",
     "i": "^0.3.7",
     "react": "^18.0.0",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
     "react-bootstrap": "^2.2.2",
     "react-dom": "^16.13.1",
     "react-google-charts": "^4.0.0",
