@@ -313,10 +313,12 @@ const Checkout = () => {
                 <hr className="mb-4" />
 
                 <h4 className="mb-3 text-center">
-                  Metodo de Pagamento - Valor Obtido :
-                  {isNaN(pagamento.valorTotal)
-                    ? formatNumber(0)
-                    : formatNumber(pagamento.valorTotal)}
+                  Metodo de Pagamento - Valor Obtido
+                  <p className="text-success">
+                    {isNaN(pagamento.valorTotal)
+                      ? formatNumber(0)
+                      : formatNumber(pagamento.valorTotal)}
+                  </p>
                 </h4>
 
                 <div className="d-block my-3">

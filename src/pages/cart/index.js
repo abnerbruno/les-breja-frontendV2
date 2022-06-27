@@ -37,19 +37,6 @@ const Cart = () => {
                 Seu Carrinho esta Vazio
               </div>
             )}
-
-            {checkout && (
-              <div className="p-3 text-center text-success">
-                <p>Compra Finalizada</p>
-                <Link
-                  id="continuarComprando"
-                  to="/"
-                  className="btn btn-outline-success btn-sm"
-                >
-                  Continuar comprando
-                </Link>
-              </div>
-            )}
           </div>
           {cartItems.length > 0 && (
             <div className="col-md-4 p-3">
