@@ -39,6 +39,18 @@ const Checkout = () => {
     setPagamento(pagamento);
   };
 
+  const valorObtido = (valorObtido) => {
+    const valorTotal = parseFloat(total) + parseFloat(frete);
+
+    if (valorObtido === valorTotal) {
+      return "Valor Aprovado";
+    } else if (valorObtido < valorTotal && valorObtido !== 0) {
+      return "Valor Insuficiente";
+    } else {
+      return "R$ 0,00";
+    }
+  };
+
   return (
     <Layout title="Checkout" description="Checkout da Compra">
       <div className="text-center mt-5">
@@ -300,7 +312,7 @@ const Checkout = () => {
                   Metodo de Pagamento - Valor Obtido :
                   {isNaN(pagamento.valorTotal)
                     ? formatNumber(0)
-                    : formatNumber(pagamento.valorTotal)}
+                    : valorObtido(pagamento.valorTotal)}
                 </h4>
 
                 <div className="d-block my-3">
