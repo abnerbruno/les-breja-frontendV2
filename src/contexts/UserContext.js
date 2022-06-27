@@ -59,7 +59,7 @@ const UserContextProvider = ({ children }) => {
         valor: 0,
         nomeNoCartao: "",
         numeroCartao: "",
-        validade: new Date(),
+        validade: "",
         tipoConta: "",
         codigoSeguranca: "",
         bandeira: "",

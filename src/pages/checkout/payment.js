@@ -51,6 +51,14 @@ const FormaPagamento = ({
     setOpenData(!openData);
   };
 
+  const formatValidade = (formaPagamento) => {
+    if (formaPagamento.id !== undefined) {
+      return new Date(formaPagamento.validade).toISOString().split("T")[0];
+    } else {
+      return null;
+    }
+  };
+
   return (
     <div>
       <Row>
@@ -115,9 +123,7 @@ const FormaPagamento = ({
             aria-label="Validade"
             type="Date"
             name="validade"
-            defaultValue={
-              new Date(formaPagamento.validade).toISOString().split("T")[0]
-            }
+            defaultValue={formatValidade(formaPagamento)}
             onChange={(e) => editItem(e)}
             required
           />
