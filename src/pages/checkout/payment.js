@@ -183,6 +183,7 @@ const FormaPagamento = ({
           <FormControl
             id="valor"
             name="valor"
+            type="number"
             defaultValue={formaPagamento.valor || ""}
             onChange={(e) => editItem(e)}
             required

@@ -36,6 +36,7 @@ const CartContextProvider = ({ children }) => {
 
   const clearCart = () => {
     dispatch({ type: "CLEAR" });
+    window.location.reload();
   };
 
   const discountRequest = (codigoCupom) => {

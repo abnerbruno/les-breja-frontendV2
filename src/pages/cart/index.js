@@ -7,18 +7,15 @@ import { useCart } from "../../hooks/useCart";
 import { formatNumber } from "../../helpers/utils";
 
 const Cart = () => {
-  let {
-    total,
-    cartItems,
-    itemCount,
-    clearCart,
-    checkout,
-    discount,
-    discountRequest,
-  } = useCart();
+  let { total, cartItems, itemCount, clearCart, discount, discountRequest } =
+    useCart();
 
   const [openDiscount, setDiscount] = useState(false);
   const [inputDiscount, setinputDiscount] = useState([]);
+
+  if (discount === undefined) {
+    window.location.reload();
+  }
 
   return (
     <Layout title="Carrinho" description="Suas Melhores Cervejas">

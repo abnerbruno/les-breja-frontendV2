@@ -43,6 +43,10 @@ const Checkout = () => {
   };
 
   const finalizarCompra = (event) => {
+    if (parseFloat(frete) === 0) {
+      calcularFrete(envio.cep);
+    }
+
     showTotal();
     setOpenEnvio(false);
     setOpenCatoes(false);
