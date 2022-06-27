@@ -186,6 +186,7 @@ const FormaPagamento = ({
             type="number"
             defaultValue={formaPagamento.valor || ""}
             onChange={(e) => editItem(e)}
+            step=".01"
             required
           />
         </InputGroup>

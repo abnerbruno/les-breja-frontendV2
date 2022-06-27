@@ -57,7 +57,7 @@ const EditCard = (props) => {
   return (
     <Layout title="Editar Endereço" description="Pagina de edição do client">
       <h3 className="mt-2 mb-2 text-center">
-        {"Editar endereço : " + card.descricao}
+        {"Editar Cartão : " + card.descricao}
       </h3>
       <Form onSubmit={(e) => handleSubmit(e, client, "cliente", "account")}>
         <InputGroup className="mb-3">
